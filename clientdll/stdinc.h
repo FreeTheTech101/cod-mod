@@ -1,12 +1,12 @@
 // ==========================================================
-// alterOps project
+// MW2 coop
 // 
-// Component: client
+// Component: IW4SP
 // Sub-component: clientdll
 // Purpose: Standard includes for the code.
 //
-// Initial author: NTAuthority
-// Started: 2010-11-21
+// Initial author: momo5502
+// Started: 2014-01-01
 // ==========================================================
 
 #pragma once

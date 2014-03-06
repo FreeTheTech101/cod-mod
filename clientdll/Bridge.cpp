@@ -12,14 +12,12 @@
 #include "stdinc.h"
 #include <windows.h>
 
-#pragma pack(1)
-HINSTANCE d3d9 = 0;
 FARPROC proc = 0;
 
 void injectBridge()
 {
 	// Wow, that's a nasty way...
-	d3d9 = LoadLibraryW(L"C:\\Windows\\System32\\d3d9.dll");
+	HINSTANCE d3d9 = LoadLibraryW(L"C:\\Windows\\System32\\d3d9.dll");
 	proc = GetProcAddress(d3d9,"Direct3DCreate9");
 }
 

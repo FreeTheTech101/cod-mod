@@ -1,12 +1,12 @@
 // ==========================================================
-// project 'secretSchemes'
+// MW2 coop
 // 
-// Component: clientdll
+// Component: IW4SP
 // Sub-component: steam_api
 // Purpose: Game-specific code implementations.
 //
-// Initial author: NTAuthority
-// Started: 2011-05-04
+// Initial author: momo5502
+// Started: 2014-03-02
 // ==========================================================
 
 #include "StdInc.h"
