@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{17F0C96D-58ED-4039-8352-6CDBDC915B71}</ProjectGuid>
+    <RootNamespace>clientdll</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectName>d3d9</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\deps\include\osw\;$(SolutionDir)\..\deps\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;CLIENTDLL_EXPORTS;_WINDLL</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>wldap32.lib;ws2_32.lib;winmm.lib;shlwapi.lib;dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\..\terminal\libnp\project\vc9\normal;$(SolutionDir)\..\deps\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <ModuleDefinitionFile>d3d9.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy /y "$(TargetPath)" "$(SolutionDir)..\bin\t5.dll"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Hooking.cpp" />
+    <ClCompile Include="Bridge.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Minidump.cpp" />
+    <ClCompile Include="PatchMW2.cpp" />
+    <ClCompile Include="iw4sp.cpp" />
+    <ClCompile Include="PatchMW2Branding.cpp" />
+    <ClCompile Include="PatchMW2ClientConsole.cpp" />
+    <ClCompile Include="PatchMW2Coop.cpp" />
+    <ClCompile Include="PatchMW2New.cpp" />
+    <ClCompile Include="PatchMW2NoBorder.cpp" />
+    <ClCompile Include="SteamBase.cpp" />
+    <ClCompile Include="SteamFriends005.cpp" />
+    <ClCompile Include="Utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CCallback.h" />
+    <ClInclude Include="CGameID.h" />
+    <ClInclude Include="ClientCommon.h" />
+    <ClInclude Include="EAccountType.h" />
+    <ClInclude Include="EChatMemberStateChange.h" />
+    <ClInclude Include="ELobbyType.h" />
+    <ClInclude Include="ENotificationPosition.h" />
+    <ClInclude Include="EPersonalQuestion.h" />
+    <ClInclude Include="EResult.h" />
+    <ClInclude Include="EServerMode.h" />
+    <ClInclude Include="ESteamError.h" />
+    <ClInclude Include="ESteamNotify.h" />
+    <ClInclude Include="EUniverse.h" />
+    <ClInclude Include="FriendGameInfo.h" />
+    <ClInclude Include="FriendsCommon.h" />
+    <ClInclude Include="gameserveritem.h" />
+    <ClInclude Include="Hooking.h" />
+    <ClInclude Include="ISteamClient008.h" />
+    <ClInclude Include="ISteamFriends005.h" />
+    <ClInclude Include="MatchMakingKeyValuePair.h" />
+    <ClInclude Include="servernetadr.h" />
+    <ClInclude Include="stdinc.h" />
+    <ClInclude Include="iw4sp.h" />
+    <ClInclude Include="SteamFriends005.h" />
+    <ClInclude Include="SteamTypes.h" />
+    <ClInclude Include="Utils.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

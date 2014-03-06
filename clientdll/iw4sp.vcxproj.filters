@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Hooking.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Minidump.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="iw4sp.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2.cpp">
+      <Filter>Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2NoBorder.cpp">
+      <Filter>Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="SteamFriends005.cpp">
+      <Filter>Steam</Filter>
+    </ClCompile>
+    <ClCompile Include="SteamBase.cpp">
+      <Filter>Steam</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2Coop.cpp">
+      <Filter>Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2Branding.cpp">
+      <Filter>Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="Bridge.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2New.cpp">
+      <Filter>Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2ClientConsole.cpp">
+      <Filter>Patches</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Hooking.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="stdinc.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="iw4sp.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="SteamFriends005.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="SteamTypes.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="CCallback.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="ISteamClient008.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="ISteamFriends005.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="EAccountType.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="EChatMemberStateChange.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="ELobbyType.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="ENotificationPosition.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="EPersonalQuestion.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="EResult.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="EUniverse.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="EServerMode.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="ESteamError.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="ESteamNotify.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameID.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="MatchMakingKeyValuePair.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="servernetadr.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="gameserveritem.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="FriendGameInfo.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientCommon.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="FriendsCommon.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header">
+      <UniqueIdentifier>{ce93bee6-a485-4549-8d94-077be69a4f87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base">
+      <UniqueIdentifier>{d1078ba3-01dc-4f53-8a13-d97e45fe69d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Patches">
+      <UniqueIdentifier>{8a84e197-3ec8-4094-b4ca-a80f42df0793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Steam">
+      <UniqueIdentifier>{c54421ad-30b8-40ff-a6e5-c1a6f40acb32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SteamHeader">
+      <UniqueIdentifier>{23b5ea8f-c768-4ada-9a2d-44fd680be0fc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

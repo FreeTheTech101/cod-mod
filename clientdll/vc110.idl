@@ -1,0 +1,14 @@
+import "docobj.idl";
+
+#line 16 "c:\\users\\maurice\\desktop\\iw4sp\\code\\clientdll\\bridge.cpp"
+typedef [string] wchar_t *LPOLESTR;
+
+
+[ version(1.0), uuid(3c97e4ee-eac0-3da1-9085-baf52db43c7a) ]
+library x
+{
+	importlib("stdole2.tlb");
+	importlib("olepro32.dll");
+
+}
+
