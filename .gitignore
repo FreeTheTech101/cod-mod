@@ -197,3 +197,5 @@ Desktop.ini
 $RECYCLE.BIN/
 # Compiler stackdump
 us.stackdump
+
+Debug/
