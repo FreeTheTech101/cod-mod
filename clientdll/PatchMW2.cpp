@@ -20,6 +20,7 @@ void PatchMW2_SteamFriends();
 void PatchMW2_Coop();
 void PatchMW2_Branding();
 void PatchMW2_New();
+void PatchMW2_UILoading();
 
 CallHook imageVersionCheckSPHook;
 DWORD imageVersionCheckSPHookLoc = 0x544756;
@@ -190,6 +191,9 @@ void PatchMW2SP_Modifications()
 	PatchMW2_NoBorder();
 	PatchMW2_ClientConsole();
 	PatchMW2_Branding();
+
+	// UILoading code will be added as soon as all the bugs are fixed
+	//PatchMW2_UILoading();
 
 	// prevent stat loading from steam
 	*(BYTE*)0x43FB33 = 0xC3;

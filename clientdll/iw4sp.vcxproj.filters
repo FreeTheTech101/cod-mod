@@ -43,6 +43,9 @@
     <ClCompile Include="PatchMW2ClientConsole.cpp">
       <Filter>Patches</Filter>
     </ClCompile>
+    <ClCompile Include="PatchMW2UILoading.cpp">
+      <Filter>Patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooking.h">

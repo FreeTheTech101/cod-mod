@@ -79,6 +79,7 @@
     <ClCompile Include="PatchMW2Coop.cpp" />
     <ClCompile Include="PatchMW2New.cpp" />
     <ClCompile Include="PatchMW2NoBorder.cpp" />
+    <ClCompile Include="PatchMW2UILoading.cpp" />
     <ClCompile Include="SteamBase.cpp" />
     <ClCompile Include="SteamFriends005.cpp" />
     <ClCompile Include="Utils.cpp" />

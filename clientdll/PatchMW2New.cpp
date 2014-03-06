@@ -73,6 +73,9 @@ void PatchMW2_New()
 	// *(DWORD*)0x47BE57 = 0x69154C; // SteamAPI_init
 	// *(DWORD*)0x47BE5B = 0x90C301B0; // mov al, 1 - retn
 
+	// Force debug logging
+	nop(0x4B3AE5, 2);
+
 	// Remove dvar restrictions
 	*(WORD*)0x6330AC = 0xE990; // read only
 	*(WORD*)0x63317E = 0xE990; // cheat protected
