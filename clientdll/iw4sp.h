@@ -2,21 +2,6 @@
 
 using namespace std;
 
-//#define ENABLE_MAX_CLIENTS_PATCH
-
-#if PRE_RELEASE_DEMO
-#define PROTOCOL (146 | 0xF000)
-#else
-#define PROTOCOL 144
-#endif
-
-#define CODE_START 0x401000
-#define CODE_END 0x6D7000
-
-//#define MAX_CLIENTS 18
-
-#define CLIENTNUM(x) ((DWORD)x - (DWORD)svs_clients) / 681872
-
 typedef enum assetType_e
 {
 	ASSET_TYPE_PHYSPRESET = 0,
