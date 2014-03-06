@@ -64,6 +64,7 @@ void PatchMW2_New()
 	*(BYTE*)0x600D6D = 0;
 	*(BYTE*)0x600D6B = 0;
 
+	// Code below doesn't work due to some assertion stuff
 	// Ignore 'steam must be running' error
 	// nop(0x601863, 0x30);
 
@@ -71,6 +72,11 @@ void PatchMW2_New()
 	// *(WORD*)0x47BE55 = 0x15FF; // Prepare long call
 	// *(DWORD*)0x47BE57 = 0x69154C; // SteamAPI_init
 	// *(DWORD*)0x47BE5B = 0x90C301B0; // mov al, 1 - retn
+
+	// Remove dvar restrictions
+	*(WORD*)0x6330AC = 0xE990; // read only
+	*(WORD*)0x63317E = 0xE990; // cheat protected
+	*(WORD*)0x633110 = 0xE990; // write protected
 
 	// No improper quit popup
 	memset((void*)0x41796A, 0x90, 2);

@@ -207,6 +207,11 @@ void PatchMW2SP_Modifications()
 	*(WORD*)0x43FAD5 = 0x15FF; // Prepare long call
 	*(DWORD*)0x43FAD7 = 0x694554; // SteamAPI_init
 	*(DWORD*)0x43FADB = 0x90C301B0; // mov al, 1 - retn
+
+	// Remove dvar restrictions
+	*(WORD*)0x63587C = 0xE990; // read only
+	*(WORD*)0x63594E = 0xE990; // cheat protected
+	*(WORD*)0x6358E0 = 0xE990; // write protected
 		
 	// Ignore zone version missmatch
 	*(BYTE*)0x4256D8 = 0xEB;
