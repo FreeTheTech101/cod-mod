@@ -1,3 +1,14 @@
+// ==========================================================
+// MW2 coop
+// 
+// Component: IW4SP
+// Sub-component: clientdll
+// Purpose: Stuff to handle custom localized strings
+//
+// Initial author: momo5502
+// Started: 2014-03-07
+// ==========================================================
+
 #include "stdinc.h"
 
 #define MAX_LOCALZE_STRINGS 100
