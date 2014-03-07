@@ -1102,6 +1102,9 @@ extern R_AddCmdDrawText_t R_AddCmdDrawText;
 typedef void (__cdecl * Steam_JoinLobby_t)(CSteamID, char);
 extern Steam_JoinLobby_t Steam_JoinLobby;
 
+typedef char* (__cdecl * SE_Load_t)(char* file, int Unk);
+extern SE_Load_t SE_Load;
+
 typedef void (__cdecl * Field_Clear_t)(void* field);
 extern Field_Clear_t Field_Clear;
 
@@ -1125,6 +1128,8 @@ extern DWORD windowedWindowStyleHookLoc;
 extern DWORD winMainInitHookLoc;
 extern DWORD imageVersionCheckHookLoc;
 extern DWORD localizeAssetHookLoc;
+extern DWORD SELoadLanguageHookLoc;
+extern DWORD SetStringHookLoc;
 
 extern int version;
 

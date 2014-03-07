@@ -44,6 +44,7 @@ void PatchMW2_184()
 	Dvar_SetCommand = (Dvar_SetCommand_t)0x43A000;
 	Dvar_RegisterString = (Dvar_RegisterString_t)0x433DF0;
 	Dvar_RegisterBool = (Dvar_RegisterBool_t)0x4866B0;
+	Dvar_RegisterEnum = (Dvar_RegisterEnum_t)0x4FB5C0;
 	DB_FindXAssetHeader = (DB_FindXAssetHeader_t)0x4F6F10;
 	Cmd_AddCommand = (Cmd_AddCommand_t)0x428090;
 	Cmd_ExecuteSingleCommand = (Cmd_ExecuteSingleCommand_t)0x4DA360;
@@ -52,12 +53,17 @@ void PatchMW2_184()
 	CL_IsCgameInitialized = (CL_IsCgameInitialized_t)0x43D7B0;
 	R_RegisterFont = (R_RegisterFont_t)0x507FE0;
 	R_AddCmdDrawText = (R_AddCmdDrawText_t)0x50E080;
+	FS_ListFiles = (FS_ListFiles_t)0x4B0040;
+	FS_FreeFileList = (FS_FreeFileList_t)0x4E6180;
+	SE_Load = (SE_Load_t)0x4FCCC0;
 
 	drawDevStuffHookLoc = 0x57AE79;
 	windowedWindowStyleHookLoc = 0x50B823;
 	winMainInitHookLoc = 0x4B1BC0;
 	imageVersionCheckHookLoc = 0x544046;
 	localizeAssetHookLoc = 0x6192D7;
+	SELoadLanguageHookLoc = 0x619467;
+	SetStringHookLoc = 0x42EC0E;
 	
 	cmd_id = (DWORD*)0x144C950;
 	cmd_argc = (DWORD*)0x144C994;

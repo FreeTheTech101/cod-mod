@@ -27,6 +27,7 @@ Dvar_SetCommand_t Dvar_SetCommand = (Dvar_SetCommand_t)0x4959D0;
 Dvar_RegisterBool_t Dvar_RegisterBool = (Dvar_RegisterBool_t)0x429390;
 Dvar_RegisterString_t Dvar_RegisterString = (Dvar_RegisterString_t)0x49E0B0;
 Dvar_RegisterInt_t Dvar_RegisterInt = (Dvar_RegisterInt_t)0x4E9490;
+Dvar_RegisterEnum_t Dvar_RegisterEnum = (Dvar_RegisterEnum_t)0x4CB7C0;
 
 Cmd_AddCommand_t Cmd_AddCommand = (Cmd_AddCommand_t)0x4478A0;
 Cmd_ExecuteSingleCommand_t Cmd_ExecuteSingleCommand = (Cmd_ExecuteSingleCommand_t)0x46AFD0;
@@ -42,10 +43,14 @@ FS_ReadFile_t FS_ReadFile = (FS_ReadFile_t)0x4A5480;
 FS_FOpenFileRead_t FS_FOpenFileRead = (FS_FOpenFileRead_t)0x48DD10;
 FS_FCloseFile_t FS_FCloseFile = (FS_FCloseFile_t)0x44E0A0;
 FS_Read_t FS_Read = (FS_Read_t)0x42EDC0;
+FS_ListFiles_t FS_ListFiles = (FS_ListFiles_t)0x4448F0;
+FS_FreeFileList_t FS_FreeFileList = (FS_FreeFileList_t)0x41C7A0;
 
 Field_Clear_t Field_Clear = (Field_Clear_t)0x45C350;
 
 CL_IsCgameInitialized_t CL_IsCgameInitialized = (CL_IsCgameInitialized_t)0x4EEA50;
+
+SE_Load_t SE_Load = (SE_Load_t)0x409910;
 };
 
 dvar_t** dvarName = (dvar_t**)0x929154;
@@ -55,6 +60,8 @@ DWORD windowedWindowStyleHookLoc = 0x50C0B3;
 DWORD winMainInitHookLoc = 0x4A7910;
 DWORD imageVersionCheckHookLoc = 0x544756;
 DWORD localizeAssetHookLoc = 0x61BB17;
+DWORD SELoadLanguageHookLoc = 0x61BCA7;
+DWORD SetStringHookLoc = 0x4759FE;
 
 int version = 0;
 
