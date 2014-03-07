@@ -52,6 +52,9 @@
     <ClCompile Include="PatchMW2_Images.cpp">
       <Filter>Patches</Filter>
     </ClCompile>
+    <ClCompile Include="PatchMW2_LocalizedStrings.cpp">
+      <Filter>Patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooking.h">
@@ -131,6 +134,9 @@
     </ClInclude>
     <ClInclude Include="FriendsCommon.h">
       <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="LocalizedStrings.h">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

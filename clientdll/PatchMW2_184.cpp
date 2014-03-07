@@ -16,6 +16,7 @@ void PatchMW2_Branding();
 void PatchMW2_NoBorder();
 void PatchMW2_Minidump();
 void PatchMW2_Images();
+void PatchMW2_LocalizedStrings();
 
 dvar_t* dvarHook(const char* name, const char* default, int flag, const char* description)
 {
@@ -37,10 +38,13 @@ void patchSteam()
 
 void PatchMW2_184()
 {
+	version = 184;
+
 	Dvar_FindVar = (Dvar_FindVar_t)0x4BCA20;
 	Dvar_SetCommand = (Dvar_SetCommand_t)0x43A000;
 	Dvar_RegisterString = (Dvar_RegisterString_t)0x433DF0;
 	Dvar_RegisterBool = (Dvar_RegisterBool_t)0x4866B0;
+	DB_FindXAssetHeader = (DB_FindXAssetHeader_t)0x4F6F10;
 	Cmd_AddCommand = (Cmd_AddCommand_t)0x428090;
 	Cmd_ExecuteSingleCommand = (Cmd_ExecuteSingleCommand_t)0x4DA360;
 	Com_Printf = (Com_Printf_t)0x466380;
@@ -53,6 +57,7 @@ void PatchMW2_184()
 	windowedWindowStyleHookLoc = 0x50B823;
 	winMainInitHookLoc = 0x4B1BC0;
 	imageVersionCheckHookLoc = 0x544046;
+	localizeAssetHookLoc = 0x6192D7;
 	
 	cmd_id = (DWORD*)0x144C950;
 	cmd_argc = (DWORD*)0x144C994;
@@ -62,6 +67,7 @@ void PatchMW2_184()
 	PatchMW2_Branding();
 	PatchMW2_NoBorder();
 	PatchMW2_Images();
+	PatchMW2_LocalizedStrings();
 
 	// Steam patch doesn't really work due to some assertion stuff
 	patchSteam();

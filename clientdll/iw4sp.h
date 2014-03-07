@@ -1124,6 +1124,9 @@ extern DWORD drawDevStuffHookLoc;
 extern DWORD windowedWindowStyleHookLoc;
 extern DWORD winMainInitHookLoc;
 extern DWORD imageVersionCheckHookLoc;
+extern DWORD localizeAssetHookLoc;
+
+extern int version;
 
 vector<string> explode(const string& str, const string& delimiters = " ");
 unsigned int oneAtATimeHash(char* inpStr);

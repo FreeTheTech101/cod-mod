@@ -54,6 +54,9 @@ DWORD drawDevStuffHookLoc = 0x57DB09;
 DWORD windowedWindowStyleHookLoc = 0x50C0B3;
 DWORD winMainInitHookLoc = 0x4A7910;
 DWORD imageVersionCheckHookLoc = 0x544756;
+DWORD localizeAssetHookLoc = 0x61BB17;
+
+int version = 0;
 
 // console commands
 DWORD* cmd_id = (DWORD*)0x144FED0;

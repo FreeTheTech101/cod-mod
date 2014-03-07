@@ -23,6 +23,7 @@ void PatchMW2_New();
 void PatchMW2_UILoading();
 void PatchMW2_Minidump();
 void PatchMW2_Images();
+void PatchMW2_LocalizedStrings();
 
 char ingameUsername[32];
 
@@ -57,34 +58,6 @@ hostent* WINAPI custom_gethostbyname(const char* name) {
 	}
 
 	return gethostbyname(hostname);
-}
-
-localizedEntry_s* SEH_LocalizeAssetSP(int type, const char* ref)
-{
-	static localizedEntry_s entry;
-	localizedEntry_s* dbEntry = (localizedEntry_s*)DB_FindXAssetHeader(type, ref);
-
-	if (!dbEntry)
-	{
-		return dbEntry;
-	}
-
-	memcpy(&entry, dbEntry, sizeof(localizedEntry_s));
-
-	if (!strcmp(entry.name, "MENU_INVITE_FRIEND"))
-	{
-		entry.value = "Quick connect";
-	}
-	else if (!strcmp(entry.name, "MENU_DESC_INVITE_FRIEND"))
-	{
-		entry.value = va("Reconnect to last player.");
-	}
-	else if (!strcmp(entry.name, "MENU_SP_STEAM_CHAT_HINT"))
-	{
-		entry.value = ""; // Leave that blank for now
-	}
-
-	return &entry;
 }
 
 char* addDLCZones(char* zone)
@@ -155,6 +128,8 @@ void loadGameOverlay()
 
 void PatchMW2_159()
 {
+	version = 159;
+
 	PatchMW2_Minidump();
 	PatchMW2_SteamFriends();
 	PatchMW2_Coop();
@@ -162,6 +137,7 @@ void PatchMW2_159()
 	PatchMW2_ClientConsole();
 	PatchMW2_Branding();
 	PatchMW2_Images();
+	PatchMW2_LocalizedStrings();
 
 	// UILoading code will be added as soon as all the bugs are fixed
 	//PatchMW2_UILoading();
@@ -243,9 +219,6 @@ void PatchMW2_159()
 
 	// Yay, hitmarker in sp :D
 	Dvar_RegisterBool("scr_damageFeedback", 0, DVAR_FLAG_SAVED, "Show marker when hitting enemies.");
-
-	// Custom localized strings
-	call(0x61BB17, SEH_LocalizeAssetSP, PATCH_CALL);
 
 	// Load steam game overlay
 	call(0x604350, loadGameOverlay, PATCH_CALL);
