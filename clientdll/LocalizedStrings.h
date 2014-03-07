@@ -13,10 +13,7 @@
 
 #define MAX_LOCALZE_STRINGS 100
 
-using namespace std;
-
 int currentPos = 0;
-
 const char* reference[MAX_LOCALZE_STRINGS];
 const char* langEnglish[MAX_LOCALZE_STRINGS];
 

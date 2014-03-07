@@ -27,9 +27,4 @@ void Sys_Init()
 	{
 		PatchMW2_184();
 	}
-
-	else
-	{
-		MessageBox(0, "Your iw4sp.exe version is not supported. The game will now launch without any modifications. Send your iw4sp.exe to MauriceHeumann@gmail.com so that I can add support.", "Warning", MB_ICONEXCLAMATION);
-	}
 }
