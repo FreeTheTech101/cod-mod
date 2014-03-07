@@ -213,9 +213,10 @@ void PatchMW2SP_Modifications()
 	*(DWORD*)0x43FADB = 0x90C301B0; // mov al, 1 - retn
 
 	// Remove dvar restrictions
-	*(WORD*)0x63587C = 0xE990; // read only
-	*(WORD*)0x63594E = 0xE990; // cheat protected
-	*(WORD*)0x6358E0 = 0xE990; // write protected
+	*(BYTE*)0x635841 = 0xEB; // read only
+	*(BYTE*)0x635913 = 0xEB; // cheat protected
+ 	*(BYTE*)0x6358A5 = 0xEB; // write protected
+	*(BYTE*)0x635974 = 0xEB; // latched
 		
 	// Ignore zone version missmatch
 	*(BYTE*)0x4256D8 = 0xEB;

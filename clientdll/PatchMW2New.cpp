@@ -77,12 +77,16 @@ void PatchMW2_New()
 	nop(0x4B3AE5, 2);
 
 	// Remove dvar restrictions
-	*(WORD*)0x6330AC = 0xE990; // read only
-	*(WORD*)0x63317E = 0xE990; // cheat protected
-	*(WORD*)0x633110 = 0xE990; // write protected
+	*(BYTE*)0x633071 = 0xEB; // read only
+	*(BYTE*)0x633143 = 0xEB; // cheat protected
+	*(BYTE*)0x6330D5 = 0xEB; // write protected
+	*(BYTE*)0x6331A4 = 0xEB; // latched
 
 	// No improper quit popup
 	memset((void*)0x41796A, 0x90, 2);
+
+	// Yay, hitmarker in sp :D
+	Dvar_RegisterBool("scr_damageFeedback", 0, DVAR_FLAG_SAVED, "Show marker when hitting enemies.");
 
 	static cmd_function_t connectWrapper_cmd;
 	Cmd_AddCommand("connect", connectWrapper, &connectWrapper_cmd, 0);
