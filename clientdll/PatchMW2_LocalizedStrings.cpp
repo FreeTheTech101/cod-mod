@@ -14,16 +14,18 @@
 
 localizedEntry_s* loadLocalizeAsset(int type, const char* reference)
 {
+	static localizedEntry_s entry; 
+
 	if(isCustomLoc(reference))
 	{
-		static localizedEntry_s entry;
 		buildCustomEntry(&entry, reference);
-		return &entry;
 	}
 	else
 	{
-		return (localizedEntry_s*)DB_FindXAssetHeader(type, reference);
+		entry = *(localizedEntry_s*)DB_FindXAssetHeader(type, reference);
 	}
+
+	return &entry;
 }
 
 void PatchMW2_LocalizedStrings()
