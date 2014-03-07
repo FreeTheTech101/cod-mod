@@ -7,9 +7,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Base</Filter>
     </ClCompile>
-    <ClCompile Include="Minidump.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>Base</Filter>
     </ClCompile>
@@ -47,6 +44,12 @@
       <Filter>Patches</Filter>
     </ClCompile>
     <ClCompile Include="PatchMW2_UILoading.cpp">
+      <Filter>Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_Minidump.cpp">
+      <Filter>Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_Images.cpp">
       <Filter>Patches</Filter>
     </ClCompile>
   </ItemGroup>

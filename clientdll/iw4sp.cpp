@@ -50,8 +50,10 @@ CL_IsCgameInitialized_t CL_IsCgameInitialized = (CL_IsCgameInitialized_t)0x4EEA5
 
 dvar_t** dvarName = (dvar_t**)0x929154;
 
-DWORD drawDevStuffSPHookLoc = 0x57DB09;
+DWORD drawDevStuffHookLoc = 0x57DB09;
 DWORD windowedWindowStyleHookLoc = 0x50C0B3;
+DWORD winMainInitHookLoc = 0x4A7910;
+DWORD imageVersionCheckHookLoc = 0x544756;
 
 // console commands
 DWORD* cmd_id = (DWORD*)0x144FED0;

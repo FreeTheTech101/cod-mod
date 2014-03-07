@@ -14,6 +14,8 @@
 void connectWrapper();
 void PatchMW2_Branding();
 void PatchMW2_NoBorder();
+void PatchMW2_Minidump();
+void PatchMW2_Images();
 
 dvar_t* dvarHook(const char* name, const char* default, int flag, const char* description)
 {
@@ -42,19 +44,24 @@ void PatchMW2_184()
 	Cmd_AddCommand = (Cmd_AddCommand_t)0x428090;
 	Cmd_ExecuteSingleCommand = (Cmd_ExecuteSingleCommand_t)0x4DA360;
 	Com_Printf = (Com_Printf_t)0x466380;
+	Com_Error = (Com_Error_t)0x4584F0;
 	CL_IsCgameInitialized = (CL_IsCgameInitialized_t)0x43D7B0;
 	R_RegisterFont = (R_RegisterFont_t)0x507FE0;
 	R_AddCmdDrawText = (R_AddCmdDrawText_t)0x50E080;
 
-	drawDevStuffSPHookLoc = 0x57AE79;
+	drawDevStuffHookLoc = 0x57AE79;
 	windowedWindowStyleHookLoc = 0x50B823;
+	winMainInitHookLoc = 0x4B1BC0;
+	imageVersionCheckHookLoc = 0x544046;
 	
 	cmd_id = (DWORD*)0x144C950;
 	cmd_argc = (DWORD*)0x144C994;
 	cmd_argv = (DWORD**)0x144C9B4;
 
+	PatchMW2_Minidump();
 	PatchMW2_Branding();
 	PatchMW2_NoBorder();
+	PatchMW2_Images();
 
 	// Steam patch doesn't really work due to some assertion stuff
 	patchSteam();

@@ -71,7 +71,6 @@
     <ClCompile Include="Hooking.cpp" />
     <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Minidump.cpp" />
     <ClCompile Include="PatchMW2.cpp" />
     <ClCompile Include="iw4sp.cpp" />
     <ClCompile Include="PatchMW2_159.cpp" />
@@ -79,6 +78,8 @@
     <ClCompile Include="PatchMW2_Branding.cpp" />
     <ClCompile Include="PatchMW2_ClientConsole.cpp" />
     <ClCompile Include="PatchMW2_Coop.cpp" />
+    <ClCompile Include="PatchMW2_Images.cpp" />
+    <ClCompile Include="PatchMW2_Minidump.cpp" />
     <ClCompile Include="PatchMW2_NoBorder.cpp" />
     <ClCompile Include="PatchMW2_UILoading.cpp" />
     <ClCompile Include="SteamBase.cpp" />

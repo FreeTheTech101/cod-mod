@@ -1,3 +1,14 @@
+// ==========================================================
+// MW2 coop
+// 
+// Component: IW4SP
+// Sub-component: clientdll
+// Purpose: Unhandled exception handler
+//
+// Initial author: NTAuthority
+// Started: 2010-09-27
+// ==========================================================
+
 #include "stdinc.h"
 #include <ctime>
 #include <dbghelp.h>
@@ -61,4 +72,21 @@ LONG WINAPI CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS ExceptionInfo)
 	delete[] tempStack;
 
 	return 0;
+}
+
+CallHook winMainInitHook;
+
+void __declspec(naked) WinMainInitHookStub()
+{
+	SetUnhandledExceptionFilter(&CustomUnhandledExceptionFilter);
+
+	__asm {
+		jmp winMainInitHook.pOriginal
+	}
+}
+
+void PatchMW2_Minidump()
+{
+	winMainInitHook.initialize(winMainInitHookLoc, WinMainInitHookStub);
+	winMainInitHook.installHook();
 }

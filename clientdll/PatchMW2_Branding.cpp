@@ -11,7 +11,7 @@
 
 #include "stdinc.h"
 
-CallHook drawDevStuffSPHook;
+CallHook drawDevStuffHook;
 
 void DrawDemoWarning()
 {
@@ -28,17 +28,17 @@ void DrawDemoWarning()
 	R_AddCmdDrawText("IW4SP: DEV-BUILD", 0x7FFFFFFF, font, 10, 30, 0.7f, 0.7f, 0.0f, color, 0);
 }
 
-void __declspec(naked) DrawDevStuffSPHookStub()
+void __declspec(naked) DrawDevStuffHookStub()
 {
 	__asm
 	{
 		call DrawDemoWarning
-		jmp drawDevStuffSPHook.pOriginal
+		jmp drawDevStuffHook.pOriginal
 	}
 }
 
 void PatchMW2_Branding()
 {
-	drawDevStuffSPHook.initialize(drawDevStuffSPHookLoc, DrawDevStuffSPHookStub);
-	drawDevStuffSPHook.installHook();
+	drawDevStuffHook.initialize(drawDevStuffHookLoc, DrawDevStuffHookStub);
+	drawDevStuffHook.installHook();
 }

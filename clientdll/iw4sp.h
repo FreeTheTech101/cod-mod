@@ -1120,8 +1120,10 @@ extern BigShort_t BigShort;
 
 extern dvar_t** dvarName;
 
-extern DWORD drawDevStuffSPHookLoc;
+extern DWORD drawDevStuffHookLoc;
 extern DWORD windowedWindowStyleHookLoc;
+extern DWORD winMainInitHookLoc;
+extern DWORD imageVersionCheckHookLoc;
 
 vector<string> explode(const string& str, const string& delimiters = " ");
 unsigned int oneAtATimeHash(char* inpStr);

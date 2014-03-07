@@ -21,39 +21,8 @@ void PatchMW2_Coop();
 void PatchMW2_Branding();
 void PatchMW2_New();
 void PatchMW2_UILoading();
-
-CallHook imageVersionCheckSPHook;
-DWORD imageVersionCheckSPHookLoc = 0x544756;
-
-void __declspec(naked) ImageVersionCheckSPHookFunc()
-{
-	__asm
-	{
-		cmp eax, 9
-			je returnSafely
-
-			jmp imageVersionCheckSPHook.pOriginal
-
-returnSafely:
-		mov al, 1
-			add esp, 18h
-			retn
-	}
-}
-
-CallHook winMainInitSPHook;
-DWORD winMainInitSPHookLoc = 0x4A7910;
-
-LONG WINAPI CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS ExceptionInfo);
-
-void __declspec(naked) WinMainInitSPHookStub()
-{
-	SetUnhandledExceptionFilter(&CustomUnhandledExceptionFilter);
-
-	__asm {
-		jmp winMainInitSPHook.pOriginal
-	}
-}
+void PatchMW2_Minidump();
+void PatchMW2_Images();
 
 char ingameUsername[32];
 
@@ -186,11 +155,13 @@ void loadGameOverlay()
 
 void PatchMW2_159()
 {
+	PatchMW2_Minidump();
 	PatchMW2_SteamFriends();
 	PatchMW2_Coop();
 	PatchMW2_NoBorder();
 	PatchMW2_ClientConsole();
 	PatchMW2_Branding();
+	PatchMW2_Images();
 
 	// UILoading code will be added as soon as all the bugs are fixed
 	//PatchMW2_UILoading();
@@ -272,12 +243,6 @@ void PatchMW2_159()
 
 	// Yay, hitmarker in sp :D
 	Dvar_RegisterBool("scr_damageFeedback", 0, DVAR_FLAG_SAVED, "Show marker when hitting enemies.");
-
-	imageVersionCheckSPHook.initialize(imageVersionCheckSPHookLoc, ImageVersionCheckSPHookFunc);
-	imageVersionCheckSPHook.installHook();
-
-	winMainInitSPHook.initialize(winMainInitSPHookLoc, WinMainInitSPHookStub);
-	winMainInitSPHook.installHook();
 
 	// Custom localized strings
 	call(0x61BB17, SEH_LocalizeAssetSP, PATCH_CALL);
