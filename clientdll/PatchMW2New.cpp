@@ -22,6 +22,17 @@ dvar_t* dvarHook(const char* name, const char* default, int flag, const char* de
 	return Dvar_RegisterString(name, default, flag, description);
 }
 
+void patchSteam()
+{
+	// Ignore 'steam must be running' error
+	nop(0x601863, 0x30);
+
+	// Patch steam auth
+	*(WORD*)0x47BE55 = 0x15FF; // Prepare long call
+	*(DWORD*)0x47BE57 = 0x69154C; // SteamAPI_init
+	*(DWORD*)0x47BE5B = 0x90C301B0; // mov al, 1 - retn
+}
+
 void PatchMW2_New()
 {
 	Dvar_FindVar = (Dvar_FindVar_t)0x4BCA20;
@@ -43,6 +54,9 @@ void PatchMW2_New()
 
 	PatchMW2_Branding();
 	PatchMW2_NoBorder();
+
+	// Steam patch doesn't really work due to some assertion stuff
+	patchSteam();
 
 	// Force external console
 	memset((void*)0x60182F, 0x90, 23);
@@ -66,15 +80,6 @@ void PatchMW2_New()
 	// Don't show intro
 	*(BYTE*)0x600D6D = 0;
 	*(BYTE*)0x600D6B = 0;
-
-	// Code below doesn't work due to some assertion stuff
-	// Ignore 'steam must be running' error
-	// nop(0x601863, 0x30);
-
-	// Patch steam auth
-	// *(WORD*)0x47BE55 = 0x15FF; // Prepare long call
-	// *(DWORD*)0x47BE57 = 0x69154C; // SteamAPI_init
-	// *(DWORD*)0x47BE5B = 0x90C301B0; // mov al, 1 - retn
 
 	// Force debug logging
 	nop(0x4B3AE5, 2);
