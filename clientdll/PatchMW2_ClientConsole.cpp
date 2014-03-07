@@ -34,8 +34,20 @@ void checkConsole(int blah, int blahh, DWORD allowToggle)
 	}
 }
 
+CallHook sysInitHook;
+DWORD sysInitHookLoc = 0x6042A2;
+
+void __declspec(naked) SysInitHookStub()
+{
+	Cmd_SetAutoComplete("exec", "", "cfg");
+	__asm jmp sysInitHook.pOriginal
+}
+
 void PatchMW2_ClientConsole()
 {
+	sysInitHook.initialize(sysInitHookLoc, SysInitHookStub);
+	sysInitHook.installHook();
+
 	clKeyEventHook.initialize(clKeyEventHookLoc, checkConsole);
 	clKeyEventHook.installHook();
 

@@ -19,31 +19,34 @@
     <ClCompile Include="PatchMW2.cpp">
       <Filter>Patches</Filter>
     </ClCompile>
-    <ClCompile Include="PatchMW2NoBorder.cpp">
-      <Filter>Patches</Filter>
-    </ClCompile>
     <ClCompile Include="SteamFriends005.cpp">
       <Filter>Steam</Filter>
     </ClCompile>
     <ClCompile Include="SteamBase.cpp">
       <Filter>Steam</Filter>
     </ClCompile>
-    <ClCompile Include="PatchMW2Coop.cpp">
-      <Filter>Patches</Filter>
-    </ClCompile>
-    <ClCompile Include="PatchMW2Branding.cpp">
-      <Filter>Patches</Filter>
-    </ClCompile>
     <ClCompile Include="Bridge.cpp">
       <Filter>Base</Filter>
     </ClCompile>
-    <ClCompile Include="PatchMW2New.cpp">
+    <ClCompile Include="PatchMW2_159.cpp">
       <Filter>Patches</Filter>
     </ClCompile>
-    <ClCompile Include="PatchMW2ClientConsole.cpp">
+    <ClCompile Include="PatchMW2_184.cpp">
       <Filter>Patches</Filter>
     </ClCompile>
-    <ClCompile Include="PatchMW2UILoading.cpp">
+    <ClCompile Include="PatchMW2_Branding.cpp">
+      <Filter>Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_ClientConsole.cpp">
+      <Filter>Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_Coop.cpp">
+      <Filter>Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_NoBorder.cpp">
+      <Filter>Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_UILoading.cpp">
       <Filter>Patches</Filter>
     </ClCompile>
   </ItemGroup>

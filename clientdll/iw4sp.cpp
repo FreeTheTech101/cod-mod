@@ -30,6 +30,7 @@ Dvar_RegisterInt_t Dvar_RegisterInt = (Dvar_RegisterInt_t)0x4E9490;
 
 Cmd_AddCommand_t Cmd_AddCommand = (Cmd_AddCommand_t)0x4478A0;
 Cmd_ExecuteSingleCommand_t Cmd_ExecuteSingleCommand = (Cmd_ExecuteSingleCommand_t)0x46AFD0;
+Cmd_SetAutoComplete_t Cmd_SetAutoComplete = (Cmd_SetAutoComplete_t)0x48A880;
 
 DB_FindXAssetHeader_t DB_FindXAssetHeader = (DB_FindXAssetHeader_t)0x40B200;
 DB_LoadXAssets_t DB_LoadXAssets = (DB_LoadXAssets_t)0x4CFC90;
@@ -43,6 +44,8 @@ FS_FCloseFile_t FS_FCloseFile = (FS_FCloseFile_t)0x44E0A0;
 FS_Read_t FS_Read = (FS_Read_t)0x42EDC0;
 
 Field_Clear_t Field_Clear = (Field_Clear_t)0x45C350;
+
+CL_IsCgameInitialized_t CL_IsCgameInitialized = (CL_IsCgameInitialized_t)0x4EEA50;
 };
 
 dvar_t** dvarName = (dvar_t**)0x929154;

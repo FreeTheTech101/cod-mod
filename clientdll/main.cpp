@@ -38,6 +38,11 @@ void Main_DoInit()
 		Main_UnprotectModule(hModule);
 	}
 
+	if (GetProcAddress(GetModuleHandle("kernel32.dll"), "InitializeSRWLock"))
+	{
+		LoadLibrary("gdimm_32.dll");
+	}
+
 	Sys_Init();
 
 	// return to the original EP

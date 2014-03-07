@@ -3,7 +3,7 @@
 // 
 // Component: IW4SP
 // Sub-component: clientdll
-// Purpose: Patches for latest steam version
+// Purpose: Patches for version 184
 //
 // Initial author: momo5502
 // Started: 2014-03-05
@@ -33,7 +33,7 @@ void patchSteam()
 	*(DWORD*)0x47BE5B = 0x90C301B0; // mov al, 1 - retn
 }
 
-void PatchMW2_New()
+void PatchMW2_184()
 {
 	Dvar_FindVar = (Dvar_FindVar_t)0x4BCA20;
 	Dvar_SetCommand = (Dvar_SetCommand_t)0x43A000;
@@ -42,6 +42,7 @@ void PatchMW2_New()
 	Cmd_AddCommand = (Cmd_AddCommand_t)0x428090;
 	Cmd_ExecuteSingleCommand = (Cmd_ExecuteSingleCommand_t)0x4DA360;
 	Com_Printf = (Com_Printf_t)0x466380;
+	CL_IsCgameInitialized = (CL_IsCgameInitialized_t)0x43D7B0;
 	R_RegisterFont = (R_RegisterFont_t)0x507FE0;
 	R_AddCmdDrawText = (R_AddCmdDrawText_t)0x50E080;
 
@@ -71,8 +72,17 @@ void PatchMW2_New()
 	// Change 'connect' to 'connect_coop'
 	*(DWORD*)0x4F3B27 = (DWORD)"connect_coop";
 
+	// console version string
+	*(DWORD*)0x48681B = (DWORD)(CONSOLESTRING);
+
+	// version string
+	*(DWORD*)0x601A2F = (DWORD)(CONSOLESTRING);
+
 	// Apply m2demo stuff
 	*(DWORD*)0x62ED01 = (DWORD)"data";
+
+	// Change external console title
+	*(DWORD*)0x414828 = (DWORD)"IW4SP: Console";
 
 	// Flag cg_fov as saved
 	*(BYTE*)0x47C165 = DVAR_FLAG_SAVED;
