@@ -60,6 +60,9 @@ void PatchMW2_New()
 	// Apply m2demo stuff
 	*(DWORD*)0x62ED01 = (DWORD)"data";
 
+	// Flag cg_fov as saved
+	*(BYTE*)0x47C165 = DVAR_FLAG_SAVED;
+
 	// Don't show intro
 	*(BYTE*)0x600D6D = 0;
 	*(BYTE*)0x600D6B = 0;
