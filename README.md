@@ -14,8 +14,8 @@ portion of the IW4 engine, very similar to the way IW4M (FourDeltaOne) allowed.
 
 =================================================================================
 
-Installation/ Utilization: Place d3d9.dll in your root Modern Warfare 2 folder.
-The modified files of your choice should be put in their respective folders within 
+Installation/ Utilization: Place d3d9.dll in your root Modern Warfare 2 folder.  
+The modified files of your choice should be put in their respective folders within  
 the new data folder that gets automatically created by the dll.  A few examples...
 
 Example 1: rootMW2FolderDirectory\data\english\localizedstrings\example.str  
