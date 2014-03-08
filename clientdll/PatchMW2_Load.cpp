@@ -30,6 +30,17 @@ char* addAlterSPZones(char* zone)
 	return returnPath;
 }
 
+void __cdecl loadTeamFile(XZoneInfo* data, int count, int unknown)
+{
+	// Still bugged. probably need to compile an own fastfile
+	//data[count].name = "team_tf141";
+	//data[count].type1 = 4;
+	//data[count].type2 = 0;
+	//count++;
+
+	DB_LoadXAssets(data, count, unknown);
+}
+
 void PatchMW2_Load()
 {
 	if(version == 159)
@@ -44,4 +55,6 @@ void PatchMW2_Load()
 	}
 
 	call(zoneLoadHookLoc, addAlterSPZones, PATCH_CALL);
+
+	call(ffLoadHook1Loc, loadTeamFile, PATCH_CALL);
 }

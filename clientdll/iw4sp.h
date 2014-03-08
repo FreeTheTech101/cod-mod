@@ -1133,6 +1133,7 @@ extern DWORD localizeAssetHookLoc;
 extern DWORD SELoadLanguageHookLoc;
 extern DWORD SetStringHookLoc;
 extern DWORD zoneLoadHookLoc;
+extern DWORD ffLoadHook1Loc;
 
 extern int version;
 

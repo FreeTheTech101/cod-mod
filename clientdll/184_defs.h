@@ -12,6 +12,7 @@ void define184Stuff()
 	Dvar_RegisterEnum = (Dvar_RegisterEnum_t)0x4FB5C0;
 
 	DB_FindXAssetHeader = (DB_FindXAssetHeader_t)0x4F6F10;
+	DB_LoadXAssets = (DB_LoadXAssets_t)0x49EDB0;
 
 	Cmd_AddCommand = (Cmd_AddCommand_t)0x428090;
 	Cmd_ExecuteSingleCommand = (Cmd_ExecuteSingleCommand_t)0x4DA360;
@@ -39,6 +40,7 @@ void define184Stuff()
 	SELoadLanguageHookLoc = 0x619467;
 	SetStringHookLoc = 0x42EC0E;
 	zoneLoadHookLoc = 0x58039C;
+	ffLoadHook1Loc = 0x4D0558;
 
 	language = (char*)0x19FC2B0;
 

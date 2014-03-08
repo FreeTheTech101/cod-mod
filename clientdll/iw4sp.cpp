@@ -65,6 +65,7 @@ DWORD localizeAssetHookLoc = 0x61BB17;
 DWORD SELoadLanguageHookLoc = 0x61BCA7;
 DWORD SetStringHookLoc = 0x4759FE;
 DWORD zoneLoadHookLoc = 0x582F9C;
+DWORD ffLoadHook1Loc = 0x418DE8;
 
 int version = 0;
 
