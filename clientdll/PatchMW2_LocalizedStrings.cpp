@@ -22,7 +22,18 @@ localizedEntry_s* loadLocalizeAsset(int type, const char* reference)
 	}
 	else
 	{
-		entry = *(localizedEntry_s*)DB_FindXAssetHeader(type, reference);
+		static localizedEntry_s* entryPtr; 
+		entryPtr = (localizedEntry_s*)DB_FindXAssetHeader(type, reference);
+
+		if(!entryPtr)
+		{
+			entry.name = reference;
+			entry.value = reference;
+		}
+		else
+		{
+			entry = *entryPtr;
+		}
 	}
 
 	return &entry;

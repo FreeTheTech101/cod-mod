@@ -52,7 +52,7 @@ bool isCustomLoc(const char* key)
 void buildCustomEntry(localizedEntry_s* entry, const char* key)
 {
 	(*entry).name = key;
-	(*entry).value = "";
+	(*entry).value = key;
 
 	for(int i = 0;i<currentPos;i++)
 	{
