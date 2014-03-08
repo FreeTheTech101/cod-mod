@@ -150,6 +150,9 @@
     <ClInclude Include="rgb_hsv.h">
       <Filter>Header</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
@@ -167,5 +170,10 @@
     <Filter Include="SteamHeader">
       <UniqueIdentifier>{23b5ea8f-c768-4ada-9a2d-44fd680be0fc}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc">
+      <Filter>Base</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

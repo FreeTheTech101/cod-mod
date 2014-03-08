@@ -127,6 +127,9 @@ void PatchMW2_Coop()
 	// Force Winsocket initialization
 	nop(0x42B649, 2);
 
+	// Ignore full lobby
+	*(BYTE*)0x65D157 = 0xEB;
+
 	// Change 'connect' to 'connect_coop'
 	*(DWORD*)0x475417 = (DWORD)"connect_coop";
 

@@ -112,6 +112,7 @@
     <ClInclude Include="ISteamFriends005.h" />
     <ClInclude Include="LocalizedStrings.h" />
     <ClInclude Include="MatchMakingKeyValuePair.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="rgb_hsv.h" />
     <ClInclude Include="servernetadr.h" />
     <ClInclude Include="stdinc.h" />
@@ -119,6 +120,9 @@
     <ClInclude Include="SteamFriends005.h" />
     <ClInclude Include="SteamTypes.h" />
     <ClInclude Include="Utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
