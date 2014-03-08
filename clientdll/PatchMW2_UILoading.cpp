@@ -456,7 +456,7 @@ menuFile_t* UI_ParseScriptMenu(const char* filename)
 	return newFile;
 }
 
-menuFile_t* uimp_code;
+menuFile_t* ui_code;
 
 #define NUM_CUSTOM_MENUS 1
 
@@ -470,10 +470,10 @@ void* MenuFileHookFunc(const char* filename)
 		return UI_ParseScriptMenu(filename);
 	}
 
-	if (!strcmp(filename, "ui/code.txt") &&  uimp_code)
+	if (!strcmp(filename, "ui/code.txt") &&  ui_code)
 	{
 		Com_Printf(1, "MenuFileHookFunc: %s [cached]\n", filename);
-		return uimp_code;
+		return ui_code;
 	}
 
 	int numCustomMenus = 0;
@@ -553,7 +553,7 @@ void* MenuFileHookFunc(const char* filename)
 	else if (!strcmp(filename, "ui/code.txt"))
 	{
 		Com_Printf(1, "MenuFileHookFunc: %s [replaced]\n", filename);
-		uimp_code = newFile;
+		ui_code = newFile;
 	}
 	else
 	{

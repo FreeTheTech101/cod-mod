@@ -49,7 +49,7 @@ void PatchMW2_184()
 	PatchMW2_Images();
 	PatchMW2_LocalizedStrings();
 	PatchMW2_Load();
-	//PatchMW2_UILoading();
+	PatchMW2_UILoading();
 
 	// Steam patch doesn't really work due to some assertion stuff
 	patchSteam();
