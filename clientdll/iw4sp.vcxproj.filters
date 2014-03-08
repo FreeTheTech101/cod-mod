@@ -153,6 +153,9 @@
     <ClInclude Include="resource.h">
       <Filter>Header</Filter>
     </ClInclude>
+    <ClInclude Include="afxres.h">
+      <Filter>Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">

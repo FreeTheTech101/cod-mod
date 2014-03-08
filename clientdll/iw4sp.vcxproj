@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="184_defs.h" />
+    <ClInclude Include="afxres.h" />
     <ClInclude Include="CCallback.h" />
     <ClInclude Include="CGameID.h" />
     <ClInclude Include="ClientCommon.h" />
