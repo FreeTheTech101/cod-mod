@@ -1,4 +1,4 @@
-IW4SP: DEVBUILD - A Call of Duty 6: Modern Warfare 2 - Singleplayer Modification
+IW4 - Singleplayer Modification
 =================================================================================
 
 Created by Momo5502 (https://www.youtube.com/user/TheMomo5502)
