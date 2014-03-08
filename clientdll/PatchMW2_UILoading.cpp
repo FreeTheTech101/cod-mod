@@ -405,7 +405,8 @@ std::vector<menuDef_t*> UI_ParseMenu(const char *menuFile) {
 	pc_token_t token;
 	std::vector<menuDef_t*> retval;
 
-	//Com_Printf(0, "Parsing menu file: %s\n", menuFile);
+	Com_Printf(0, "Parsing menu file: %s\n", menuFile);
+
 
 	handle = PC_LoadSource(menuFile);
 	if (!handle) {
@@ -458,7 +459,7 @@ menuFile_t* UI_ParseScriptMenu(const char* filename)
 
 menuFile_t* ui_code;
 
-#define NUM_CUSTOM_MENUS 1
+#define NUM_CUSTOM_MENUS 0
 
 void* MenuFileHookFunc(const char* filename)
 {
