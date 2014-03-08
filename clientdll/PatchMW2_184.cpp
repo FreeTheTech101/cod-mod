@@ -80,6 +80,9 @@ void PatchMW2_184()
 	// Flag cg_fov as saved
 	*(BYTE*)0x47C165 = DVAR_FLAG_SAVED;
 
+	// Flag 'name' as saved
+	*(BYTE*)0x4F3856 = DVAR_FLAG_SAVED;
+
 	// Don't show intro
 	*(BYTE*)0x600D6D = 0;
 	*(BYTE*)0x600D6B = 0;
