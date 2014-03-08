@@ -1,10 +1,10 @@
 IW4 - Singleplayer Modification
 =================================================================================
 
-Created by Momo5502 (https://www.youtube.com/user/TheMomo5502)
-Coop Singleplayer Mod by Rendflex (https://www.youtube.com/user/Rendflex)
-Bug Testing done by Dasfonia (https://www.youtube.com/user/Those2menoverthere)
-Code Usage from NTAuthority's IW4M Project (https://www.youtube.com/user/NTAuthority)
+Created by Momo5502 (https://www.youtube.com/user/TheMomo5502)  
+Coop Singleplayer Mod by Rendflex (https://www.youtube.com/user/Rendflex)  
+Bug Testing done by Dasfonia (https://www.youtube.com/user/Those2menoverthere)  
+Code Usage from NTAuthority's IW4M Project (https://www.youtube.com/user/NTAuthority)  
 Menu Changes by Momo5502 and Dasfonia
 
 =================================================================================
@@ -18,8 +18,8 @@ Installation/ Utilization: Place d3d9.dll in your root Modern Warfare 2 folder.
 The modified files of your choice should be put in their respective folders within 
 the new data folder that gets automatically created by the dll.  A few examples...
 
-Example 1: rootMW2FolderDirectory\data\english\localizedstrings\example.str
-Example 2: rootMW2FolderDirectory\data\ui\scriptmenus\pausedmenu.menu
+Example 1: rootMW2FolderDirectory\data\english\localizedstrings\example.str  
+Example 2: rootMW2FolderDirectory\data\ui\scriptmenus\pausedmenu.menu  
 Example 3: rootMW2FolderDirectory\data\maps\estate.gsc
 
 =================================================================================
