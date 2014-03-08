@@ -19,19 +19,20 @@ const char* langEnglish[MAX_LOCALZE_STRINGS];
 
 void addLocStr(const char* key, const char* value)
 {
-	const char* val = va(value); // va() is needed to store the char*, as loading from naked prevents it otherwhise.
+	const char* _key = va(key);
+	const char* _value = va(value);
 
 	for(int i = 0;i<currentPos;i++)
 	{
-		if(!strcmp(reference[i], key))
+		if(!strcmp(reference[i], _key))
 		{
-			langEnglish[i] = val;
+			langEnglish[i] = _value;
 			return;
 		}
 	}
 
-	reference[currentPos] = key;
-	langEnglish[currentPos] = val;
+	reference[currentPos] = _key;
+	langEnglish[currentPos] = _value;
 	currentPos++;
 }
 
