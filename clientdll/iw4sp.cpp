@@ -75,6 +75,8 @@ DWORD SetStringHookLoc = 0x4759FE;
 DWORD zoneLoadHookLoc = 0x582F9C;
 DWORD ffLoadHook1Loc = 0x418DE8;
 DWORD menuFileHookLoc = 0x62DDD0;	
+DWORD scrGetFunctionHookLoc = 0x4ADF9C;
+DWORD scrDeclareFunctionTableEntryLoc = 0x4F59C0;
 
 source_t **sourceFiles = (source_t **)0x7440E8;
 keywordHash_t **menuParseKeywordHash = (keywordHash_t **)0x1933DB0;

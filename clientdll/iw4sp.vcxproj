@@ -83,6 +83,7 @@
     <ClCompile Include="PatchMW2_LocalizedStrings.cpp" />
     <ClCompile Include="PatchMW2_Minidump.cpp" />
     <ClCompile Include="PatchMW2_NoBorder.cpp" />
+    <ClCompile Include="PatchMW2_Script.cpp" />
     <ClCompile Include="PatchMW2_UILoading.cpp" />
     <ClCompile Include="SteamBase.cpp" />
     <ClCompile Include="SteamFriends005.cpp" />

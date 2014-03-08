@@ -25,6 +25,7 @@ void PatchMW2_Minidump();
 void PatchMW2_Images();
 void PatchMW2_LocalizedStrings();
 void PatchMW2_Load();
+void PatchMW2_Script();
 
 char ingameUsername[32];
 
@@ -113,6 +114,7 @@ void PatchMW2_159()
 	PatchMW2_LocalizedStrings();
 	PatchMW2_Load();
 	PatchMW2_UILoading();
+	PatchMW2_Script();
 
 	// prevent stat loading from steam
 	*(BYTE*)0x43FB33 = 0xC3;

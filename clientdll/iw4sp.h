@@ -1022,6 +1022,16 @@ typedef struct keywordHash_s
 	//struct keywordHash_s *next;
 } keywordHash_t;
 
+typedef int scr_entref_t;
+typedef void (__cdecl * scr_function_t)(scr_entref_t);
+
+typedef struct  
+{
+	const char* functionName;
+	scr_function_t functionCall;
+	int developerOnly;
+} scr_funcdef_t;
+
 // types
 typedef void (__cdecl * CommandCB_t)(void);
 
@@ -1287,7 +1297,9 @@ extern DWORD SELoadLanguageHookLoc;
 extern DWORD SetStringHookLoc;
 extern DWORD zoneLoadHookLoc;
 extern DWORD ffLoadHook1Loc;
-extern DWORD menuFileHookLoc;	
+extern DWORD menuFileHookLoc;
+extern DWORD scrGetFunctionHookLoc;
+extern DWORD scrDeclareFunctionTableEntryLoc;
 
 extern source_t **sourceFiles;
 extern keywordHash_t **menuParseKeywordHash;

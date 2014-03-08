@@ -29,7 +29,7 @@ void DrawDemoWarning()
 	}
 
 	void* font = R_RegisterFont("fonts/normalFont");	
-	R_AddCmdDrawText("DEV-BUILD", 0x7FFFFFFF, font, 10, 30, 0.7f, 0.7f, 0.0f, color, 0);
+	R_AddCmdDrawText("IW4SP-MOD: DEV-BUILD", 0x7FFFFFFF, font, 10, 30, 0.7f, 0.7f, 0.0f, color, 0);
 }
 
 void __declspec(naked) DrawDevStuffHookStub()

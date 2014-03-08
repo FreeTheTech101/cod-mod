@@ -55,6 +55,8 @@ void define184Stuff()
 	zoneLoadHookLoc = 0x58039C;
 	ffLoadHook1Loc = 0x4D0558;
 	menuFileHookLoc = 0x62B570;	
+	scrGetFunctionHookLoc = 0x42ECAC;
+	scrDeclareFunctionTableEntryLoc = 0x4A6E90;
 
 	language = (char*)0x19FC2B0;
 
