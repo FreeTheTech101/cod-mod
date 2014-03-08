@@ -18,6 +18,7 @@ void define184Stuff()
 
 	Com_Printf = (Com_Printf_t)0x466380;
 	Com_Error = (Com_Error_t)0x4584F0;
+	Com_Milliseconds = (Com_Milliseconds_t)0x44E1B0;
 
 	CL_IsCgameInitialized = (CL_IsCgameInitialized_t)0x43D7B0;
 

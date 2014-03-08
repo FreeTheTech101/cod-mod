@@ -144,6 +144,12 @@
     <ClInclude Include="184_defs.h">
       <Filter>Header</Filter>
     </ClInclude>
+    <ClInclude Include="ColorShift.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="rgb_hsv.h">
+      <Filter>Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">

@@ -93,6 +93,7 @@
     <ClInclude Include="CCallback.h" />
     <ClInclude Include="CGameID.h" />
     <ClInclude Include="ClientCommon.h" />
+    <ClInclude Include="ColorShift.h" />
     <ClInclude Include="EAccountType.h" />
     <ClInclude Include="EChatMemberStateChange.h" />
     <ClInclude Include="ELobbyType.h" />
@@ -111,6 +112,7 @@
     <ClInclude Include="ISteamFriends005.h" />
     <ClInclude Include="LocalizedStrings.h" />
     <ClInclude Include="MatchMakingKeyValuePair.h" />
+    <ClInclude Include="rgb_hsv.h" />
     <ClInclude Include="servernetadr.h" />
     <ClInclude Include="stdinc.h" />
     <ClInclude Include="iw4sp.h" />
