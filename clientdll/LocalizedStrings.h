@@ -14,25 +14,22 @@
 #define MAX_LOCALZE_STRINGS 100
 
 int currentPos = 0;
-const char* reference[MAX_LOCALZE_STRINGS];
-const char* langEnglish[MAX_LOCALZE_STRINGS];
+std::string reference[MAX_LOCALZE_STRINGS];
+std::string langEnglish[MAX_LOCALZE_STRINGS];
 
 void addLocStr(const char* key, const char* value)
 {
-	const char* _key = va(key);
-	const char* _value = va(value);
-
 	for(int i = 0;i<currentPos;i++)
 	{
-		if(!strcmp(reference[i], _key))
+		if(!strcmp(reference[i].c_str(), key))
 		{
-			langEnglish[i] = _value;
+			langEnglish[i] = value;
 			return;
 		}
 	}
 
-	reference[currentPos] = _key;
-	langEnglish[currentPos] = _value;
+	reference[currentPos] = key;
+	langEnglish[currentPos] = value;
 	currentPos++;
 }
 
@@ -40,7 +37,7 @@ bool isCustomLoc(const char* key)
 {
 	for(int i = 0;i<currentPos;i++)
 	{
-		if(!strcmp(reference[i], key))
+		if(!strcmp(reference[i].c_str(), key))
 		{
 			return true;
 		}
@@ -56,9 +53,9 @@ void buildCustomEntry(localizedEntry_s* entry, const char* key)
 
 	for(int i = 0;i<currentPos;i++)
 	{
-		if(!strcmp(reference[i], key))
+		if(!strcmp(reference[i].c_str(), key))
 		{
-			(*entry).value = langEnglish[i];
+			(*entry).value = langEnglish[i].c_str();
 			break;
 		}
 	}
