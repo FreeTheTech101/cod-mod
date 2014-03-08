@@ -13,17 +13,17 @@
 #include "ColorShift.h"
 
 CallHook drawDevStuffHook;
-dvar_t* cl_paused;
+//dvar_t* cl_paused;
 
 void DrawDemoWarning()
 {
 	shiftColorHue();
 
-	if(!cl_paused)
-		cl_paused = Dvar_FindVar("cl_paused");
+	//if(!cl_paused)
+	//	cl_paused = Dvar_FindVar("cl_paused");
 
 	// Reduce opacity ingame
-	if(CL_IsCgameInitialized() && !cl_paused->current.boolean)
+	if(CL_IsCgameInitialized()/* && !cl_paused->current.boolean*/)
 	{
 		color[3] = 0.3f;
 	}
