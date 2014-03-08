@@ -28,7 +28,7 @@ void addLocStr(const char* key, const char* value)
 		}
 	}
 
-	if(currentPos == MAX_LOCALZE_STRINGS - 1)
+	if(currentPos == MAX_LOCALZE_STRINGS)
 		return;
 
 	reference[currentPos] = key;
