@@ -112,9 +112,7 @@ void PatchMW2_159()
 	PatchMW2_Images();
 	PatchMW2_LocalizedStrings();
 	PatchMW2_Load();
-
-	// UILoading code will be added as soon as all the bugs are fixed
-	//PatchMW2_UILoading();
+	PatchMW2_UILoading();
 
 	// prevent stat loading from steam
 	*(BYTE*)0x43FB33 = 0xC3;

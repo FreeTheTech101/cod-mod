@@ -20,6 +20,7 @@ void define184Stuff()
 	Com_Printf = (Com_Printf_t)0x466380;
 	Com_Error = (Com_Error_t)0x4584F0;
 	Com_Milliseconds = (Com_Milliseconds_t)0x44E1B0;
+	Com_PrintError = (Com_PrintError_t)0x461AF0;
 
 	CL_IsCgameInitialized = (CL_IsCgameInitialized_t)0x43D7B0;
 
@@ -28,8 +29,17 @@ void define184Stuff()
 
 	FS_ListFiles = (FS_ListFiles_t)0x4B0040;
 	FS_FreeFileList = (FS_FreeFileList_t)0x4E6180;
+	FS_ReadFile = (FS_ReadFile_t)0x467510;
 
 	SE_Load = (SE_Load_t)0x4FCCC0;
+
+	// Menu stuff
+	LoadScriptFile = (LoadScriptFile_t)0x4EE180;
+	PC_ReadToken = (PC_ReadToken_t)0x4D7A00;
+	FreeMemory = (FreeMemory_t)0x45B8C0;
+	Script_Alloc = (Script_Alloc_t)0x452CC0;
+	Script_SetupTokens = (Script_SetupTokens_t)0x4E7D20;
+	Script_CleanString = (Script_CleanString_t)0x4443B0;
 
 
 	drawDevStuffHookLoc = 0x57AE79;
@@ -41,10 +51,14 @@ void define184Stuff()
 	SetStringHookLoc = 0x42EC0E;
 	zoneLoadHookLoc = 0x58039C;
 	ffLoadHook1Loc = 0x4D0558;
+	menuFileHookLoc = 0x62B570;	
 
 	language = (char*)0x19FC2B0;
 
 	cmd_id = (DWORD*)0x144C950;
 	cmd_argc = (DWORD*)0x144C994;
 	cmd_argv = (DWORD**)0x144C9B4;
+
+	sourceFiles = (source_t **)0x7410E8;
+	menuParseKeywordHash = (keywordHash_t **)0x1930830;
 }

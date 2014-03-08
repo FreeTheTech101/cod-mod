@@ -51,6 +51,14 @@ Field_Clear_t Field_Clear = (Field_Clear_t)0x45C350;
 CL_IsCgameInitialized_t CL_IsCgameInitialized = (CL_IsCgameInitialized_t)0x4EEA50;
 
 SE_Load_t SE_Load = (SE_Load_t)0x409910;
+
+// Menu stuff
+LoadScriptFile_t LoadScriptFile = (LoadScriptFile_t)0x405CD0;
+PC_ReadToken_t 	PC_ReadToken = (PC_ReadToken_t)0x42F1A0;
+FreeMemory_t FreeMemory = (FreeMemory_t)0x4A7D20;
+Script_Alloc_t Script_Alloc = (Script_Alloc_t)0x41BCD0;
+Script_SetupTokens_t Script_SetupTokens = (Script_SetupTokens_t)0x4B59B0;
+Script_CleanString_t Script_CleanString = (Script_CleanString_t)0x4316A0;
 };
 
 dvar_t** dvarName = (dvar_t**)0x929154;
@@ -66,6 +74,10 @@ DWORD SELoadLanguageHookLoc = 0x61BCA7;
 DWORD SetStringHookLoc = 0x4759FE;
 DWORD zoneLoadHookLoc = 0x582F9C;
 DWORD ffLoadHook1Loc = 0x418DE8;
+DWORD menuFileHookLoc = 0x62DDD0;	
+
+source_t **sourceFiles = (source_t **)0x7440E8;
+keywordHash_t **menuParseKeywordHash = (keywordHash_t **)0x1933DB0;
 
 int version = 0;
 

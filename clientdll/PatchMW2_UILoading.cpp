@@ -11,153 +11,10 @@
 
 #include "StdInc.h"
 
-typedef struct  
-{
-	char* filename;
-	int count;
-	menuDef_t** menuFiles;
-} menuFile_t;
-
-// Q3TA precompiler code
-
-//undef if binary numbers of the form 0b... or 0B... are not allowed
-#define BINARYNUMBERS
-//undef if not using the token.intvalue and token.floatvalue
-#define NUMBERVALUE
-//use dollar sign also as punctuation
-#define DOLLAR
-
-//maximum token length
-#define MAX_TOKEN					1024
-
-//punctuation
-typedef struct punctuation_s
-{
-	char *p;						//punctuation character(s)
-	int n;							//punctuation indication
-	struct punctuation_s *next;		//next punctuation
-} punctuation_t;
-
-//token
-typedef struct token_s
-{
-	char string[MAX_TOKEN];			//available token
-	int type;						//last read token type
-	int subtype;					//last read token sub type
-#ifdef NUMBERVALUE
-	unsigned long int intvalue;	//integer value
-	long double floatvalue;			//floating point value
-#endif //NUMBERVALUE
-	char *whitespace_p;				//start of white space before token
-	char *endwhitespace_p;			//start of white space before token
-	int line;						//line the token was on
-	int linescrossed;				//lines crossed in white space
-	struct token_s *next;			//next token in chain
-} token_t;
-
-//script file
-typedef struct script_s
-{
-	char filename[64];				//file name of the script
-	char *buffer;					//buffer containing the script
-	char *script_p;					//current pointer in the script
-	char *end_p;					//pointer to the end of the script
-	char *lastscript_p;				//script pointer before reading token
-	char *whitespace_p;				//begin of the white space
-	char *endwhitespace_p;			//end of the white space
-	int length;						//length of the script in bytes
-	int line;						//current line in script
-	int lastline;					//line before reading token
-	int tokenavailable;				//set by UnreadLastToken
-	int flags;						//several script flags
-	punctuation_t *punctuations;	//the punctuations used in the script
-	punctuation_t **punctuationtable;
-	token_t token;					//available token
-	struct script_s *next;			//next script in a chain
-} script_t;
-
-//macro definitions
-typedef struct define_s
-{
-	char *name;							//define name
-	int flags;							//define flags
-	int builtin;						// > 0 if builtin define
-	int numparms;						//number of define parameters
-	token_t *parms;						//define parameters
-	token_t *tokens;					//macro tokens (possibly containing parm tokens)
-	struct define_s *next;				//next defined macro in a list
-	struct define_s *hashnext;			//next define in the hash chain
-} define_t;
-
-//indents
-//used for conditional compilation directives:
-//#if, #else, #elif, #ifdef, #ifndef
-typedef struct indent_s
-{
-	int type;								//indent type
-	int skip;								//true if skipping current indent
-	script_t *script;						//script the indent was in
-	struct indent_s *next;					//next indent on the indent stack
-} indent_t;
-
-//source file
-typedef struct source_s
-{
-	char filename[64];					//file name of the script
-	char includepath[64];					//path to include files
-	punctuation_t *punctuations;			//punctuations to use
-	script_t *scriptstack;					//stack with scripts of the source
-	token_t *tokens;						//tokens to read first
-	define_t *defines;						//list with macro definitions
-	define_t **definehash;					//hash chain with defines
-	indent_t *indentstack;					//stack with indents
-	int skip;								// > 0 if skipping conditional code
-	token_t token;							//last read token
-} source_t;
-
-#define MAX_TOKENLENGTH		1024
-
-typedef struct pc_token_s
-{
-	int type;
-	int subtype;
-	int intvalue;
-	float floatvalue;
-	char string[MAX_TOKENLENGTH];
-} pc_token_t;
-
-//token types
-#define TT_STRING						1			// string
-#define TT_LITERAL					2			// literal
-#define TT_NUMBER						3			// number
-#define TT_NAME						4			// name
-#define TT_PUNCTUATION				5			// punctuation
-
-//typedef int menuDef_t;
-//typedef int itemDef_t;
-
-#define KEYWORDHASH_SIZE	512
-
-typedef struct keywordHash_s
-{
-	char *keyword;
-	bool (*func)(itemDef_t *item, int handle);
-	//struct keywordHash_s *next;
-} keywordHash_t;
-
 std::vector<menuDef_t*> UI_ParseMenu(const char *menuFile);
 bool Menu_Parse(int handle, menuDef_t *menu);
 int PC_LoadSource(const char *filename);
 int PC_FreeSource(int handle);
-
-typedef script_t * (__cdecl * LoadScriptFile_t)(const char*);
-typedef int (__cdecl * PC_ReadToken_t)(source_t*, token_t*);
-
-LoadScriptFile_t LoadScriptFile = (LoadScriptFile_t)0x405CD0;
-PC_ReadToken_t 	PC_ReadToken = (PC_ReadToken_t)0x42F1A0;
-
-source_t **sourceFiles = (source_t **)0x7440E8;
-keywordHash_t **menuParseKeywordHash = (keywordHash_t **)0x1933DB0;
 
 // 'shared' code
 int KeywordHash_Key(char *keyword) {
@@ -173,22 +30,6 @@ int KeywordHash_Key(char *keyword) {
 	hash = (hash ^ (hash >> 10) ^ (hash >> 20)) & (KEYWORDHASH_SIZE-1);
 	return hash;
 }
-
-/*keywordHash_t *KeywordHash_Find(keywordHash_t *table[], char *keyword)
-{
-	keywordHash_t *key;
-	int hash;
-
-	hash = KeywordHash_Key(keyword);
-	for (key = table[hash]; key; key = key->next) {
-		if (!stricmp(key->keyword, keyword))
-			return key;
-	}
-	return NULL;
-}*/
-
-typedef void (__cdecl * FreeMemory_t)(void* buffer);
-FreeMemory_t FreeMemory = (FreeMemory_t)0x4A7D20;
 
 void FreeScript(script_t *script)
 {
@@ -235,15 +76,6 @@ source_t *LoadSourceFile(const char *filename)
 	return NULL;
 }
 
-typedef script_t* (__cdecl * Script_Alloc_t)(int length);
-Script_Alloc_t Script_Alloc = (Script_Alloc_t)0x41BCD0;
-
-typedef void (__cdecl * Script_SetupTokens_t)(script_t* script, void* tokens);
-Script_SetupTokens_t Script_SetupTokens = (Script_SetupTokens_t)0x4B59B0;
-
-typedef int (__cdecl * Script_CleanString_t)(char* buffer);
-Script_CleanString_t Script_CleanString = (Script_CleanString_t)0x4316A0;
-
 script_t* LoadScriptString(const char* string)
 {
 	static_assert(sizeof(script_t) == 1200, "script_t != 1200");
@@ -264,9 +96,17 @@ script_t* LoadScriptString(const char* string)
 	script->lastline = 1;
 	script->tokenavailable = 0;
 	
-	Script_SetupTokens(script, (void*)0x7320E0);
-	script->punctuations = (punctuation_t*)0x7320E0;
-	
+	if(version == 159)
+	{
+		Script_SetupTokens(script, (void*)0x7320E0);
+		script->punctuations = (punctuation_t*)0x7320E0;
+	}
+	else if(version == 184)
+	{
+		Script_SetupTokens(script, (void*)0x72F0E0);
+		script->punctuations = (punctuation_t*)0x72F0E0;
+	}
+
 	strcpy(script->buffer, string);
 
 	script->length = Script_CleanString(script->buffer);
@@ -372,7 +212,6 @@ int PC_LoadSourceString(const char* string)
 	} //end for
 	if (i >= MAX_SOURCEFILES)
 		return 0;
-	//PS_SetBaseFolder("");
 	source = LoadSourceString(string);
 	if (!source)
 		return 0;
@@ -393,7 +232,6 @@ int PC_LoadSource(const char *filename)
 	} //end for
 	if (i >= MAX_SOURCEFILES)
 		return 0;
-	//PS_SetBaseFolder("");
 	source = LoadSourceFile(filename);
 	if (!source)
 		return 0;
@@ -435,49 +273,6 @@ int PC_ReadTokenHandle(int handle, pc_token_t *pc_token)
 	return ret;
 }
 
-#ifndef BUILDING_EXTDLL
-// UI code
-/*void Item_SetScreenCoords(itemDef_t *item, float x, float y) {
-  
-  if (item == NULL) {
-    return;
-  }
-
-  if (item->window.border != 0) {
-    x += item->window.borderSize;
-    y += item->window.borderSize;
-  }
-
-  item->window.rect.x = x + item->window.rectClient.x;
-  item->window.rect.y = y + item->window.rectClient.y;
-  item->window.rect.w = item->window.rectClient.w;
-  item->window.rect.h = item->window.rectClient.h;
-
-  // force the text rects to recompute
-  item->textRect.w = 0;
-  item->textRect.h = 0;
-}
-
-void Menu_UpdatePosition(menuDef_t *menu) {
-  int i;
-  float x, y;
-
-  if (menu == NULL) {
-    return;
-  }
-  
-  x = menu->window.rect.x;
-  y = menu->window.rect.y;
-  if (menu->window.border != 0) {
-    x += menu->window.borderSize;
-    y += menu->window.borderSize;
-  }
-
-  for (i = 0; i < menu->itemCount; i++) {
-    Item_SetScreenCoords(menu->items[i], x, y);
-  }
-}*/
-
 void Menu_PostParse(menuDef_t *menu) {
 	return;
 	/*if (menu == NULL) {
@@ -502,11 +297,22 @@ int KeywordHash_Data(char* key)
 {
 	// patch this function on-the-fly, as it's some ugly C.
 	DWORD func = 0x62DDF0;
+
+	if(version == 184)
+		func = 0x62B590;
 		
 	int retval = 0;
 
-	*(DWORD*)0x62DDFE = 3523;
-	*(DWORD*)0x62DE2B = 0x7F;
+	if(version == 159)
+	{
+		*(DWORD*)0x62DDFE = 3523;
+		*(DWORD*)0x62DE2B = 0x7F;
+	}
+	else if(version == 184)
+	{
+		*(DWORD*)0x62B59E = 3523;
+		*(DWORD*)0x62B5CB = 0x7F;
+	}
 	
 	__asm
 	{
@@ -515,15 +321,23 @@ int KeywordHash_Data(char* key)
 		mov retval, eax
 	}
 
-	*(DWORD*)0x62DDFE = 531;
-	*(DWORD*)0x62DE2B = 0x1FF;
+	if(version == 159)
+	{
+		*(DWORD*)0x62DDFE = 531;
+		*(DWORD*)0x62DE2B = 0x1FF;
+	}
+	else if(version == 184)
+	{
+		*(DWORD*)0x62B59E = 531;
+		*(DWORD*)0x62B5CB = 0x1FF;
+	}
 
 	return retval;
 }
 
 //#define PC_SourceError(x, y, ...) Com_Printf(0, y, __VA_ARGS__)
-#define PC_SourceError(x, y, ...) ((void (*)(int, const char*, ...))0x467A00)(x, y, __VA_ARGS__)
-#define PC_SourceErrorSP(x, y, ...) ((void (*)(int, const char*, ...))0x43A6D0)(x, y, __VA_ARGS__)
+#define PC_SourceError_159(x, y, ...) ((void (*)(int, const char*, ...))0x43A6D0)(x, y, __VA_ARGS__)
+#define PC_SourceError_184(x, y, ...) ((void (*)(int, const char*, ...))0x46C8E0)(x, y, __VA_ARGS__)
 
 bool Menu_Parse(int handle, menuDef_t *menu) {
 	pc_token_t token;
@@ -540,7 +354,10 @@ bool Menu_Parse(int handle, menuDef_t *menu) {
 		memset(&token, 0, sizeof(pc_token_t));
 		if (!PC_ReadTokenHandle(handle, &token)) 
 		{
-			PC_SourceErrorSP(handle, "end of file inside menu\n");
+			if(version == 159)
+				PC_SourceError_159(handle, "end of file inside menu\n");
+			else if(version == 184)
+				PC_SourceError_184(handle, "end of file inside menu\n");
 			return false;
 		}
 
@@ -554,12 +371,18 @@ bool Menu_Parse(int handle, menuDef_t *menu) {
 		key = menuParseKeywordHash[idx];
 		if (!key) 
 		{
-			PC_SourceErrorSP(handle, "unknown menu keyword %s", token.string);
+			if(version == 159)
+				PC_SourceError_159(handle, "unknown menu keyword %s", token.string);
+			else if(version == 184)
+				PC_SourceError_184(handle, "unknown menu keyword %s", token.string);
 			continue;
 		}
 		if ( !key->func((itemDef_t*)menu, handle) ) 
 		{
-			PC_SourceErrorSP(handle, "couldn't parse menu keyword %s", token.string);
+			if(version == 159)
+				PC_SourceError_159(handle, "couldn't parse menu keyword %s", token.string);
+			else if(version == 184)
+				PC_SourceError_184(handle, "couldn't parse menu keyword %s", token.string);
 			return false;
 		}
 	}
@@ -582,7 +405,7 @@ std::vector<menuDef_t*> UI_ParseMenu(const char *menuFile) {
 	pc_token_t token;
 	std::vector<menuDef_t*> retval;
 
-	Com_Printf(0, "Parsing menu file: %s\n", menuFile);
+	//Com_Printf(0, "Parsing menu file: %s\n", menuFile);
 
 	handle = PC_LoadSource(menuFile);
 	if (!handle) {
@@ -741,7 +564,6 @@ void* MenuFileHookFunc(const char* filename)
 }
 
 StompHook menuFileHook;
-DWORD menuFileHookLoc = 0x62DDD0;	
 
 void __declspec(naked) MenuFileHookStub()
 {
@@ -753,9 +575,19 @@ void PatchMW2_UILoading()
 	menuFileHook.initialize(menuFileHookLoc, MenuFileHookStub);
 	menuFileHook.installHook();
 
-	*(BYTE*)0x62E049 = 0xEB;
-		
-	// don't load ASSET_TYPE_MENU assets for every menu (might cause patch menus to fail)
-	memset((void*)0x4AE536, 0x90, 5);
+	if(version == 159)
+	{
+		*(BYTE*)0x62E049 = 0xEB;
+
+		// don't load ASSET_TYPE_MENU assets for every menu (might cause patch menus to fail)
+		memset((void*)0x4AE536, 0x90, 5);
+	}
+	else if(version == 184)
+	{
+		*(BYTE*)0x62B7E9 = 0xEB;
+
+		// don't load ASSET_TYPE_MENU assets for every menu (might cause patch menus to fail)
+		memset((void*)0x417686, 0x90, 5);
+	}
+	
 }
-#endif

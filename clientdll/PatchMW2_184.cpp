@@ -19,6 +19,7 @@ void PatchMW2_Minidump();
 void PatchMW2_Images();
 void PatchMW2_LocalizedStrings();
 void PatchMW2_Load();
+void PatchMW2_UILoading();
 
 dvar_t* dvarHook(const char* name, const char* default, int flag, const char* description)
 {
@@ -48,6 +49,7 @@ void PatchMW2_184()
 	PatchMW2_Images();
 	PatchMW2_LocalizedStrings();
 	PatchMW2_Load();
+	//PatchMW2_UILoading();
 
 	// Steam patch doesn't really work due to some assertion stuff
 	patchSteam();
