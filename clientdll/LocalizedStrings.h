@@ -11,7 +11,7 @@
 
 #include "stdinc.h"
 
-#define MAX_LOCALZE_STRINGS 100
+#define MAX_LOCALZE_STRINGS 14000
 
 int currentPos = 0;
 std::string reference[MAX_LOCALZE_STRINGS];
@@ -27,6 +27,9 @@ void addLocStr(const char* key, const char* value)
 			return;
 		}
 	}
+
+	if(currentPos == MAX_LOCALZE_STRINGS - 1)
+		return;
 
 	reference[currentPos] = key;
 	langEnglish[currentPos] = value;
