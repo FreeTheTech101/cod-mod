@@ -55,6 +55,9 @@
     <ClCompile Include="PatchMW2_LocalizedStrings.cpp">
       <Filter>Patches</Filter>
     </ClCompile>
+    <ClCompile Include="PatchMW2_Load.cpp">
+      <Filter>Patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooking.h">
@@ -136,6 +139,9 @@
       <Filter>SteamHeader</Filter>
     </ClInclude>
     <ClInclude Include="LocalizedStrings.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="184_defs.h">
       <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>

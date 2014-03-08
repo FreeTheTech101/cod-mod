@@ -24,6 +24,7 @@ void PatchMW2_UILoading();
 void PatchMW2_Minidump();
 void PatchMW2_Images();
 void PatchMW2_LocalizedStrings();
+void PatchMW2_Load();
 
 char ingameUsername[32];
 
@@ -58,34 +59,6 @@ hostent* WINAPI custom_gethostbyname(const char* name) {
 	}
 
 	return gethostbyname(hostname);
-}
-
-char* addDLCZones(char* zone)
-{
-	char returnPath[14];
-	char fastfile[128];
-
-	sprintf(fastfile, "zone\\alter\\%s", zone); // Also add 'alter' zone path from aiw
-
-	if(GetFileAttributes(fastfile) != INVALID_FILE_ATTRIBUTES)
-	{
-		strcpy(returnPath, "zone\\alter\\");
-	}
-	else
-	{
-		sprintf(fastfile, "zone\\dlc\\%s", zone);
-
-		if(GetFileAttributes(fastfile) != INVALID_FILE_ATTRIBUTES)
-		{
-			strcpy(returnPath, "zone\\dlc\\");
-		}
-		else
-		{
-			sprintf(returnPath, "zone\\%s\\", (char*)0x19FF828); // User's language
-		}
-	}
-
-	return returnPath;
 }
 
 void loadGameOverlay()
@@ -138,6 +111,7 @@ void PatchMW2_159()
 	PatchMW2_Branding();
 	PatchMW2_Images();
 	PatchMW2_LocalizedStrings();
+	PatchMW2_Load();
 
 	// UILoading code will be added as soon as all the bugs are fixed
 	//PatchMW2_UILoading();
@@ -164,12 +138,6 @@ void PatchMW2_159()
 	*(BYTE*)0x635913 = 0xEB; // cheat protected
 	*(BYTE*)0x6358A5 = 0xEB; // write protected
 	*(BYTE*)0x635974 = 0xEB; // latched
-
-	// Ignore zone version missmatch
-	*(BYTE*)0x4256D8 = 0xEB;
-
-	// Support for alternative zones
-	call(0x582F9C, addDLCZones, PATCH_CALL);
 
 	// Don't show intro
 	*(BYTE*)0x6035BD = 0;

@@ -55,6 +55,8 @@ SE_Load_t SE_Load = (SE_Load_t)0x409910;
 
 dvar_t** dvarName = (dvar_t**)0x929154;
 
+char* language = (char*)0x19FF828;
+
 DWORD drawDevStuffHookLoc = 0x57DB09;
 DWORD windowedWindowStyleHookLoc = 0x50C0B3;
 DWORD winMainInitHookLoc = 0x4A7910;
@@ -62,6 +64,7 @@ DWORD imageVersionCheckHookLoc = 0x544756;
 DWORD localizeAssetHookLoc = 0x61BB17;
 DWORD SELoadLanguageHookLoc = 0x61BCA7;
 DWORD SetStringHookLoc = 0x4759FE;
+DWORD zoneLoadHookLoc = 0x582F9C;
 
 int version = 0;
 

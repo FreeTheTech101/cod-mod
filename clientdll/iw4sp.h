@@ -1123,6 +1123,8 @@ extern BigShort_t BigShort;
 
 extern dvar_t** dvarName;
 
+extern char* language;
+
 extern DWORD drawDevStuffHookLoc;
 extern DWORD windowedWindowStyleHookLoc;
 extern DWORD winMainInitHookLoc;
@@ -1130,6 +1132,7 @@ extern DWORD imageVersionCheckHookLoc;
 extern DWORD localizeAssetHookLoc;
 extern DWORD SELoadLanguageHookLoc;
 extern DWORD SetStringHookLoc;
+extern DWORD zoneLoadHookLoc;
 
 extern int version;
 
