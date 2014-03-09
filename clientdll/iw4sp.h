@@ -1,7 +1,5 @@
 #pragma once
 
-using namespace std;
-
 typedef enum assetType_e
 {
 	ASSET_TYPE_PHYSPRESET = 0,
@@ -1310,7 +1308,5 @@ extern keywordHash_t **menuParseKeywordHash;
 
 extern int version;
 
-vector<string> explode(const string& str, const string& delimiters = " ");
-unsigned int oneAtATimeHash(char* inpStr);
-
-#define CURRENT_ZONE_NAME (char*)(*(DWORD*)0x9DAD80 + 4)
+#define CURRENT_ZONE_NAME_159 (char*)(*(DWORD*)0x9DAD80 + 4)
+#define CURRENT_ZONE_NAME_184 (char*)(*(DWORD*)0x9D7800 + 4)

@@ -9,6 +9,8 @@
 // Started: 2010-09-10
 // ==========================================================
 
+using namespace std;
+
 void Trace(char* source, char* message, ...);
 const char *va( const char *fmt, ... );
 
@@ -23,3 +25,5 @@ void DetermineGameFlags();
 wchar_t *convertCharArrayToLPCWSTR(const char* charArray);
 void callVoid(DWORD address);
 bool UnprotectModule(const char* moduleName);
+vector<string> explode(const string& str, const string& delimiters = " ");
+unsigned int oneAtATimeHash(char* inpStr);
