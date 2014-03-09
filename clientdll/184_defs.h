@@ -60,6 +60,9 @@ void define184Stuff()
 	loadGameOverlayHookLoc = 0x601B10;
 
 	initializeRenderer = 0x421100;
+	SteamFriendsLoc = 0x691524;
+
+	dvarName = (dvar_t**)0x925BCC;
 
 	language = (char*)0x19FC2B0;
 

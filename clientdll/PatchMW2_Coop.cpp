@@ -139,9 +139,6 @@ void PatchMW2_Coop()
 	// Change 'connect' to 'connect_coop'
 	*(DWORD*)0x475417 = (DWORD)"connect_coop";
 
-	// Replace 'xshowfriendslist'
-	*(DWORD*)0x57D7F8 = (DWORD)connectHook;
-
 	static cmd_function_t connectWrapper_cmd;
 	Cmd_AddCommand("connect", connectWrapper, &connectWrapper_cmd, 0);
 

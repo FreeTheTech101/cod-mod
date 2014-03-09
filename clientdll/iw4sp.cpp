@@ -80,6 +80,7 @@ DWORD scrDeclareFunctionTableEntryLoc = 0x4F59C0;
 DWORD loadGameOverlayHookLoc = 0x604350;
 
 DWORD initializeRenderer = 0x48A400;
+DWORD SteamFriendsLoc = 0x694528;
 
 source_t **sourceFiles = (source_t **)0x7440E8;
 keywordHash_t **menuParseKeywordHash = (keywordHash_t **)0x1933DB0;

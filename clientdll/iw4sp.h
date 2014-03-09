@@ -1303,6 +1303,7 @@ extern DWORD scrDeclareFunctionTableEntryLoc;
 extern DWORD loadGameOverlayHookLoc;
 
 extern DWORD initializeRenderer;
+extern DWORD SteamFriendsLoc;
 
 extern source_t **sourceFiles;
 extern keywordHash_t **menuParseKeywordHash;

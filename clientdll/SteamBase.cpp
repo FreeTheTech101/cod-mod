@@ -123,9 +123,10 @@ __declspec(dllexport) void __cdecl SteamAPI_RunCallbacks()
 
 void PatchMW2_SteamFriends()
 {
-	*(DWORD*)0x694528 = (DWORD)SteamFriends;
+	*(DWORD*)SteamFriendsLoc = (DWORD)SteamFriends;
 }
 
+// Version 184 only
 void PatchMW2_RunCallbacks()
 {
 	*(DWORD*)0x691544 = (DWORD)SteamAPI_RunCallbacks;

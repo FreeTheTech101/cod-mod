@@ -100,15 +100,15 @@ void loadLanguage()
 
 char* ModLanguageEnum[] = { "english", "french", "german", "italian", "spanish", "english", "russian", "polish",  0 };
 
+void replaceFriendConnect()
+{
+	addLocStr("MENU_INVITE_FRIEND", "Quick connect");
+	addLocStr("MENU_DESC_INVITE_FRIEND", "Reconnect to last player.");
+	addLocStr("MENU_SP_STEAM_CHAT_HINT", "");
+}
+
 void PatchMW2_LocalizedStrings()
 {
-	if(version == 159)
-	{
-		addLocStr("MENU_INVITE_FRIEND", "Quick connect");
-		addLocStr("MENU_DESC_INVITE_FRIEND", "Reconnect to last player.");
-		addLocStr("MENU_SP_STEAM_CHAT_HINT", "");
-	}
-
 	SELoadLanguageHook.initialize(SELoadLanguageHookLoc, loadLanguage);
 	SELoadLanguageHook.installHook();
 

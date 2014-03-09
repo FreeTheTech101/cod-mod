@@ -61,7 +61,7 @@
     <ClCompile Include="PatchMW2_Script.cpp">
       <Filter>Patches</Filter>
     </ClCompile>
-    <ClCompile Include="PatchMW2_GameOverlay.cpp">
+    <ClCompile Include="PatchMW2_Steam.cpp">
       <Filter>Patches</Filter>
     </ClCompile>
   </ItemGroup>

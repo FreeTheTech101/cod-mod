@@ -10,13 +10,10 @@
 // ==========================================================
 
 #include "StdInc.h"
-#include <time.h>
 #include <dbghelp.h>
-#include <WinSock2.h>
 
 void PatchMW2_ClientConsole();
 void PatchMW2_NoBorder();
-void PatchMW2_SteamFriends();
 void PatchMW2_Coop();
 void PatchMW2_Branding();
 void PatchMW2_New();
@@ -26,7 +23,7 @@ void PatchMW2_Images();
 void PatchMW2_LocalizedStrings();
 void PatchMW2_Load();
 void PatchMW2_Script();
-void PatchMW2_GameOverlay();
+void PatchMW2_Steam();
 
 char ingameUsername[32];
 
@@ -44,23 +41,22 @@ char* GetUsername()
 	return ingameUsername;
 }
 
-hostent* WINAPI custom_gethostbyname(const char* name) {
-	// if the name is IWNet's stuff...
-	unsigned int ip1 = oneAtATimeHash("ip1.pc.iw4.iwnet.infinityward.com");
-	unsigned int log1 = oneAtATimeHash("log1.pc.iw4.iwnet.infinityward.com");
-	unsigned int match1 = oneAtATimeHash("match1.pc.iw4.iwnet.infinityward.com");
-	unsigned int web1 = oneAtATimeHash("web1.pc.iw4.iwnet.infinityward.com");
-	unsigned int blob1 = oneAtATimeHash("blob1.pc.iw4.iwnet.infinityward.com");
+DWORD SteamUserStuff = 0x4293F0;
+DWORD returnSuccess = 0x43FAF9;
 
-	unsigned int current = oneAtATimeHash((char*)name);
-	char* hostname = (char*)name;
-
-	if (current == log1 || current == match1 || current == blob1 || current == ip1 || current == web1)
+void __declspec(naked) steamInitPatch()
+{
+	__asm
 	{
-		hostname = "127.0.0.1";
-	}
+		call SteamUserStuff
+		test al, al
+		jz returnSafe
+		jmp returnSuccess
 
-	return gethostbyname(hostname);
+returnSafe:
+		mov al, 1
+		retn
+	}
 }
 
 void PatchMW2_159()
@@ -68,7 +64,6 @@ void PatchMW2_159()
 	version = 159;
 
 	PatchMW2_Minidump();
-	PatchMW2_SteamFriends();
 	PatchMW2_Coop();
 	PatchMW2_NoBorder();
 	PatchMW2_ClientConsole();
@@ -78,7 +73,7 @@ void PatchMW2_159()
 	PatchMW2_Load();
 	PatchMW2_UILoading();
 	PatchMW2_Script();
-	PatchMW2_GameOverlay();
+	PatchMW2_Steam();
 
 	// prevent stat loading from steam
 	*(BYTE*)0x43FB33 = 0xC3;
@@ -93,9 +88,10 @@ void PatchMW2_159()
 	nop(0x6040A3, 0x30);
 
 	// Patch steam auth
-	*(WORD*)0x43FAD5 = 0x15FF; // Prepare long call
-	*(DWORD*)0x43FAD7 = 0x694554; // SteamAPI_init
-	*(DWORD*)0x43FADB = 0x90C301B0; // mov al, 1 - retn
+	call(0x43FAF0, steamInitPatch, PATCH_JUMP);
+
+	// Prevent matchmaking stuff
+	*(BYTE*)0x43BAE0 = 0xEB;
 
 	// Remove dvar restrictions
 	*(BYTE*)0x635841 = 0xEB; // read only
@@ -111,15 +107,6 @@ void PatchMW2_159()
 
 	// Flag cg_fov as saved
 	*(BYTE*)0x41ED35 = DVAR_FLAG_SAVED;
-
-	// Disable UPNP stuff
-	*(WORD*)0x66DE7D = 0xE990;
-
-	// No UPNP Output
-	*(DWORD*)0x4D84D1 = (DWORD)"";
-
-	// Open NAT
-	*(DWORD*)0x7379F0 = 1;
 
 	// Ignore config problems
 	*(BYTE*)0x4D3FD3 = 0xEB;
@@ -151,8 +138,6 @@ void PatchMW2_159()
 
 	// Change external console title
 	*(DWORD*)0x446A48 = (DWORD)"IW4SP: Console";
-
-	*(DWORD*)0x6943A8 = (DWORD)custom_gethostbyname;
 
 	// Yay, hitmarker in sp :D
 	Dvar_RegisterBool("scr_damageFeedback", 0, DVAR_FLAG_SAVED, "Show marker when hitting enemies.");

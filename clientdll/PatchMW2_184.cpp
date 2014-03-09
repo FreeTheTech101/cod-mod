@@ -21,25 +21,43 @@ void PatchMW2_LocalizedStrings();
 void PatchMW2_Load();
 void PatchMW2_UILoading();
 void PatchMW2_Script();
-void PatchMW2_GameOverlay();
-void PatchMW2_RunCallbacks();
+void PatchMW2_Steam();
 
-dvar_t* dvarHook(const char* name, const char* default, int flag, const char* description)
+dvar_t* nameHookFunc184(const char* name, const char* defaultVal, int flags, const char* description)
 {
 	Dvar_RegisterString("connect_ip", va("127.0.0.1:%d", *(DWORD*)0x48C5F7), DVAR_FLAG_SAVED, "Temporary dvar used to connect to coop.");
 
-	return Dvar_RegisterString(name, default, flag, description);
+	return Dvar_RegisterString(name, defaultVal, DVAR_FLAG_SAVED | DVAR_FLAG_SERVER | DVAR_FLAG_USERINFO, description);
 }
 
-void PatchMW2_PatchSteam()
-{
-	// Ignore 'steam must be running' error
-	nop(0x601863, 0x30);
+DWORD SteamUserStuff184 = 0x4D0710;
+DWORD returnSuccess184 = 0x47BE79;
+DWORD otherStuff = 0x4257D0;
 
-	// Patch steam auth
-	*(WORD*)0x47BE55 = 0x15FF; // Prepare long call
-	*(DWORD*)0x47BE57 = 0x69154C; // SteamAPI_init
-	*(DWORD*)0x47BE5B = 0x90C301B0; // mov al, 1 - retn
+void __declspec(naked) disableSteamStuff()
+{
+	__asm
+	{
+		mov al, 1
+		retn
+	}
+}
+
+void __declspec(naked) steamInitPatch184()
+{
+	__asm
+	{
+		call SteamUserStuff184
+		test al, al
+		jz disableSteamStuff
+		jmp returnSuccess
+
+returnSuccess:
+		call otherStuff
+		test al, al
+		jz disableSteamStuff
+		jmp returnSuccess184
+	}
 }
 
 void PatchMW2_184()
@@ -54,9 +72,7 @@ void PatchMW2_184()
 	PatchMW2_Load();
 	PatchMW2_UILoading();
 	PatchMW2_Script();
-	PatchMW2_GameOverlay();
-	PatchMW2_RunCallbacks();
-	PatchMW2_PatchSteam();
+	PatchMW2_Steam();
 
 	// Force external console
 	memset((void*)0x60182F, 0x90, 23);
@@ -65,11 +81,19 @@ void PatchMW2_184()
 	*(BYTE*)0x65A952 = 0xEB;
 	*(BYTE*)0x65A97D = 0xEB;
 
+	// Disable Matchmaking stuff
+	*(BYTE*)0x4DAA10 = 0xC3;
+
 	// Ignore XUID match
 	*(BYTE*)0x65AA3F = 0xEB;
 
 	// Ignore 'MAX_PACKET_USERCMDS'
 	*(BYTE*)0x4C6FA6 = 0xEB;
+
+	// Fake login
+	*(BYTE*)0x04F1F53 = 0xEB;
+	*(BYTE*)0x57A5C3 = 0xEB;
+	*(BYTE*)0x57A890 = 0xEB;
 
 	// Change 'connect' to 'connect_coop'
 	*(DWORD*)0x4F3B27 = (DWORD)"connect_coop";
@@ -89,9 +113,6 @@ void PatchMW2_184()
 	// Flag cg_fov as saved
 	*(BYTE*)0x47C165 = DVAR_FLAG_SAVED;
 
-	// Flag 'name' as saved
-	*(BYTE*)0x4F3856 = DVAR_FLAG_SAVED;
-
 	// Show intro (or not)
 	*(BYTE*)0x600D6D = 0;
 
@@ -104,6 +125,14 @@ void PatchMW2_184()
 	// Video folders
 	*(DWORD*)0x509782 = 0x7204A0; // raw -> main
 	*(DWORD*)0x509764 = (DWORD)"%s\\data\\video\\%s.bik"; // main -> data
+
+	// Ignore 'steam must be running' error
+	nop(0x601863, 0x30);
+
+	// Patch steam auth
+	nop(0x47BE55, 7);
+	*(BYTE*)0x47BE5C = 0xEB;
+	call(0x47BE70, steamInitPatch184, PATCH_JUMP);
 
 	// Force debug logging
 	nop(0x4B3AE5, 2);
@@ -123,6 +152,6 @@ void PatchMW2_184()
 	static cmd_function_t connectWrapper_cmd;
 	Cmd_AddCommand("connect", connectWrapper, &connectWrapper_cmd, 0);
 
-	// Register 'connect_ip'
-	call(0x48C5E3, dvarHook, PATCH_CALL);
+	// Patch dvar name
+	call(0x4F3866, nameHookFunc184, PATCH_CALL);
 }
