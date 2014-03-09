@@ -22,3 +22,4 @@ extern unsigned int _gameFlags;
 void DetermineGameFlags();
 wchar_t *convertCharArrayToLPCWSTR(const char* charArray);
 void callVoid(DWORD address);
+bool UnprotectModule(const char* moduleName);

@@ -13,6 +13,7 @@
 #include <ShellAPI.h>
 
 using namespace std;
+void Main_UnprotectModule(HMODULE hModule);
 
 // unmanaged as this uses vararg natively
 #pragma unmanaged
@@ -149,4 +150,16 @@ unsigned int oneAtATimeHash(char* inpStr)
 	value = temp2 + temp;
 	if(value < 2) value += 2;
 	return value;
+}
+
+bool UnprotectModule(const char* moduleName)
+{
+	HMODULE module = GetModuleHandle(moduleName);
+
+	if(module)
+	{
+		Main_UnprotectModule(module);
+		return true;
+	}
+	return false;
 }

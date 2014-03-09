@@ -29,6 +29,13 @@ dvar_t* dvarHook(const char* name, const char* default, int flag, const char* de
 	return Dvar_RegisterString(name, default, flag, description);
 }
 
+void patchSteamAPI()
+{
+	// '_assert' either gets loaded from steam_api or msvcrt
+	UnprotectModule("steam_api.dll");
+	UnprotectModule("msvcrt.dll");
+}
+
 void patchSteam()
 {
 	// Ignore 'steam must be running' error
@@ -55,11 +62,12 @@ void PatchMW2_184()
 
 	// Steam patch doesn't really work due to some assertion stuff
 	patchSteam();
+	patchSteamAPI();
 
 	// Force external console
 	memset((void*)0x60182F, 0x90, 23);
 
-	// Ignore protocol mismatch
+	// Ignore protocol mismatch 
 	*(BYTE*)0x65A952 = 0xEB;
 	*(BYTE*)0x65A97D = 0xEB;
 
@@ -87,9 +95,18 @@ void PatchMW2_184()
 	// Flag 'name' as saved
 	*(BYTE*)0x4F3856 = DVAR_FLAG_SAVED;
 
-	// Don't show intro
+	// Show intro (or not)
 	*(BYTE*)0x600D6D = 0;
+
+	// Unflag dvar intro
 	*(BYTE*)0x600D6B = 0;
+
+	// Ignore config problems
+	*(BYTE*)0x496AA3 = 0xEB;
+
+	// Video folders
+	*(DWORD*)0x509782 = 0x7204A0; // raw -> main
+	*(DWORD*)0x509764 = (DWORD)"%s\\data\\video\\%s.bik"; // main -> data
 
 	// Force debug logging
 	nop(0x4B3AE5, 2);

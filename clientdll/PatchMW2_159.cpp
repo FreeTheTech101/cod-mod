@@ -139,8 +139,10 @@ void PatchMW2_159()
 	*(BYTE*)0x6358A5 = 0xEB; // write protected
 	*(BYTE*)0x635974 = 0xEB; // latched
 
-	// Don't show intro
+	// Show intro (or not)
 	*(BYTE*)0x6035BD = 0;
+
+	// Unflag dvar intro
 	*(BYTE*)0x6035BB = 0;
 
 	// Flag cg_fov as saved
@@ -155,9 +157,12 @@ void PatchMW2_159()
 	// Open NAT
 	*(DWORD*)0x7379F0 = 1;
 
-	// Launch into mp
-	//strcpy((char*)0x6C2D50, "iw4m.exe");
-	//strcpy((char*)0x6CB090, "iw4m.exe");
+	// Ignore config problems
+	*(BYTE*)0x4D3FD3 = 0xEB;
+
+	// Video folders
+	*(DWORD*)0x50A0B2 = 0x723390; // raw -> main
+	*(DWORD*)0x50A094 = (DWORD)"%s\\data\\video\\%s.bik"; // main -> data
 
 	// Force debug logging
 	nop(0x456BE5, 2);
