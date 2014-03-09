@@ -3,7 +3,7 @@
 // 
 // Component: IW4SP
 // Sub-component: clientdll
-// Purpose: Steam's GameOverlay
+// Purpose: Steam patches
 //
 // Initial author: momo5502
 // Started: 2014-03-09
