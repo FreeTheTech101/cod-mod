@@ -34,29 +34,24 @@ DWORD SteamUserStuff184 = 0x4D0710;
 DWORD returnSuccess184 = 0x47BE79;
 DWORD otherStuff = 0x4257D0;
 
-void __declspec(naked) disableSteamStuff()
-{
-	__asm
-	{
-		mov al, 1
-		retn
-	}
-}
-
 void __declspec(naked) steamInitPatch184()
 {
 	__asm
 	{
 		call SteamUserStuff184
 		test al, al
-		jz disableSteamStuff
+		jz returnSafe
 		jmp returnSuccess
 
 returnSuccess:
 		call otherStuff
 		test al, al
-		jz disableSteamStuff
+		jz returnSafe
 		jmp returnSuccess184
+
+returnSafe:
+		mov al, 1
+		retn
 	}
 }
 
