@@ -13,6 +13,7 @@
 
 void PatchMW2_159();
 void PatchMW2_184();
+void PatchMW3();
 
 void Sys_Init()
 {
@@ -26,5 +27,11 @@ void Sys_Init()
 	else if(!strcmp((char*)0x6D2784, "184"))
 	{
 		PatchMW2_184();
+	}
+
+	// Test
+	else if(*(DWORD*)0x5672B0 = 0xF324CBEB)
+	{
+		PatchMW3();
 	}
 }
