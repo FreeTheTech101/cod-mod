@@ -96,7 +96,7 @@ dvar_t* nameHookFunc(const char* name, const char* defaultVal, int flags, const 
 	// Doesn't belong here ;)
 	Dvar_RegisterString("connect_ip", va("127.0.0.1:%d", *(DWORD*)0x494E27), DVAR_FLAG_SAVED, "Temporary dvar used to connect to coop.");
 
-	return Dvar_RegisterString(name, defaultVal, DVAR_FLAG_SAVED | DVAR_FLAG_USERINFO, description);
+	return Dvar_RegisterString(name, defaultVal, DVAR_FLAG_SAVED | DVAR_FLAG_SERVER | DVAR_FLAG_USERINFO, description);
 }
 
 void PatchMW2_Coop()
@@ -117,6 +117,12 @@ void PatchMW2_Coop()
 
 	// Skip dvar output
 	*(BYTE*)0x4CD2B7 = 0xEB;
+
+	// Ignore server dvar change for clients
+	*(BYTE*)0x63580B = 0xEB;
+
+	// Ignore 'MAX_PACKET_USERCMDS'
+	*(BYTE*)0x4B1436 = 0xEB;
 
 	// Disable 'replay' output
 	nop(0x65F14A, 5);

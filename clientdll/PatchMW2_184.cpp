@@ -21,6 +21,8 @@ void PatchMW2_LocalizedStrings();
 void PatchMW2_Load();
 void PatchMW2_UILoading();
 void PatchMW2_Script();
+void PatchMW2_GameOverlay();
+void PatchMW2_RunCallbacks();
 
 dvar_t* dvarHook(const char* name, const char* default, int flag, const char* description)
 {
@@ -29,14 +31,7 @@ dvar_t* dvarHook(const char* name, const char* default, int flag, const char* de
 	return Dvar_RegisterString(name, default, flag, description);
 }
 
-void patchSteamAPI()
-{
-	// '_assert' either gets loaded from steam_api or msvcrt
-	UnprotectModule("steam_api.dll");
-	UnprotectModule("msvcrt.dll");
-}
-
-void patchSteam()
+void PatchMW2_PatchSteam()
 {
 	// Ignore 'steam must be running' error
 	nop(0x601863, 0x30);
@@ -59,10 +54,9 @@ void PatchMW2_184()
 	PatchMW2_Load();
 	PatchMW2_UILoading();
 	PatchMW2_Script();
-
-	// Steam patch doesn't really work due to some assertion stuff
-	patchSteam();
-	patchSteamAPI();
+	PatchMW2_GameOverlay();
+	PatchMW2_RunCallbacks();
+	PatchMW2_PatchSteam();
 
 	// Force external console
 	memset((void*)0x60182F, 0x90, 23);
@@ -73,6 +67,9 @@ void PatchMW2_184()
 
 	// Ignore XUID match
 	*(BYTE*)0x65AA3F = 0xEB;
+
+	// Ignore 'MAX_PACKET_USERCMDS'
+	*(BYTE*)0x4C6FA6 = 0xEB;
 
 	// Change 'connect' to 'connect_coop'
 	*(DWORD*)0x4F3B27 = (DWORD)"connect_coop";

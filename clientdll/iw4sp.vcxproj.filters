@@ -61,6 +61,9 @@
     <ClCompile Include="PatchMW2_Script.cpp">
       <Filter>Patches</Filter>
     </ClCompile>
+    <ClCompile Include="PatchMW2_GameOverlay.cpp">
+      <Filter>Patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooking.h">

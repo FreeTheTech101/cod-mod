@@ -116,7 +116,17 @@ __declspec(dllexport) ISteamFriends* __cdecl SteamFriends()
 	//return (ISteamFriends*)g_pSteamFriendsEmu;
 }
 
+__declspec(dllexport) void __cdecl SteamAPI_RunCallbacks()
+{
+	// Prevent debugger shit
+}
+
 void PatchMW2_SteamFriends()
 {
 	*(DWORD*)0x694528 = (DWORD)SteamFriends;
+}
+
+void PatchMW2_RunCallbacks()
+{
+	*(DWORD*)0x691544 = (DWORD)SteamAPI_RunCallbacks;
 }

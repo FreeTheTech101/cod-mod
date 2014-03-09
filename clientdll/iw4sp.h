@@ -60,7 +60,7 @@ typedef enum
 	DVAR_FLAG_UNKNOWN10		= 0x10,			//unknown
 	DVAR_FLAG_UNKNOWN20		= 0x20,			//unknown
 	DVAR_FLAG_UNKNOWN40		= 0x40,			//unknown
-	DVAR_FLAG_UNKNOWN80		= 0x80,			//unknown
+	DVAR_FLAG_SERVER		= 0x80,			//server dvar
 	DVAR_FLAG_USERCREATED	= 0x100,		//a 'set' type command created it
 	DVAR_FLAG_USERINFO		= 0x200,		//userinfo?
 	DVAR_FLAG_SERVERINFO	= 0x400,		//in the getstatus oob
@@ -1300,6 +1300,9 @@ extern DWORD ffLoadHook1Loc;
 extern DWORD menuFileHookLoc;
 extern DWORD scrGetFunctionHookLoc;
 extern DWORD scrDeclareFunctionTableEntryLoc;
+extern DWORD loadGameOverlayHookLoc;
+
+extern DWORD initializeRenderer;
 
 extern source_t **sourceFiles;
 extern keywordHash_t **menuParseKeywordHash;

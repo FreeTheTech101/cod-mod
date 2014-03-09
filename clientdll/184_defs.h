@@ -57,6 +57,9 @@ void define184Stuff()
 	menuFileHookLoc = 0x62B570;	
 	scrGetFunctionHookLoc = 0x42ECAC;
 	scrDeclareFunctionTableEntryLoc = 0x4A6E90;
+	loadGameOverlayHookLoc = 0x601B10;
+
+	initializeRenderer = 0x421100;
 
 	language = (char*)0x19FC2B0;
 

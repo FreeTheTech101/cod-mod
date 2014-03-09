@@ -26,6 +26,7 @@ void PatchMW2_Images();
 void PatchMW2_LocalizedStrings();
 void PatchMW2_Load();
 void PatchMW2_Script();
+void PatchMW2_GameOverlay();
 
 char ingameUsername[32];
 
@@ -62,44 +63,6 @@ hostent* WINAPI custom_gethostbyname(const char* name) {
 	return gethostbyname(hostname);
 }
 
-void loadGameOverlay()
-{
-	// Initialize renderer
-	callVoid(0x48A400);
-
-	// load steam gameoverlay
-	if (GetModuleHandle("gameoverlayrenderer.dll") != NULL)
-	{
-		return;
-	}
-
-	try
-	{
-		std::string m_steamDir;
-		HKEY hRegKey;
-
-		if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, "Software\\Valve\\Steam", 0, KEY_QUERY_VALUE, &hRegKey) == ERROR_SUCCESS)
-		{
-			char pchSteamDir[MAX_PATH];
-			DWORD dwLength = sizeof(pchSteamDir);
-			RegQueryValueExA(hRegKey, "InstallPath", NULL, NULL, (BYTE*)pchSteamDir, &dwLength);
-			RegCloseKey(hRegKey);
-
-			m_steamDir = pchSteamDir;
-		}
-
-		char path[MAX_PATH];
-		sprintf(path, "%s\\gameoverlayrenderer.dll", m_steamDir);
-
-		Com_Printf(0, "Loading %s...\n", path);
-		LoadLibrary(path);
-	}
-	catch (int e)
-	{
-		Com_Printf(0, "Failed to inject Steam's gameoverlay!");
-	}
-}
-
 void PatchMW2_159()
 {
 	version = 159;
@@ -115,6 +78,7 @@ void PatchMW2_159()
 	PatchMW2_Load();
 	PatchMW2_UILoading();
 	PatchMW2_Script();
+	PatchMW2_GameOverlay();
 
 	// prevent stat loading from steam
 	*(BYTE*)0x43FB33 = 0xC3;
@@ -192,7 +156,4 @@ void PatchMW2_159()
 
 	// Yay, hitmarker in sp :D
 	Dvar_RegisterBool("scr_damageFeedback", 0, DVAR_FLAG_SAVED, "Show marker when hitting enemies.");
-
-	// Load steam game overlay
-	call(0x604350, loadGameOverlay, PATCH_CALL);
 }

@@ -78,6 +78,7 @@
     <ClCompile Include="PatchMW2_Branding.cpp" />
     <ClCompile Include="PatchMW2_ClientConsole.cpp" />
     <ClCompile Include="PatchMW2_Coop.cpp" />
+    <ClCompile Include="PatchMW2_GameOverlay.cpp" />
     <ClCompile Include="PatchMW2_Images.cpp" />
     <ClCompile Include="PatchMW2_Load.cpp" />
     <ClCompile Include="PatchMW2_LocalizedStrings.cpp" />
