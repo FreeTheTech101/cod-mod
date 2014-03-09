@@ -38,14 +38,14 @@ hostent* WINAPI custom_gethostbyname(const char* name) {
 
 void steamPatches_159()
 {
-	// Disable UPNP stuff
-	*(WORD*)0x66DE7D = 0xE990;
-
-	// No UPNP Output
-	*(DWORD*)0x4D84D1 = (DWORD)"";
-
-	// Open NAT
-	*(DWORD*)0x7379F0 = 1;
+// 	// Disable UPNP stuff
+// 	*(WORD*)0x66DE7D = 0xE990;
+// 
+// 	// No UPNP Output
+// 	*(DWORD*)0x4D84D1 = (DWORD)"";
+// 
+// 	// Open NAT
+// 	*(DWORD*)0x7379F0 = 1;
 
 	// Replace 'xshowfriendslist'
 	*(DWORD*)0x57D7F8 = (DWORD)connectHook;
@@ -55,14 +55,14 @@ void steamPatches_159()
 
 void steamPatches_184()
 {
-	// Disable UPNP stuff
-	*(WORD*)0x66B5BD = 0xE990;
-
-	// No UPNP Output
-	*(DWORD*)0x4B9E46 = (DWORD)"";
-
-	// Open NAT
-	*(DWORD*)0x7349F0 = 1;
+// 	// Disable UPNP stuff
+// 	*(WORD*)0x66B5BD = 0xE990;
+// 
+// 	// No UPNP Output
+// 	*(DWORD*)0x4B9E46 = (DWORD)"";
+// 
+// 	// Open NAT
+// 	*(DWORD*)0x7349F0 = 1;
 
 	// Replace 'xshowfriendslist'
 	*(DWORD*)0x57AB68 = (DWORD)connectHook;

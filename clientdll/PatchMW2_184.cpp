@@ -124,6 +124,9 @@ void PatchMW2_184()
 	// Ignore 'steam must be running' error
 	nop(0x601863, 0x30);
 
+	// Ignore iw.net resolve errors
+	nop(0x40868F, 5);
+
 	// Patch steam auth
 	nop(0x47BE55, 7);
 	*(BYTE*)0x47BE5C = 0xEB;
