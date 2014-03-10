@@ -18,7 +18,7 @@ static rgb      hsv2rgb(hsv in);
 hsv rgb2hsv(rgb in)
 {
 	hsv         out;
-	double      min, max, delta;
+	float      min, max, delta;
 
 	min = in.r < in.g ? in.r : in.g;
 	min = min  < in.b ? min  : in.b;
@@ -55,7 +55,7 @@ hsv rgb2hsv(rgb in)
 
 rgb hsv2rgb(hsv in)
 {
-	double      hh, p, q, t, ff;
+	float      hh, p, q, t, ff;
 	long        i;
 	rgb         out;
 
