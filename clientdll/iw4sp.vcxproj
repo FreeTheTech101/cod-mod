@@ -78,6 +78,7 @@
     <ClCompile Include="PatchMW2_Branding.cpp" />
     <ClCompile Include="PatchMW2_ClientConsole.cpp" />
     <ClCompile Include="PatchMW2_Coop.cpp" />
+    <ClCompile Include="PatchMW2_ConsoleStart.cpp" />
     <ClCompile Include="PatchMW2_Steam.cpp" />
     <ClCompile Include="PatchMW2_Images.cpp" />
     <ClCompile Include="PatchMW2_Load.cpp" />
@@ -86,7 +87,6 @@
     <ClCompile Include="PatchMW2_NoBorder.cpp" />
     <ClCompile Include="PatchMW2_Script.cpp" />
     <ClCompile Include="PatchMW2_UILoading.cpp" />
-    <ClCompile Include="PatchMW3.cpp" />
     <ClCompile Include="PatchMW2_MusicalTalent.cpp" />
     <ClCompile Include="SteamBase.cpp" />
     <ClCompile Include="SteamFriends005.cpp" />

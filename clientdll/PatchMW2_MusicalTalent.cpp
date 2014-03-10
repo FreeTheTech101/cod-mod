@@ -13,7 +13,9 @@
 
 #include "StdInc.h"
 
-void replaceSound(snd_alias_list_t* aliases, const char* assetName, const char* sound)
+snd_alias_list_t* aliases;
+
+void replaceSound(const char* assetName, const char* sound)
 {
 	if (!_stricmp(aliases->name, assetName))
 	{
@@ -26,12 +28,12 @@ void replaceSound(snd_alias_list_t* aliases, const char* assetName, const char* 
 
 snd_alias_list_t* FindSoundAliasHookFunc(assetType_t type, const char* name)
 {
-	snd_alias_list_t* aliases = (snd_alias_list_t*)DB_FindXAssetHeader(type, name);
+	aliases = (snd_alias_list_t*)DB_FindXAssetHeader(type, name);
 
 	// Random replacements. Some don't fit, but I like them though. Change whatever you want :D
-	replaceSound(aliases, "music_challenge_factory", "hz_estate_betrayal_LR_1.mp3");
-	replaceSound(aliases, "music_mainmenu_mp", "hz_dc_burning_intropeak_LR_1.mp3");
-	replaceSound(aliases, "music_opening", "hz_af_chase_boatride_lr_r1.mp3");
+	replaceSound("music_challenge_factory", "hz_estate_betrayal_LR_1.mp3");
+	replaceSound("music_mainmenu_mp", "hz_dc_burning_intropeak_LR_1.mp3");
+	replaceSound("music_opening", "hz_af_chase_boatride_lr_r1.mp3");
 
 	return aliases;
 }

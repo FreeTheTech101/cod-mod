@@ -23,6 +23,7 @@ void PatchMW2_UILoading();
 void PatchMW2_Script();
 void PatchMW2_Steam();
 void PatchMW2_MusicalTalent();
+void PatchMW2_ConsoleStart();
 
 dvar_t* nameHookFunc184(const char* name, const char* defaultVal, int flags, const char* description)
 {
@@ -70,6 +71,7 @@ void PatchMW2_184()
 	PatchMW2_Script();
 	PatchMW2_Steam();
 	PatchMW2_MusicalTalent();
+	PatchMW2_ConsoleStart();
 
 	// Force external console
 	memset((void*)0x60182F, 0x90, 23);
@@ -95,11 +97,11 @@ void PatchMW2_184()
 	// Change 'connect' to 'connect_coop'
 	*(DWORD*)0x4F3B27 = (DWORD)"connect_coop";
 
-	// console version string
-	*(DWORD*)0x48681B = (DWORD)(CONSOLESTRING);
-
 	// version string
 	*(DWORD*)0x601A2F = (DWORD)(CONSOLESTRING);
+
+	// Remove ''
+	nop(0x600776, 5);
 
 	// Apply m2demo stuff
 	*(DWORD*)0x62ED01 = (DWORD)"data";

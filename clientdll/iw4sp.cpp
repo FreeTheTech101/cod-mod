@@ -79,6 +79,7 @@ DWORD scrGetFunctionHookLoc = 0x4ADF9C;
 DWORD scrDeclareFunctionTableEntryLoc = 0x4F59C0;
 DWORD loadGameOverlayHookLoc = 0x604350;
 DWORD findSoundAliasHookLoc = 0x631A39;
+DWORD printVersionHookLoc = 0x6030C2;
 
 DWORD initializeRenderer = 0x48A400;
 DWORD SteamFriendsLoc = 0x694528;

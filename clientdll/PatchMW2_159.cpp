@@ -25,6 +25,7 @@ void PatchMW2_Load();
 void PatchMW2_Script();
 void PatchMW2_Steam();
 void PatchMW2_MusicalTalent();
+void PatchMW2_ConsoleStart();
 
 char ingameUsername[32];
 
@@ -76,6 +77,7 @@ void PatchMW2_159()
 	PatchMW2_Script();
 	PatchMW2_Steam();
 	PatchMW2_MusicalTalent();
+	PatchMW2_ConsoleStart();
 
 	// prevent stat loading from steam
 	*(BYTE*)0x43FB33 = 0xC3;
@@ -127,10 +129,10 @@ void PatchMW2_159()
 	memset((void*)0x604071, 0x90, 21);
 
 	// console '%s: %s> ' string
-	*(DWORD*)0x579364 = (DWORD)(VERSIONSTRING_SP "> ");
+	*(DWORD*)0x579364 = (DWORD)(VERSIONSTRING "> ");
 
-	// console version string
-	*(DWORD*)0x46F57B = (DWORD)(CONSOLESTRING);
+	// Remove ''
+	nop(0x6030A6, 5);
 
 	// version string
 	*(DWORD*)0x60426F = (DWORD)(CONSOLESTRING);

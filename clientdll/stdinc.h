@@ -32,8 +32,7 @@
 #include "Hooking.h"
 #include "iw4sp.h"
 
-#define VERSION "1.0-1"
-#define VERSIONSTRING "IW4MP: " VERSION
-#define VERSIONSTRING_SP "IW4SP: " VERSION
+#define VERSION "1.0.0.1"
+#define VERSIONSTRING "IW4SP-MOD: " VERSION
 
-#define CONSOLESTRING VERSIONSTRING_SP " (built " __DATE__ " " __TIME__ ")"
+#define CONSOLESTRING VERSIONSTRING " (built " __DATE__ " " __TIME__ ")"
