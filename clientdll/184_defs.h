@@ -58,6 +58,7 @@ void define184Stuff()
 	scrGetFunctionHookLoc = 0x42ECAC;
 	scrDeclareFunctionTableEntryLoc = 0x4A6E90;
 	loadGameOverlayHookLoc = 0x601B10;
+	findSoundAliasHookLoc = 0x62F269;
 
 	initializeRenderer = 0x421100;
 	SteamFriendsLoc = 0x691524;

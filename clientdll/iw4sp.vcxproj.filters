@@ -67,6 +67,9 @@
     <ClCompile Include="PatchMW3.cpp">
       <Filter>MW3 Patches</Filter>
     </ClCompile>
+    <ClCompile Include="PatchMW2_MusicalTalent.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooking.h">

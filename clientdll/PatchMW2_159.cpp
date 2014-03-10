@@ -24,6 +24,7 @@ void PatchMW2_LocalizedStrings();
 void PatchMW2_Load();
 void PatchMW2_Script();
 void PatchMW2_Steam();
+void PatchMW2_MusicalTalent();
 
 char ingameUsername[32];
 
@@ -74,6 +75,7 @@ void PatchMW2_159()
 	PatchMW2_UILoading();
 	PatchMW2_Script();
 	PatchMW2_Steam();
+	PatchMW2_MusicalTalent();
 
 	// prevent stat loading from steam
 	*(BYTE*)0x43FB33 = 0xC3;

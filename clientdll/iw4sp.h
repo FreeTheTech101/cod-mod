@@ -1299,6 +1299,7 @@ extern DWORD menuFileHookLoc;
 extern DWORD scrGetFunctionHookLoc;
 extern DWORD scrDeclareFunctionTableEntryLoc;
 extern DWORD loadGameOverlayHookLoc;
+extern DWORD findSoundAliasHookLoc;
 
 extern DWORD initializeRenderer;
 extern DWORD SteamFriendsLoc;
