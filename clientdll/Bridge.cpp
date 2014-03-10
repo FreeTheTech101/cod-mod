@@ -17,7 +17,7 @@ FARPROC proc = 0;
 void injectBridge()
 {
 	// Wow, that's a nasty way...
-	HINSTANCE d3d9 = LoadLibraryW(L"C:\\Windows\\System32\\d3d9.dll");
+	HINSTANCE d3d9 = LoadLibrary("C:\\Windows\\System32\\d3d9.dll");
 	proc = GetProcAddress(d3d9,"Direct3DCreate9");
 }
 
