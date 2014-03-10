@@ -11,9 +11,10 @@
 
 #include "stdinc.h"
 
+char returnPath[14];
+
 char* addAlterSPZones(char* zone)
 {
-	char returnPath[14];
 	char fastfile[128];
 
 	sprintf(fastfile, "zone\\alterSP\\%s", zone); // Add 'alterSP' zone path

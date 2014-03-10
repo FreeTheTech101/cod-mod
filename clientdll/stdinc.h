@@ -33,6 +33,7 @@
 #include "iw4sp.h"
 
 #define VERSION "2.1"
+#define VERSION_NUM 2,1
 #define VERSIONSTRING "IW4SP-MOD: " VERSION
 
 #define CONSOLESTRING VERSIONSTRING " (built " __DATE__ " " __TIME__ ")"

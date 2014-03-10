@@ -40,9 +40,9 @@ hsv rgb2hsv(rgb in)
 		out.h = ( in.g - in.b ) / delta;        // between yellow & magenta
 	else
 		if( in.g >= max )
-			out.h = 2.0 + ( in.b - in.r ) / delta;  // between cyan & yellow
+			out.h = 2.0f + ( in.b - in.r ) / delta;  // between cyan & yellow
 		else
-			out.h = 4.0 + ( in.r - in.g ) / delta;  // between magenta & cyan
+			out.h = 4.0f + ( in.r - in.g ) / delta;  // between magenta & cyan
 
 	out.h *= 60.0;                              // degrees
 
@@ -70,9 +70,9 @@ rgb hsv2rgb(hsv in)
 	hh /= 60.0;
 	i = (long)hh;
 	ff = hh - i;
-	p = in.v * (1.0 - in.s);
-	q = in.v * (1.0 - (in.s * ff));
-	t = in.v * (1.0 - (in.s * (1.0 - ff)));
+	p = in.v * (1.0f - in.s);
+	q = in.v * (1.0f - (in.s * ff));
+	t = in.v * (1.0f - (in.s * (1.0f - ff)));
 
 	switch(i) {
 	case 0:
