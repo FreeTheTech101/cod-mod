@@ -60,9 +60,7 @@ typedef struct
 
 flagDef_t flags[] =
 {
-	{ L"offline", GAME_FLAG_OFFLINE },
-	{ L"nosteam", GAME_FLAG_NOSTEAM },
-	{ L"console", GAME_FLAG_CONSOLE },
+	{ L"dump", GAME_FLAG_DUMPDATA },
 	{ 0, 0 }
 };
 

@@ -16,6 +16,8 @@ void PatchMW2_184();
 
 void Sys_Init()
 {
+	DetermineGameFlags();
+
 	// Version 159
 	if(!strcmp((char*)0x6A7DB8, "159"))
 	{
