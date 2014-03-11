@@ -3,7 +3,7 @@
 // 
 // Component: IW4SP
 // Sub-component: clientdll
-// Purpose: Print stuf on console start
+// Purpose: Print stuff on console start
 //
 // Initial author: momo5502
 // Started: 2014-03-10
