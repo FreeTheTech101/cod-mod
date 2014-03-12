@@ -11,6 +11,25 @@
 
 #include "stdinc.h"
 
+// Allow civilians to be killed in 'No Russian' if game is censored.
+void uncutGame(XZoneInfo* data, int count)
+{
+	bool uncensored = false;
+	for(int i = 0; i<count; i++)
+	{
+		if(!strcmp(data[0].name, "airport"))
+		{
+			Dvar_SetCommand("friendlyfire_dev_disabled", "1");
+			uncensored = true;
+		}
+	}
+
+	if(!uncensored)
+	{
+		Dvar_SetCommand("friendlyfire_dev_disabled", "0");
+	}
+}
+
 char returnPath[14];
 
 char* addAlterSPZones(char* zone)
@@ -38,6 +57,8 @@ void __cdecl loadTeamFile(XZoneInfo* data, int count, int unknown)
 	//data[count].type1 = 4;
 	//data[count].type2 = 0;
 	//count++;
+
+	uncutGame(data, count);
 
 	DB_LoadXAssets(data, count, unknown);
 }
