@@ -12,6 +12,9 @@
 #include "stdinc.h"
 #include "direct.h"
 
+typedef void* (__cdecl * LoadRawFile_t)(const char* filename, void* buffer, size_t buflen);
+LoadRawFile_t LoadRawFile = (LoadRawFile_t)0x46DA60;
+
 #define RAWFILE_BUFSIZE 2097152
 static char rawFileBuffer[RAWFILE_BUFSIZE];
 
@@ -22,7 +25,7 @@ typedef struct weaponEntry_s
 	int type;
 } weaponEntry_t;
 
-#define NUM_ENTRIES 1900
+#define NUM_ENTRIES 672
 #define NUM_VEHICLE_ENTRIES 143
 
 #define WEAPON_DO_ARRAY(ar, c) \
@@ -44,7 +47,7 @@ const char* SL_ConvertToString(unsigned int sl)
 	__asm
 	{
 		push sl
-		mov eax, 4EC1D0h
+		mov eax, 40E990h
 		call eax
 		add esp, 4h
 		mov sl, eax
@@ -81,8 +84,10 @@ void DumpNoteTrackEntry(FILE* file, int type, char* data, char* data2)
 
 bool thisIsWeaponfile = true;
 
-void DumpEntry(FILE* file, int type, char* data)
+void DumpEntry(FILE* file, weaponEntry_t* entry, char* data)
 {
+	int type = entry->type;
+
 	switch (type)
 	{
 	case 0: // string
@@ -185,6 +190,14 @@ void DumpEntry(FILE* file, int type, char* data)
 		WEAPON_DO_ARRAY(0x739BD8, 3) //stand
 		break;
 	case 22:
+
+		// Hotfix for explosion type bug.
+		if(!strcmp(entry->name, "projExplosionType"))
+		{
+			fprintf(file, "grenade");
+			break;
+		}
+
 		WEAPON_DO_ARRAY(0x739C2C, 7) //knife
 		break;
 	case 23:
@@ -217,6 +230,9 @@ void DumpEntry(FILE* file, int type, char* data)
 	case 33:
 		WEAPON_DO_ARRAY(0x739C58, 3) //1:1, 2:1, 4:1
 		break;
+	//case 34:
+		//WEAPON_DO_ARRAY(0x739C68, 1) //Displayname
+		//break;
 	case 34:
 		WEAPON_DO_ARRAY(0x739C58, 3) // same as 33
 		break;
@@ -380,7 +396,7 @@ void DumpWeaponFile(FILE* file, char* data)
 		}
 		else
 		{
-			DumpEntry(file, entry->type, ptr);
+			DumpEntry(file, entry, ptr);
 		}
 
 		if (i < (((thisIsWeaponfile) ? NUM_ENTRIES : NUM_VEHICLE_ENTRIES) - 1))
@@ -445,6 +461,7 @@ void* WeaponFileHookFunc(const char* filename)
 
 	if (GAME_FLAG(GAME_FLAG_DUMPDATA))
 	{
+		_mkdir("raw");
 		_mkdir("raw\\weapons");
 		_mkdir("raw\\weapons\\sp");
 
@@ -485,6 +502,7 @@ void* VehicleFileHookFunc(const char* filename)
 
 	if (GAME_FLAG(GAME_FLAG_DUMPDATA))
 	{
+		_mkdir("raw");
 		_mkdir("raw\\vehicles");
 		_mkdir("raw\\vehicles\\sp");
 
@@ -506,6 +524,14 @@ void* VehicleFileHookFunc(const char* filename)
 
 void PatchMW2_Experimental()
 {
+	// weapon asset existence check
+	nop(0x43E1D8, 5); // find asset header
+	nop(0x43E1E0, 5); // is asset default
+	nop(0x43E1EA, 2); // jump
+
+	// Ignore missing default weapon
+	*(BYTE*)0x659DBE = 0xEB;
+
 	weaponFileHook.initialize(weaponFileHookLoc, WeaponFileHookStub);
 	weaponFileHook.installHook();
 
