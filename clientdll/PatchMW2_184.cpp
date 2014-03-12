@@ -94,6 +94,9 @@ void PatchMW2_184()
 	*(BYTE*)0x57A5C3 = 0xEB;
 	*(BYTE*)0x57A890 = 0xEB;
 
+	// Disable IWNet stuff
+	*(BYTE*)0x4165B4 = 0xEB;
+
 	// Change 'connect' to 'connect_coop'
 	*(DWORD*)0x4F3B27 = (DWORD)"connect_coop";
 

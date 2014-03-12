@@ -11,11 +11,19 @@
 
 #include "stdinc.h"
 
+dvar_t* specialops;
+
 // Allow civilians to be killed in 'No Russian' if game is censored.
 void uncutGame(XZoneInfo* data, int count)
 {
+	// Only in campaign!
+	if(!specialops)
+	{
+		specialops = Dvar_FindVar("specialops");
+	}
+
 	bool uncensored = false;
-	for(int i = 0; i<count; i++)
+	for(int i = 0; i<count && !specialops->current.boolean; i++)
 	{
 		if(!strcmp(data[0].name, "airport"))
 		{
