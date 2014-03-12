@@ -25,7 +25,8 @@ Example 3: rootMW2FolderDirectory\data\maps\estate.gsc
 =================================================================================
 
 Feature List:
-- Removed Steam Authentication
+- Remove Steam Authentication
+- Remove censorship in German versions.
 - Working Coop Singleplayer Mod 2 to 4 players and Special Ops with 2 to 4 players <--- TO BE DETERMINED
 - Developer Console (Write and Read protections removed, tilde (~) key to use it)
 - Ease of use because it HANDLES BOTH VERSIONS of iw4sp.exe with no issues.
