@@ -107,11 +107,11 @@ dvar_t* Dvar_RegisterBool_MW3(const char* name, int default, int flags)
 	__asm
 	{
 		push flags
-			push default
-			push name
-			call registerBool
-			mov retval, eax
-			add esp, 0Ch
+		push default
+		push name
+		call registerBool
+		mov retval, eax
+		add esp, 0Ch
 	}
 
 	return retval;
@@ -173,6 +173,11 @@ void PatchMW3()
 	// SteamApps
 	nop(0x4D91B7, 2);
 	nop(0x60FCD0, 2);
+
+	// Allow offline coop
+	nop(0x4F6A77, 2);
+	*(BYTE*)0x44B26E = 0xEB; // Steam connect
+	nop(0x4BDF05, 5); // xb cmds
 
 	// Content not found hook
 	call(0x56E9B3, contentErrorHook, PATCH_CALL);
