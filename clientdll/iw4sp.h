@@ -116,6 +116,20 @@ typedef struct dvar_t
 	dvar_maxmin_t max; //68:72 woooo
 } dvar_t;
 
+typedef struct dvar_MW3_t
+{
+	const char*		name;
+	short			flags;
+	char			pad1[2];
+	char			type;
+	char			pad2[3];
+	dvar_value_t	current;
+	dvar_value_t	latched;
+	dvar_value_t	default;
+	dvar_maxmin_t min;
+	dvar_maxmin_t max;
+} dvar_MW3_t;
+
 typedef struct cmd_function_s
 {
 	char pad[24];
@@ -1064,7 +1078,7 @@ typedef void (__cdecl * Cmd_SetAutoComplete_t)(const char* name, const char* pat
 extern Cmd_SetAutoComplete_t Cmd_SetAutoComplete;
 
 
-typedef void (__cdecl * Com_Error_t)(int type, char* message, ...);
+typedef void (__cdecl * Com_Error_t)(int type,const char* message, ...);
 extern Com_Error_t Com_Error;
 
 typedef char* (__cdecl * Com_ParseExt_t)(char*);

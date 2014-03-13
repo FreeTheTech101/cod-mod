@@ -11,6 +11,9 @@
 
 #include "StdInc.h"
 
+void PatchMW2_Minidump();
+ISteamFriends* __cdecl SteamFriends();
+
 void patchExit(DWORD address)
 {
 	*(BYTE*)address = 0xEB;
@@ -43,6 +46,18 @@ returnSafe:
 	}
 }
 
+void patchDevmap()
+{
+	if( !strcmp((char*)0x1679077, "dvarstring(ui_load_so_level)"))
+	{
+		dvar_MW3_t* ui_load_so_level = (dvar_MW3_t*)Dvar_FindVar("ui_load_so_level");
+		strcpy((char*)0x1679077, ui_load_so_level->current.string);
+	}
+
+	// Call actual 'devmap'
+	((void (*)())0x6345B0)();
+}
+
 typedef int (__cdecl * DB_GetXAssetSizeHandler_t)();
 DB_GetXAssetSizeHandler_t* DB_GetXAssetSizeHandlers = (DB_GetXAssetSizeHandler_t*)0x850238;
 
@@ -69,6 +84,8 @@ static void nullfunc(int){}
 
 void enableConsole()
 {
+	*(DWORD*)0x7915CC = (DWORD)SteamFriends;
+
 	// Remove the unnecessary line-breaks
 	*(DWORD*)0x49C7D5 = (DWORD)"";
 	*(DWORD*)0x49C7EB = (DWORD)"";
@@ -100,8 +117,27 @@ dvar_t* Dvar_RegisterBool_MW3(const char* name, int default, int flags)
 	return retval;
 }
 
+void contentErrorHook(int type, const char* format, ...)
+{
+	const char* zone;
+
+	__asm mov zone, esi
+
+	const char* error = va("Can't find map \"%s\".", zone);
+	Com_Error(type, error);
+}
+
 void PatchMW3()
 {
+	version = 382;
+
+	Com_Error = (Com_Error_t)0x451A10;
+	Dvar_FindVar = (Dvar_FindVar_t)0x540520;
+	winMainInitHookLoc = 0x503E79;
+	dvarName = (dvar_t**)0xA5BBDC; // Actually dvar_MW3_t**
+
+	PatchMW2_Minidump();
+
 	// Dvar name re-flag
 	*(BYTE*)0x4BDC99 = 1; // Probably need to write a hook to apply userinfo, but coop isn't working yet, so meh...
 
@@ -127,9 +163,19 @@ void PatchMW3()
 	*(BYTE*)0x443846 = 0x90;
 	call(0x443847, steamInitPatchMW3, PATCH_JUMP);
 
+	// Stats stuff
+	*(BYTE*)0x649E14 = 0xEB;
+	*(BYTE*)0x649D1A = 0xEB;
+
+	// Hook devmap call to fix spec ops bug
+	*(DWORD*)0x4A94DC = (DWORD)patchDevmap;
+
 	// SteamApps
 	nop(0x4D91B7, 2);
 	nop(0x60FCD0, 2);
+
+	// Content not found hook
+	call(0x56E9B3, contentErrorHook, PATCH_CALL);
 	
 	patchExit(0x47DE15);
 	patchExit(0x5279E5);
@@ -168,4 +214,6 @@ void PatchMW3()
 
 	// maximum id for 'global' table?!
 	*(DWORD*)0x525EB9 = 0x1C7;
+
+	*(BYTE*)0x452C15 = DVAR_FLAG_SAVED; // cg_fov
 }
