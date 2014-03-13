@@ -372,11 +372,7 @@ void DumpWeaponFile(FILE* file, char* data)
 		{
 			char* str = (char*)(*(DWORD_PTR*)ptr);
 
-			if (str && (int)str != 0xFFFFFFFF && (int)str > 16 && *str != 0)
-			{
-				// yeah I know, but it's 3:45 AM and I'm too lazy to invert this
-			}
-			else
+			if(!(str && (int)str != 0xFFFFFFFF && (int)str > 16 && *str != 0)) // It could have been that easy :D
 			{
 				continue;
 			}
