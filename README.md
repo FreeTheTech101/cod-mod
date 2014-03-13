@@ -1,4 +1,4 @@
-IW4 - Singleplayer Modification
+COD - Singleplayer Modification
 =================================================================================
 
 Created by Momo5502 (https://www.youtube.com/user/TheMomo5502)  
@@ -10,7 +10,7 @@ Menu Changes by Momo5502 and Dasfonia
 =================================================================================
 
 Brief Summary: This project aims to provide the ability to modify the singleplayer
-portion of the IW4 engine, very similar to the way IW4M (FourDeltaOne) allowed.
+portion of the IW4 and IW5 engine, very similar to the way IW4M (FourDeltaOne) allowed.
 
 =================================================================================
 
@@ -24,7 +24,7 @@ Example 3: rootMW2FolderDirectory\data\maps\estate.gsc
 
 =================================================================================
 
-Feature List:
+Feature List (IW4):
 - Remove Steam Authentication
 - Remove censorship in German versions.
 - Working Coop Singleplayer Mod 2 to 4 players and Special Ops with 2 to 4 players <--- TO BE DETERMINED
