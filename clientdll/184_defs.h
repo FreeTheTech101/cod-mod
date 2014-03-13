@@ -5,6 +5,8 @@ void define184Stuff()
 	version = 184;
 
 
+	BG_LoadWeaponDef_LoadObj = (BG_LoadWeaponDef_LoadObj_t)0x657630;
+
 	Dvar_FindVar = (Dvar_FindVar_t)0x4BCA20;
 	Dvar_SetCommand = (Dvar_SetCommand_t)0x43A000;
 	Dvar_RegisterString = (Dvar_RegisterString_t)0x433DF0;
@@ -60,6 +62,8 @@ void define184Stuff()
 	loadGameOverlayHookLoc = 0x601B10;
 	findSoundAliasHookLoc = 0x62F269;
 	printVersionHookLoc = 0x600792;
+	weaponFileHookLoc = 0x657690;
+	vehicleFileHookLoc = 0x665500;
 
 	initializeRenderer = 0x421100;
 	SteamFriendsLoc = 0x691524;

@@ -1036,6 +1036,10 @@ typedef void (__cdecl * CommandCB_t)(void);
 extern "C"
 {
 // original functions
+typedef void* (__cdecl * BG_LoadWeaponDef_LoadObj_t)(const char* filename);
+extern BG_LoadWeaponDef_LoadObj_t BG_LoadWeaponDef_LoadObj;
+	
+
 typedef void (__cdecl * Cbuf_AddText_t)(int a1, const char* cmd);
 extern Cbuf_AddText_t Cbuf_AddText;
 
@@ -1301,6 +1305,8 @@ extern DWORD scrDeclareFunctionTableEntryLoc;
 extern DWORD loadGameOverlayHookLoc;
 extern DWORD findSoundAliasHookLoc;
 extern DWORD printVersionHookLoc;
+extern DWORD weaponFileHookLoc;
+extern DWORD vehicleFileHookLoc;
 
 extern DWORD initializeRenderer;
 extern DWORD SteamFriendsLoc;

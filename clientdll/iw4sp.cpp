@@ -17,6 +17,8 @@ extern "C"
 R_RegisterFont_t R_RegisterFont = (R_RegisterFont_t)0x508910;
 R_AddCmdDrawText_t R_AddCmdDrawText = (R_AddCmdDrawText_t)0x50E7A0;
 
+BG_LoadWeaponDef_LoadObj_t BG_LoadWeaponDef_LoadObj = (BG_LoadWeaponDef_LoadObj_t)0x659DA0;
+
 Com_Error_t Com_Error = (Com_Error_t)0x43DD90;
 Com_Printf_t Com_Printf = (Com_Printf_t)0x41BD20;
 Com_PrintError_t Com_PrintError = (Com_PrintError_t)0x4C6980;
@@ -80,6 +82,8 @@ DWORD scrDeclareFunctionTableEntryLoc = 0x4F59C0;
 DWORD loadGameOverlayHookLoc = 0x604350;
 DWORD findSoundAliasHookLoc = 0x631A39;
 DWORD printVersionHookLoc = 0x6030C2;
+DWORD weaponFileHookLoc = 0x659E00;
+DWORD vehicleFileHookLoc = 0x667D90;
 
 DWORD initializeRenderer = 0x48A400;
 DWORD SteamFriendsLoc = 0x694528;

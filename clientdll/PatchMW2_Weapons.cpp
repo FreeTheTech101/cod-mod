@@ -3,7 +3,7 @@
 // 
 // Component: clientdll
 // Sub-component: steam_api
-// Purpose: Modern Warfare 2 patches: experimental dev code
+// Purpose: Modern Warfare 2 patches: experimental dev code ( concerning weapon files )
 //
 // Initial author: NTAuthority
 // Started: 2011-05-09
@@ -444,18 +444,17 @@ void DumpWeaponTypes(FILE* file)
 }
 
 StompHook weaponFileHook;
-DWORD weaponFileHookLoc = 0x659E00;
 
 void* WeaponFileHookFunc(const char* filename)
 {
 	if (FS_ReadFile(va("weapons/sp/%s", filename), NULL) > 0)
 	{
-		return ((void* (*)(const char*))0x659DA0)(filename); // BG_LoadWeaponDef_LoadObj
+		return BG_LoadWeaponDef_LoadObj(filename);
 	}
 
 	char* file = (char*)DB_FindXAssetHeader(0x1C, filename);
 
-	if (GAME_FLAG(GAME_FLAG_DUMPDATA))
+	if (GAME_FLAG(GAME_FLAG_DUMPDATA) && version == 159)
 	{
 		_mkdir("raw");
 		_mkdir("raw\\weapons");
@@ -483,7 +482,6 @@ void __declspec(naked) WeaponFileHookStub()
 }
 
 StompHook vehicleFileHook;
-DWORD vehicleFileHookLoc = 0x667D90;
 
 void* G_LoadVehicleDef(const char* filename);
 
@@ -496,7 +494,7 @@ void* VehicleFileHookFunc(const char* filename)
 
 	char* file = (char*)DB_FindXAssetHeader(ASSET_TYPE_VEHICLE, filename);
 
-	if (GAME_FLAG(GAME_FLAG_DUMPDATA))
+	if (GAME_FLAG(GAME_FLAG_DUMPDATA) && version == 159)
 	{
 		_mkdir("raw");
 		_mkdir("raw\\vehicles");
@@ -518,15 +516,28 @@ void* VehicleFileHookFunc(const char* filename)
 	return file;
 }
 
-void PatchMW2_Experimental()
+void PatchMW2_Weapons()
 {
-	// weapon asset existence check
-	nop(0x43E1D8, 5); // find asset header
-	nop(0x43E1E0, 5); // is asset default
-	nop(0x43E1EA, 2); // jump
+	if(version == 159)
+	{
+		// weapon asset existence check
+		nop(0x43E1D8, 5); // find asset header
+		nop(0x43E1E0, 5); // is asset default
+		nop(0x43E1EA, 2); // jump
 
-	// Ignore missing default weapon
-	*(BYTE*)0x659DBE = 0xEB;
+		// Ignore missing default weapon
+		*(BYTE*)0x659DBE = 0xEB;
+	}
+	else if(version == 184)
+	{
+		// weapon asset existence check
+		nop(0x4DB988, 5); // find asset header
+		nop(0x4DB990, 5); // is asset default
+		nop(0x4DB99A, 2); // jump
+
+		// Ignore missing default weapon
+		*(BYTE*)0x65764E = 0xEB;
+	}
 
 	weaponFileHook.initialize(weaponFileHookLoc, WeaponFileHookStub);
 	weaponFileHook.installHook();

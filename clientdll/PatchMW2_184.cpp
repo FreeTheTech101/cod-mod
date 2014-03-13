@@ -24,6 +24,7 @@ void PatchMW2_Script();
 void PatchMW2_Steam();
 void PatchMW2_MusicalTalent();
 void PatchMW2_ConsoleStart();
+void PatchMW2_Weapons();
 
 dvar_t* nameHookFunc184(const char* name, const char* defaultVal, int flags, const char* description)
 {
@@ -72,6 +73,7 @@ void PatchMW2_184()
 	PatchMW2_Steam();
 	PatchMW2_MusicalTalent();
 	PatchMW2_ConsoleStart();
+	PatchMW2_Weapons();
 
 	// Force external console
 	memset((void*)0x60182F, 0x90, 23);
