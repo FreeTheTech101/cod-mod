@@ -13,9 +13,6 @@
     <ClCompile Include="iw4sp.cpp">
       <Filter>Base</Filter>
     </ClCompile>
-    <ClCompile Include="PatchMW2.cpp">
-      <Filter>Patches</Filter>
-    </ClCompile>
     <ClCompile Include="SteamFriends005.cpp">
       <Filter>Steam</Filter>
     </ClCompile>
@@ -26,52 +23,58 @@
       <Filter>Base</Filter>
     </ClCompile>
     <ClCompile Include="PatchMW2_159.cpp">
-      <Filter>Patches</Filter>
+      <Filter>MW2 Patches</Filter>
     </ClCompile>
     <ClCompile Include="PatchMW2_184.cpp">
-      <Filter>Patches</Filter>
+      <Filter>MW2 Patches</Filter>
     </ClCompile>
     <ClCompile Include="PatchMW2_Branding.cpp">
-      <Filter>Patches</Filter>
+      <Filter>MW2 Patches</Filter>
     </ClCompile>
     <ClCompile Include="PatchMW2_ClientConsole.cpp">
-      <Filter>Patches</Filter>
+      <Filter>MW2 Patches</Filter>
     </ClCompile>
     <ClCompile Include="PatchMW2_Coop.cpp">
-      <Filter>Patches</Filter>
+      <Filter>MW2 Patches</Filter>
     </ClCompile>
     <ClCompile Include="PatchMW2_NoBorder.cpp">
-      <Filter>Patches</Filter>
+      <Filter>MW2 Patches</Filter>
     </ClCompile>
     <ClCompile Include="PatchMW2_UILoading.cpp">
-      <Filter>Patches</Filter>
+      <Filter>MW2 Patches</Filter>
     </ClCompile>
     <ClCompile Include="PatchMW2_Minidump.cpp">
-      <Filter>Patches</Filter>
+      <Filter>MW2 Patches</Filter>
     </ClCompile>
     <ClCompile Include="PatchMW2_Images.cpp">
-      <Filter>Patches</Filter>
+      <Filter>MW2 Patches</Filter>
     </ClCompile>
     <ClCompile Include="PatchMW2_LocalizedStrings.cpp">
-      <Filter>Patches</Filter>
+      <Filter>MW2 Patches</Filter>
     </ClCompile>
     <ClCompile Include="PatchMW2_Load.cpp">
-      <Filter>Patches</Filter>
+      <Filter>MW2 Patches</Filter>
     </ClCompile>
     <ClCompile Include="PatchMW2_Script.cpp">
-      <Filter>Patches</Filter>
+      <Filter>MW2 Patches</Filter>
     </ClCompile>
     <ClCompile Include="PatchMW2_Steam.cpp">
-      <Filter>Patches</Filter>
+      <Filter>MW2 Patches</Filter>
     </ClCompile>
     <ClCompile Include="PatchMW2_MusicalTalent.cpp">
-      <Filter>Patches</Filter>
+      <Filter>MW2 Patches</Filter>
     </ClCompile>
     <ClCompile Include="PatchMW2_ConsoleStart.cpp">
-      <Filter>Patches</Filter>
+      <Filter>MW2 Patches</Filter>
     </ClCompile>
     <ClCompile Include="PatchMW2_Weapons.cpp">
-      <Filter>Patches</Filter>
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW3.cpp">
+      <Filter>MW3 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchCOD.cpp">
+      <Filter>Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,8 +188,11 @@
     <Filter Include="SteamHeader">
       <UniqueIdentifier>{23b5ea8f-c768-4ada-9a2d-44fd680be0fc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Patches">
+    <Filter Include="MW2 Patches">
       <UniqueIdentifier>{8a84e197-3ec8-4094-b4ca-a80f42df0793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MW3 Patches">
+      <UniqueIdentifier>{a81347c6-2cbd-4e83-be48-ad9d75d25be7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

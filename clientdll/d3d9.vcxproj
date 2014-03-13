@@ -71,7 +71,7 @@
     <ClCompile Include="Hooking.cpp" />
     <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PatchMW2.cpp" />
+    <ClCompile Include="PatchCOD.cpp" />
     <ClCompile Include="iw4sp.cpp" />
     <ClCompile Include="PatchMW2_159.cpp" />
     <ClCompile Include="PatchMW2_184.cpp" />
@@ -89,6 +89,7 @@
     <ClCompile Include="PatchMW2_Script.cpp" />
     <ClCompile Include="PatchMW2_UILoading.cpp" />
     <ClCompile Include="PatchMW2_MusicalTalent.cpp" />
+    <ClCompile Include="PatchMW3.cpp" />
     <ClCompile Include="SteamBase.cpp" />
     <ClCompile Include="SteamFriends005.cpp" />
     <ClCompile Include="Utils.cpp" />

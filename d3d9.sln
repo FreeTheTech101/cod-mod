@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "iw4sp", "clientdll\iw4sp.vcxproj", "{17F0C96D-58ED-4039-8352-6CDBDC915B71}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "d3d9", "clientdll\d3d9.vcxproj", "{17F0C96D-58ED-4039-8352-6CDBDC915B71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
