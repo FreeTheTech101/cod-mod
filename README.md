@@ -45,7 +45,7 @@ MW2 Feature List:
 MW3 Feature List:
 - Remove Steam Authentication
 - External Console
-- Handles only versions 358 (first) and (1.4.)382 as of now.
+- Handles only versions (1.0.)358 and (1.4.)382 as of now.
 - Noborder (/r_fullscreen 0; vid_xpos 0; vid_ypos 0)
 - Common DVAR edits save (/cg_fov 1 to 160)
 - MiniDump creation for debugging
