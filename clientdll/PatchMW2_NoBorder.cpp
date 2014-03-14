@@ -13,27 +13,46 @@
 
 #include "StdInc.h"
 
-StompHook windowedWindowStyleHook;
+dvar_t* Dvar_RegisterBool_MW3(const char* name, int default, int flags);
 
+StompHook windowedWindowStyleHook;
 dvar_t* r_noborder;
 
 void __declspec(naked) WindowedWindowStyleHookStub()
 {
-	if (r_noborder->current.boolean)
+	if(version >= 358)
 	{
-		__asm mov ebp, WS_VISIBLE | WS_POPUP
+		if(((dvar_MW3_t*)r_noborder)->current.boolean)
+		{
+			__asm mov ebx, WS_VISIBLE | WS_POPUP
+		}
+		else
+		{
+			__asm mov ebx, WS_VISIBLE | WS_SYSMENU | WS_CAPTION
+		}
 	}
 	else
 	{
-		__asm mov ebp, WS_VISIBLE | WS_SYSMENU | WS_CAPTION
+		if(r_noborder->current.boolean)
+		{
+			__asm mov ebp, WS_VISIBLE | WS_POPUP
+		}
+		else
+		{
+			__asm mov ebp, WS_VISIBLE | WS_SYSMENU | WS_CAPTION
+		}
 	}
+
 
 	__asm retn
 }
 
 void PatchMW2_NoBorder()
 {
-	r_noborder = Dvar_RegisterBool("r_noborder", true, DVAR_FLAG_SAVED, "Do not use a border in windowed mode");
+	if(version >= 358)
+		r_noborder = Dvar_RegisterBool_MW3("r_noborder", true, DVAR_FLAG_SAVED);
+	else
+		r_noborder = Dvar_RegisterBool("r_noborder", true, DVAR_FLAG_SAVED, "Do not use a border in windowed mode");
 
 	windowedWindowStyleHook.initialize(windowedWindowStyleHookLoc, WindowedWindowStyleHookStub, 5, false);
 	windowedWindowStyleHook.installHook();

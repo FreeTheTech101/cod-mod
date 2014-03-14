@@ -15,6 +15,7 @@ void* ReallocateAssetPool(int type, unsigned int newSize);
 dvar_t* Dvar_RegisterBool_MW3(const char* name, int default, int flags);
 void PatchMW2_Minidump();
 void PatchMW2_Branding();
+void PatchMW2_NoBorder();
 
 void _patchDevmap()
 {
@@ -111,9 +112,11 @@ void PatchMW3_358()
 
 	drawDevStuffHookLoc = 0x566D5C;
 	winMainInitHookLoc = 0x470E09;
+	windowedWindowStyleHookLoc = 0x65E512;
 
 	PatchMW2_Minidump();
 	PatchMW2_Branding();
+	PatchMW2_NoBorder();
 
 	// nop improper quit pop up
 	memset((void*)0x4E18EA, 0x90, 5);

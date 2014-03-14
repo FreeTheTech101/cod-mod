@@ -13,6 +13,7 @@
 
 void PatchMW2_Minidump();
 void PatchMW2_Branding();
+void PatchMW2_NoBorder();
 ISteamFriends* __cdecl SteamFriends();
 
 void patchExit(DWORD address)
@@ -172,10 +173,12 @@ void PatchMW3_382()
 
 	drawDevStuffHookLoc = 0x567B6C;
 	winMainInitHookLoc = 0x503E79;
+	windowedWindowStyleHookLoc = 0x65F652;
 	dvarName = (dvar_t**)0xA5BBDC; // Actually dvar_MW3_t**
 
 	PatchMW2_Minidump();
 	PatchMW2_Branding();
+	PatchMW2_NoBorder();
 
 	// Dvar name re-flag
 	*(BYTE*)0x4BDC99 = 1; // Probably need to write a hook to apply userinfo, but coop isn't working yet, so meh...
