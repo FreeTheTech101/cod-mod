@@ -30,19 +30,19 @@ void __declspec(naked) steamInitPatchMW3()
 	__asm
 	{
 		call SteamAPIMW3
-			test eax, eax
-			jz returnSafe
-			jmp returnSuccess
+		test eax, eax
+		jz returnSafe
+		jmp returnSuccess
 
 returnSuccess:
 		call otherStuffMW3
-			test al, al
-			jz returnSafe
-			jmp returnSuccessMW3
+		test al, al
+		jz returnSafe
+		jmp returnSuccessMW3
 
 returnSafe:
 		mov al, 1
-			retn
+		retn
 	}
 }
 
@@ -182,7 +182,12 @@ void PatchMW3()
 	// Content not found hook
 	call(0x56E9B3, contentErrorHook, PATCH_CALL);
 	
+	patchExit(0x456395);
 	patchExit(0x47DE15);
+	patchExit(0x4A7925);
+	patchExit(0x4FF895);
+	patchExit(0x502125);
+	patchExit(0x514365);
 	patchExit(0x5279E5);
 
 	// Fix leaderboarddefinition stuff
