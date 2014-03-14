@@ -190,5 +190,5 @@ void PatchMW3_358()
 	// maximum id for 'global' table?!
 	*(DWORD*)0x4E66F9 = 0x1C7;
 
-	*(BYTE*)0x4043FA = DVAR_FLAG_SAVED; // cg_fov
+	*(BYTE*)0x4043C5 = DVAR_FLAG_SAVED; // cg_fov
 }
