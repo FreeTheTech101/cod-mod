@@ -447,7 +447,13 @@ StompHook weaponFileHook;
 
 void* WeaponFileHookFunc(const char* filename)
 {
-	if (FS_ReadFile(va("weapons/%s/loaded/%s", CURRENT_ZONE_NAME_159, filename), NULL) > 0)
+	if(_allowZoneChange)
+	{
+		current_zone = va(CURRENT_ZONE_NAME);
+		_allowZoneChange = false;
+	}
+
+	if (FS_ReadFile(va("weapons/%s/loaded/%s", current_zone, filename), NULL) > 0)
 	{
 		return BG_LoadWeaponDef_LoadObj(filename);
 	}
@@ -457,14 +463,14 @@ void* WeaponFileHookFunc(const char* filename)
 	if (GAME_FLAG(GAME_FLAG_DUMPDATA) && version == 159)
 	{   
 		_mkdir("data\\weapons");
-		_mkdir(va("data\\weapons\\%s", (version == 159 ? CURRENT_ZONE_NAME_159 : CURRENT_ZONE_NAME_184)));
-		_mkdir(va("data\\weapons\\%s\\unloaded", (version == 159 ? CURRENT_ZONE_NAME_159 : CURRENT_ZONE_NAME_184)));
-		_mkdir(va("data\\weapons\\%s\\loaded", (version == 159 ? CURRENT_ZONE_NAME_159 : CURRENT_ZONE_NAME_184)));
+		_mkdir(va("data\\weapons\\%s", current_zone));
+		_mkdir(va("data\\weapons\\%s\\unloaded", current_zone));
+		_mkdir(va("data\\weapons\\%s\\loaded", current_zone));
 
 		//CreateDirectory(va("data/weapons/%s/unloaded", (version == 159 ? CURRENT_ZONE_NAME_159 : CURRENT_ZONE_NAME_184)), NULL);
 
 		char dumpfile[512];
-		strcpy(dumpfile, va("data\\weapons\\%s\\unloaded\\", (version == 159 ? CURRENT_ZONE_NAME_159 : CURRENT_ZONE_NAME_184)));
+		strcpy(dumpfile, va("data\\weapons\\%s\\unloaded\\", current_zone));
 		strcat(dumpfile, filename);
 
 		FILE* dump = fopen(dumpfile, "w");
