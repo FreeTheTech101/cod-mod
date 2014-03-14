@@ -452,7 +452,7 @@ void* WeaponFileHookFunc(const char* filename)
 	if(_allowZoneChange)
 	{
 		current_zone = va(CURRENT_ZONE_NAME);
-		weaponFolder = va("data\\weapons\\%s\\unloaded", current_zone);
+		weaponFolder = va("data\\weapons\\%s", current_zone);
 
 		_mkdir("data\\weapons");
 		_mkdir("data\\weapons\\sp");
