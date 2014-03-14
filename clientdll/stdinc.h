@@ -34,6 +34,6 @@
 
 #define VERSION "2.2"
 #define VERSION_NUM 2,2
-#define VERSIONSTRING "IW4SP-MOD: " VERSION
+#define VERSIONSTRING "COD-MOD: " VERSION
 
 #define CONSOLESTRING VERSIONSTRING " (built " __DATE__ " " __TIME__ ")"

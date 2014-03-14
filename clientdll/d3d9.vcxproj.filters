@@ -70,11 +70,14 @@
     <ClCompile Include="PatchMW2_Weapons.cpp">
       <Filter>MW2 Patches</Filter>
     </ClCompile>
-    <ClCompile Include="PatchMW3.cpp">
-      <Filter>MW3 Patches</Filter>
-    </ClCompile>
     <ClCompile Include="PatchCOD.cpp">
       <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW3_382.cpp">
+      <Filter>MW3 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW3_358.cpp">
+      <Filter>MW3 Patches</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

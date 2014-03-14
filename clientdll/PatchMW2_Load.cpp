@@ -38,7 +38,7 @@ void uncutGame(XZoneInfo* data, int count)
 	}
 }
 
-char returnPath[14];
+char returnPath[MAX_PATH];
 
 char* addAlterSPZones(char* zone)
 {

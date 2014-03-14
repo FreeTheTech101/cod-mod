@@ -13,11 +13,19 @@
 
 void PatchMW2_159();
 void PatchMW2_184();
-void PatchMW3();
+void PatchMW3_358();
+void PatchMW3_382();
+
+void echoError(int version, char* game)
+{
+	MessageBox(0, va("Your version of %s build %d is not supported as of now!", game, version), "Warning", MB_ICONWARNING);
+}
 
 void Sys_Init()
 {
 	DetermineGameFlags();
+
+	// --------------------------- MW2 ---------------------------
 
 	// MW2 - Version 159
 	if(!strcmp((char*)0x6A7DB8, "159"))
@@ -31,10 +39,23 @@ void Sys_Init()
 		PatchMW2_184();
 	}
 
-	// MW3 - Version 382 (aka. 1.4.blah)
-	else if(!strcmp((char*)0x7C65D8, "382"))
+	// --------------------------- MW3 ---------------------------
+
+	// MW3 - Version 358
+	else if(!strcmp((char*)0x7B9B6C, "358"))
 	{
-		PatchMW3();
+		PatchMW3_358();
 	}
 
+	// MW3 - Version 382
+	else if(!strcmp((char*)0x7C65D8, "382"))
+	{
+		PatchMW3_382();
+	}
+
+	// MW3 - Version 461
+	else if(*(int*)0x50BBD6 == 461)
+	{
+		echoError(461, "MW3");
+	}
 }

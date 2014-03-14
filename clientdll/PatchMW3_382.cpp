@@ -1,7 +1,7 @@
 // ==========================================================
 // MW2 coop
 // 
-// Component: IW4SP
+// Component: IW5SP
 // Sub-component: clientdll
 // Purpose: Version detection
 //
@@ -12,6 +12,7 @@
 #include "StdInc.h"
 
 void PatchMW2_Minidump();
+void PatchMW2_Branding();
 ISteamFriends* __cdecl SteamFriends();
 
 void patchExit(DWORD address)
@@ -66,6 +67,14 @@ unsigned int* g_poolSize = (unsigned int*)0x8503C8;
 
 void* ReallocateAssetPool(int type, unsigned int newSize)
 {
+	// Wow need to cleanup all this...
+	if(version == 358)
+	{
+		DB_XAssetPool = (void**)0x84F668;
+		g_poolSize = (unsigned int*)0x84F388;
+		DB_GetXAssetSizeHandlers = (DB_GetXAssetSizeHandler_t*)0x84F1F8;
+	}
+
 	int elSize = DB_GetXAssetSizeHandlers[type]();
 	void* poolEntry = malloc(newSize * elSize);
 	DB_XAssetPool[type] = poolEntry;
@@ -127,16 +136,52 @@ void contentErrorHook(int type, const char* format, ...)
 	Com_Error(type, error);
 }
 
-void PatchMW3()
+void Printf_Con(const char* buffer)
+{
+	((void(*)(const char*))0x406D80)(buffer);
+}
+
+char _returnPath[MAX_PATH];
+
+char* addDLCZones()
+{
+	char* zonePtr;
+
+	__asm mov zonePtr, ecx // Load pointer to fastfile into our variable
+
+	if(GetFileAttributes(va( "zone\\alterSP\\%s", zonePtr)) != INVALID_FILE_ATTRIBUTES)
+	{
+		strcpy(_returnPath, "zone\\alterSP\\");
+	}
+	else if(GetFileAttributes(va("zone\\dlc\\%s", zonePtr)) != INVALID_FILE_ATTRIBUTES)
+	{
+		strcpy(_returnPath, "zone\\dlc\\");
+	}
+	else
+	{
+		sprintf(_returnPath, "zone\\%s\\", (char*)0x1C04090); // Current language
+	}
+
+	return _returnPath;
+}
+
+void PatchMW3_382()
 {
 	version = 382;
 
 	Com_Error = (Com_Error_t)0x451A10;
 	Dvar_FindVar = (Dvar_FindVar_t)0x540520;
+	R_AddCmdDrawText = (R_AddCmdDrawText_t)0x520D50;
+	R_RegisterFont = (R_RegisterFont_t)0x484A10;
+	Com_Milliseconds = (Com_Milliseconds_t)0x4AB890;
+	CL_IsCgameInitialized = (CL_IsCgameInitialized_t)0x4C61D0;
+
+	drawDevStuffHookLoc = 0x567B6C;
 	winMainInitHookLoc = 0x503E79;
 	dvarName = (dvar_t**)0xA5BBDC; // Actually dvar_MW3_t**
 
 	PatchMW2_Minidump();
+	PatchMW2_Branding();
 
 	// Dvar name re-flag
 	*(BYTE*)0x4BDC99 = 1; // Probably need to write a hook to apply userinfo, but coop isn't working yet, so meh...
@@ -170,6 +215,9 @@ void PatchMW3()
 	// Hook devmap call to fix spec ops bug
 	*(DWORD*)0x4A94DC = (DWORD)patchDevmap;
 
+	// Allow loading DLC fastfiles
+	call(0x56E94D, addDLCZones, PATCH_CALL);
+
 	// SteamApps
 	nop(0x4D91B7, 2);
 	nop(0x60FCD0, 2);
@@ -177,7 +225,12 @@ void PatchMW3()
 	// Allow offline coop
 	nop(0x4F6A77, 2);
 	*(BYTE*)0x44B26E = 0xEB; // Steam connect
-	nop(0x4BDF05, 5); // xb cmds
+	*(BYTE*)0x501CD4 = 0xEB;
+
+	// No XBLive error
+	nop(0x5E3E73, 6);
+	*(BYTE*)0x5E3DA3 = 0xEB;
+	*(BYTE*)0x5E3CC4 = 0xEB;
 
 	// Content not found hook
 	call(0x56E9B3, contentErrorHook, PATCH_CALL);
@@ -193,7 +246,11 @@ void PatchMW3()
 	// Fix leaderboarddefinition stuff
 	ReallocateAssetPool(41, 228);
 
+	// Enable chaos
 	Dvar_RegisterBool_MW3("content_allow_chaos_mode", 1, 4);
+
+	// accessToSubscriberContent = 1
+	*(BYTE*)0x5EE831 = 1;
 
 	// Thanks to NTAuthority
 	script_functiondef* newFunctions = (script_functiondef*)malloc(sizeof(script_functiondef) * 192);
