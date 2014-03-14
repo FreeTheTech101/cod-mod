@@ -24,7 +24,7 @@ Example 3: rootMW2FolderDirectory\data\maps\estate.gsc
 
 =================================================================================
 
-Feature List (IW4):
+MW2 Feature List:
 - Remove Steam Authentication
 - Remove censorship in German versions.
 - Working Coop Singleplayer Mod 2 to 4 players and Special Ops with 2 to 4 players <--- TO BE DETERMINED
@@ -39,6 +39,13 @@ Feature List (IW4):
 - Common DVAR edits save (/cg_fov 1 to 160)
 - COD:OL .iwi's load without crashing 
 - MiniDump creation for debugging
-- Local Mexican't slaughter houses jajjajaja
-- Removed Herobrine
+
 =================================================================================
+
+MW3 Feature List:
+- Remove Steam Authentication
+- External Console
+- Handles only versions 358 (first) and (1.4.)382 as of now.
+- Noborder (/r_fullscreen 0; vid_xpos 0; vid_ypos 0)
+- Common DVAR edits save (/cg_fov 1 to 160)
+- MiniDump creation for debugging
