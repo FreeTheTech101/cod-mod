@@ -445,7 +445,6 @@ void DumpWeaponTypes(FILE* file)
 
 StompHook weaponFileHook;
 std::string weaponFolder;
-std::string loadFolder;
 std::string weaponFile;
 
 void* WeaponFileHookFunc(const char* filename)
@@ -454,24 +453,17 @@ void* WeaponFileHookFunc(const char* filename)
 	{
 		current_zone = va(CURRENT_ZONE_NAME);
 		weaponFolder = va("data\\weapons\\%s\\unloaded", current_zone);
-		loadFolder = va("data\\weapons\\%s\\loaded", current_zone);
 
 		_mkdir("data\\weapons");
+		_mkdir("data\\weapons\\sp");
 		_mkdir(va("data\\weapons\\%s", current_zone));
-		_mkdir(loadFolder.c_str());
 
 		_allowZoneChange = false;
-
-		// Dasfonia's print stuff
-		Com_Printf(0, "Loading weapons from: 'weapons/%s/loaded/'\n", current_zone);
-		
-		if (GAME_FLAG(GAME_FLAG_DUMPDATA) && version == 159)
-			Com_Printf(0, "Dumping weapons to: '%s'\n", weaponFolder);
 	}
 
-	if (FS_ReadFile(va("weapons/%s/loaded/%s", current_zone, filename), NULL) > 0)
+	if (FS_ReadFile(va("weapons/sp/%s", filename), NULL) > 0)
 	{
-		return BG_LoadWeaponDef_LoadObj(filename);
+		return  BG_LoadWeaponDef_LoadObj(filename);
 	}
 
 	char* file = (char*)DB_FindXAssetHeader(0x1C, filename);
