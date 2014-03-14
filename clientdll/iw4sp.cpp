@@ -99,7 +99,7 @@ DWORD* cmd_id = (DWORD*)0x144FED0;
 DWORD* cmd_argc = (DWORD*)0x144FF14;
 DWORD** cmd_argv = (DWORD**)0x144FF34;
 
-const char* current_zone = nullptr;
+const char *current_zone = nullptr;
 bool _allowZoneChange = true;
 
 /*

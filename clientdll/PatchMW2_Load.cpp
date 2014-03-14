@@ -79,9 +79,6 @@ void PatchMW2_Load()
 	{
 		// Ignore zone version missmatch
 		*(BYTE*)0x4256D8 = 0xEB;
-
-		// Build os path stuff
-		*(BYTE*)0x6300BF = 0xEB;
 	}
 	else if(version == 184)
 	{

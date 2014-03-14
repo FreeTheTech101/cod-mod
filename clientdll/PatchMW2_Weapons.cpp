@@ -444,13 +444,22 @@ void DumpWeaponTypes(FILE* file)
 }
 
 StompHook weaponFileHook;
+std::string weaponFolder;
+std::string weaponFile;
 
 void* WeaponFileHookFunc(const char* filename)
 {
 	if(_allowZoneChange)
 	{
 		current_zone = va(CURRENT_ZONE_NAME);
+		weaponFolder = va("data\\weapons\\%s\\unloaded", current_zone);
 		_allowZoneChange = false;
+
+		// Dasfonia's print stuff
+		Com_Printf(0, "Loading weapons from: 'weapons/%s/loaded/'\n", current_zone);
+		
+		if (GAME_FLAG(GAME_FLAG_DUMPDATA) && version == 159)
+			Com_Printf(0, "Dumping weapons to: '%s'\n", weaponFolder);
 	}
 
 	if (FS_ReadFile(va("weapons/%s/loaded/%s", current_zone, filename), NULL) > 0)
@@ -464,22 +473,22 @@ void* WeaponFileHookFunc(const char* filename)
 	{   
 		_mkdir("data\\weapons");
 		_mkdir(va("data\\weapons\\%s", current_zone));
-		_mkdir(va("data\\weapons\\%s\\unloaded", current_zone));
+		_mkdir(weaponFolder.c_str());
 		_mkdir(va("data\\weapons\\%s\\loaded", current_zone));
 
-		//CreateDirectory(va("data/weapons/%s/unloaded", (version == 159 ? CURRENT_ZONE_NAME_159 : CURRENT_ZONE_NAME_184)), NULL);
+		weaponFile = va("%s\\%s", weaponFolder.c_str(), filename);
 
-		char dumpfile[512];
-		strcpy(dumpfile, va("data\\weapons\\%s\\unloaded\\", current_zone));
-		strcat(dumpfile, filename);
+		FILE* dump = fopen(weaponFile.c_str(), "w");
 
-		FILE* dump = fopen(dumpfile, "w");
-		fprintf(dump, "WEAPONFILE\\");
+		if(dump)
+		{
+			fprintf(dump, "WEAPONFILE\\");
 
-		thisIsWeaponfile = true;
-		DumpWeaponFile(dump, file);
+			thisIsWeaponfile = true;
+			DumpWeaponFile(dump, file);
 
-		fclose(dump);
+			fclose(dump);
+		}
 	}
 	return file;
 }
@@ -513,12 +522,16 @@ void* VehicleFileHookFunc(const char* filename)
 		strcat(dumpfile, filename);
 
 		FILE* dump = fopen(dumpfile, "w");
-		fprintf(dump, "VEHICLEFILE\\");
 
-		thisIsWeaponfile = false;
-		DumpWeaponFile(dump, file);
+		if(dump)
+		{
+			fprintf(dump, "VEHICLEFILE\\");
 
-		fclose(dump);
+			thisIsWeaponfile = false;
+			DumpWeaponFile(dump, file);
+
+			fclose(dump);
+		}
 	}
 
 	return file;
