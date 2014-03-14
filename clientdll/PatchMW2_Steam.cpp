@@ -89,11 +89,8 @@ void loadGameOverlay()
 			m_steamDir = pchSteamDir;
 		}
 
-		char path[MAX_PATH];
-		sprintf(path, "%s\\gameoverlayrenderer.dll", m_steamDir);
-
-		Com_Printf(0, "Loading %s...\n", path);
-		LoadLibrary(path);
+		Com_Printf(0, "Loading %s\\gameoverlayrenderer.dll...\n", m_steamDir.c_str());
+		LoadLibrary(va("%s\\gameoverlayrenderer.dll", m_steamDir.c_str()));
 	}
 	catch (int e)
 	{

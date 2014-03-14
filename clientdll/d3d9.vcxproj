@@ -68,6 +68,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="PatchMW2_EntsFiles.cpp" />
     <ClCompile Include="Hooking.cpp" />
     <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="main.cpp" />
@@ -75,6 +76,7 @@
     <ClCompile Include="iw4sp.cpp" />
     <ClCompile Include="PatchMW2_159.cpp" />
     <ClCompile Include="PatchMW2_184.cpp" />
+    <ClCompile Include="PatchMW2_AssetRestrict.cpp" />
     <ClCompile Include="PatchMW2_Branding.cpp" />
     <ClCompile Include="PatchMW2_ClientConsole.cpp" />
     <ClCompile Include="PatchMW2_Coop.cpp" />

@@ -447,7 +447,7 @@ StompHook weaponFileHook;
 
 void* WeaponFileHookFunc(const char* filename)
 {
-	if (FS_ReadFile(va("weapons/sp/%s", filename), NULL) > 0)
+	if (FS_ReadFile(va("weapons/%s/loaded/%s", CURRENT_ZONE_NAME_159, filename), NULL) > 0)
 	{
 		return BG_LoadWeaponDef_LoadObj(filename);
 	}
@@ -455,13 +455,16 @@ void* WeaponFileHookFunc(const char* filename)
 	char* file = (char*)DB_FindXAssetHeader(0x1C, filename);
 
 	if (GAME_FLAG(GAME_FLAG_DUMPDATA) && version == 159)
-	{
-		_mkdir("raw");
-		_mkdir("raw\\weapons");
-		_mkdir("raw\\weapons\\sp");
+	{   
+		_mkdir("data\\weapons");
+		_mkdir(va("data\\weapons\\%s", (version == 159 ? CURRENT_ZONE_NAME_159 : CURRENT_ZONE_NAME_184)));
+		_mkdir(va("data\\weapons\\%s\\unloaded", (version == 159 ? CURRENT_ZONE_NAME_159 : CURRENT_ZONE_NAME_184)));
+		_mkdir(va("data\\weapons\\%s\\loaded", (version == 159 ? CURRENT_ZONE_NAME_159 : CURRENT_ZONE_NAME_184)));
+
+		//CreateDirectory(va("data/weapons/%s/unloaded", (version == 159 ? CURRENT_ZONE_NAME_159 : CURRENT_ZONE_NAME_184)), NULL);
 
 		char dumpfile[512];
-		strcpy(dumpfile, "raw\\weapons\\sp\\");
+		strcpy(dumpfile, va("data\\weapons\\%s\\unloaded\\", (version == 159 ? CURRENT_ZONE_NAME_159 : CURRENT_ZONE_NAME_184)));
 		strcat(dumpfile, filename);
 
 		FILE* dump = fopen(dumpfile, "w");
@@ -472,7 +475,6 @@ void* WeaponFileHookFunc(const char* filename)
 
 		fclose(dump);
 	}
-	
 	return file;
 }
 
@@ -518,7 +520,7 @@ void* VehicleFileHookFunc(const char* filename)
 
 void PatchMW2_Weapons()
 {
-	if(version == 159)
+	if(version == 159 && !GAME_FLAG(GAME_FLAG_DUMPDATA))
 	{
 		// weapon asset existence check
 		nop(0x43E1D8, 5); // find asset header
