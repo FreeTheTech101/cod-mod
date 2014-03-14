@@ -18,7 +18,7 @@ void PatchMW3_382();
 
 void echoError(int version, char* game)
 {
-	MessageBox(0, va("Your version of %s build %d is not supported as of now!", game, version), "Warning", MB_ICONWARNING);
+	MessageBox(0, va("The version of %s you're using (build %d) is not supported as of now!", game, version), "Warning", MB_ICONWARNING);
 }
 
 void Sys_Init()
@@ -51,6 +51,12 @@ void Sys_Init()
 	else if(!strcmp((char*)0x7C65D8, "382"))
 	{
 		PatchMW3_382();
+	}
+
+	// MW3 - Version 446
+	else if(*(int*)0x43A486 == 446)
+	{
+		echoError(446, "MW3");
 	}
 
 	// MW3 - Version 461
