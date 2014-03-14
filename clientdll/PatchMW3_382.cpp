@@ -82,15 +82,6 @@ void* ReallocateAssetPool(int type, unsigned int newSize)
 	return poolEntry;
 }
 
-struct script_functiondef
-{
-	int id;
-	void (*func)(int);
-	int unknown;
-};
-
-static void nullfunc(int){}
-
 void enableConsole()
 {
 	*(DWORD*)0x7915CC = (DWORD)SteamFriends;
@@ -112,6 +103,9 @@ dvar_t* Dvar_RegisterBool_MW3(const char* name, int default, int flags)
 
 	dvar_t* retval = NULL;
 	DWORD registerBool = 0x433060;
+
+	if(version == 358)
+		registerBool = 0x50F740;
 
 	__asm
 	{

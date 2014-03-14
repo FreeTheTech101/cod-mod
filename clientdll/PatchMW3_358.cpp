@@ -12,6 +12,9 @@
 #include "StdInc.h"
 
 void* ReallocateAssetPool(int type, unsigned int newSize);
+dvar_t* Dvar_RegisterBool_MW3(const char* name, int default, int flags);
+void PatchMW2_Minidump();
+void PatchMW2_Branding();
 
 void _patchDevmap()
 {
@@ -77,12 +80,40 @@ returnSafe:
 	}
 }
 
+void fixStats()
+{
+	DWORD jump = 0x648CB1;
+}
+
+void _enableConsole()
+{
+	// Enable external console
+	((void(*)())0x46D460)();
+	((void(*)())0x5050A0)();
+
+	// Continue startup
+	((void(*)())0x5ED550)();
+}
+
 void PatchMW3_358()
 {
 	version = 358;
 
 	Dvar_FindVar = (Dvar_FindVar_t)0x4755D0;
 	Com_Error = (Com_Error_t)0x472BC0;
+	Cmd_AddCommand = (Cmd_AddCommand_t)0x475C40;
+	Cmd_ExecuteSingleCommand = (Cmd_ExecuteSingleCommand_t)0x4DA7D0;
+	R_AddCmdDrawText = (R_AddCmdDrawText_t)0x502730;
+	R_RegisterFont = (R_RegisterFont_t)0x466BE0;
+	Com_Milliseconds = (Com_Milliseconds_t)0x4DA1B0;
+	DB_FindXAssetHeader = (DB_FindXAssetHeader_t)0x4565B0;
+	CL_IsCgameInitialized = (CL_IsCgameInitialized_t)0x506120;
+
+	drawDevStuffHookLoc = 0x566D5C;
+	winMainInitHookLoc = 0x470E09;
+
+	PatchMW2_Minidump();
+	PatchMW2_Branding();
 
 	// nop improper quit pop up
 	memset((void*)0x4E18EA, 0x90, 5);
@@ -94,10 +125,11 @@ void PatchMW3_358()
 	ReallocateAssetPool(41, 228);
 
 	// m2demo ;)
-	*(DWORD*)0x60E286 = (DWORD)"data";
+	*(DWORD*)0x60E281 = (DWORD)"data";
 
 	*(DWORD*)0x41890C = (DWORD)_patchDevmap; // Hook devmap call to fix spec ops bug
 	call(0x56DCED, _addDLCZones, PATCH_CALL);
+	call(0x5EE5A4, _enableConsole, PATCH_CALL);
 
 	// Ignore 'steam must be running' error
 	*(BYTE*)0x5EE5F1 = 0xEB;
@@ -110,4 +142,50 @@ void PatchMW3_358()
 
 	// SteamApps
 	*(DWORD*)0x48E050 = 0x90C301B0; // mov al, 1 - retn - nop
+
+	// Fix stats
+	nop(0x648C11, 25);
+	*(BYTE*)0x648C53 = 0xEB;
+
+	// Fix more stats
+	nop(0x648AEF, 122);
+	*(BYTE*)0x648B69 = 0xEB;
+
+	// Enable chaos
+	Dvar_RegisterBool_MW3("content_allow_chaos_mode", 1, 4);
+
+	// accessToSubscriberContent = 1
+	Dvar_RegisterBool_MW3("accessToSubscriberContent", 1, 0);
+
+	// Thanks to NTAuthority
+	script_functiondef* newFunctions = (script_functiondef*)malloc(sizeof(script_functiondef) * 192);
+	memcpy(newFunctions, (void*)0x850208, sizeof(script_functiondef) * 189);
+
+	newFunctions[189].id = 0x1C5;
+	newFunctions[189].func = nullfunc;
+	newFunctions[189].unknown = 0;
+
+	newFunctions[190].id = 0x1C6;
+	newFunctions[190].func = nullfunc;
+	newFunctions[190].unknown = 0;
+
+	// Lol. Originl one only has 191 entries, but aparently that 192nd one is needed.
+	newFunctions[191].id = 0x1C7;
+	newFunctions[191].func = nullfunc;
+	newFunctions[191].unknown = 0;
+
+	// function table start
+	char* newFunctionsPtr = (char*)newFunctions;
+
+	*(char**)0x4E13B5 = newFunctionsPtr;
+	*(char**)0x4E13BB = newFunctionsPtr + 8;
+	*(char**)0x4E13C1 = newFunctionsPtr + 4;
+
+	// size of this function table
+	*(DWORD*)0x4E13D5 = sizeof(script_functiondef) * 192;
+
+	// maximum id for 'global' table?!
+	*(DWORD*)0x4E66F9 = 0x1C7;
+
+	*(BYTE*)0x4043FA = DVAR_FLAG_SAVED; // cg_fov
 }

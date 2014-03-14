@@ -49,7 +49,7 @@ void __declspec(naked) DrawDevStuffHookStub()
 
 void PatchMW2_Branding()
 {
-	if(version == 382)
+	if(version >= 358)
 		cg_drawVersion = Dvar_RegisterBool_MW3("cg_drawVersion", 1, DVAR_FLAG_SAVED);
 	else
 		cg_drawVersion = Dvar_RegisterBool("cg_drawVersion", 1, DVAR_FLAG_SAVED, "Draw brandstring version.");

@@ -1044,6 +1044,15 @@ typedef struct
 	int developerOnly;
 } scr_funcdef_t;
 
+struct script_functiondef
+{
+	int id;
+	void (*func)(int);
+	int unknown;
+};
+
+static void nullfunc(int){}
+
 // types
 typedef void (__cdecl * CommandCB_t)(void);
 
