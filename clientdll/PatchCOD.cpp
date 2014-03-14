@@ -53,10 +53,34 @@ void Sys_Init()
 		PatchMW3_382();
 	}
 
+	// MW3 - Version 433
+	else if(*(int*)0x4B82B6 == 433)
+	{
+		echoError(433, "MW3");
+	}
+
+	// MW3 - Version 441
+	else if(*(int*)0x514326 == 441)
+	{
+		echoError(441, "MW3");
+	}
+
 	// MW3 - Version 446
 	else if(*(int*)0x43A486 == 446)
 	{
 		echoError(446, "MW3");
+	}
+
+	// MW3 - Version 448
+	else if(*(int*)0x4FC726 == 448)
+	{
+		echoError(448, "MW3");
+	}
+
+	// MW3 - Version 453
+	else if(*(int*)0x4E0516 == 453)
+	{
+		echoError(453, "MW3");
 	}
 
 	// MW3 - Version 461
