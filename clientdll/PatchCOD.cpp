@@ -58,8 +58,8 @@ void Sys_Init()
 	// MW3 - Version 433
 	else if(*(int*)0x4B82B6 == 433)
 	{
-		echoError(433, "MW3");
-		//PatchMW3_433();
+		//echoError(433, "MW3");
+		PatchMW3_433();
 	}
 
 	// MW3 - Version 441
