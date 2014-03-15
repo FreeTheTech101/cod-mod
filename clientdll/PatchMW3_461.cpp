@@ -78,6 +78,12 @@ void PatchMW3_461()
 	nop(0x62BE5A, 2);
 	nop(0x520CD8, 2);
 
+	// Fastfile stuff
+	//nop(0x586A47, 5);
+
+	// Fix Fastfile loading
+	*(DWORD*)0x506B77 = (DWORD)"%s\\zone\\%s\\%s";
+
 	//*(DWORD*)0x403750 = 0x90C300B0; // mov al, 1 ; retn ; nop
 
 	PatchMW2_Minidump();
