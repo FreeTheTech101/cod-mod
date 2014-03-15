@@ -121,6 +121,11 @@ __declspec(dllexport) void __cdecl SteamAPI_RunCallbacks()
 	// Prevent debugger shit
 }
 
+__declspec(dllexport) char __cdecl SteamAPI_RestartAppIfNecessary()
+{
+	return 0;
+}
+
 void PatchMW2_SteamFriends()
 {
 	*(DWORD*)SteamFriendsLoc = (DWORD)SteamFriends;

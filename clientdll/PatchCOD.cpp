@@ -16,6 +16,7 @@ void PatchMW2_184();
 void PatchMW3_358();
 void PatchMW3_382();
 void PatchMW3_461();
+void PatchMW3_433();
 
 void echoError(int version, char* game)
 {
@@ -58,6 +59,7 @@ void Sys_Init()
 	else if(*(int*)0x4B82B6 == 433)
 	{
 		echoError(433, "MW3");
+		//PatchMW3_433();
 	}
 
 	// MW3 - Version 441
@@ -87,7 +89,7 @@ void Sys_Init()
 	// MW3 - Version 461
 	else if(*(int*)0x50BBD6 == 461)
 	{
-		//echoError(461, "MW3");
-		PatchMW3_461();
+		echoError(461, "MW3");
+		//PatchMW3_461();
 	}
 }

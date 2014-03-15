@@ -10,12 +10,17 @@
 // ==========================================================
 
 #include "StdInc.h"
+
 void PatchMW2_Minidump();
 LONG WINAPI CustomUnhandledExceptionFilter(LPEXCEPTION_POINTERS ExceptionInfo);
 
 void __stdcall _nullfunc(UINT penis)
 {
-	MessageBox(0, "Test", "", 0);
+	MessageBox(0, "ExitProces() called", "", 0);
+
+	//__asm int 3
+
+	ExitProcess(penis);
 }
 
 void patchExitLea(DWORD address)
@@ -83,6 +88,13 @@ void PatchMW3_461()
 
 	// Fix Fastfile loading
 	*(DWORD*)0x506B77 = (DWORD)"%s\\zone\\%s\\%s";
+
+	// Break some loop
+	//nop(0x500707, 2);
+	*(BYTE*)0x5006D1 = 0xEB;
+
+	// repz movsd fix
+	//*(BYTE*)0x7372E8 = 0xEB;
 
 	//*(DWORD*)0x403750 = 0x90C300B0; // mov al, 1 ; retn ; nop
 

@@ -91,6 +91,9 @@
     <ClCompile Include="PatchMW3_461.cpp">
       <Filter>MW3 Patches</Filter>
     </ClCompile>
+    <ClCompile Include="PatchMW3_433.cpp">
+      <Filter>MW3 Patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooking.h">
