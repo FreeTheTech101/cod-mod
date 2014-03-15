@@ -20,6 +20,7 @@
 // C/C++ headers
 #include <map>
 #include <vector>
+#include <winsock.h>
 
 // OSW headers
 #define NO_STEAM // to reduce header amount needed

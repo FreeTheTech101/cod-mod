@@ -14,7 +14,9 @@
 void PatchMW2_Minidump();
 void PatchMW2_Branding();
 void PatchMW2_NoBorder();
+void PatchMW3_UILoading();
 ISteamFriends* __cdecl SteamFriends();
+hostent* WINAPI custom_gethostbyname(const char* name);
 
 void patchExit(DWORD address)
 {
@@ -170,6 +172,7 @@ void PatchMW3_382()
 	R_RegisterFont = (R_RegisterFont_t)0x484A10;
 	Com_Milliseconds = (Com_Milliseconds_t)0x4AB890;
 	CL_IsCgameInitialized = (CL_IsCgameInitialized_t)0x4C61D0;
+	DB_FindXAssetHeader_MW3 = (DB_FindXAssetHeader_MW3_t)0x52CED0;
 
 	drawDevStuffHookLoc = 0x567B6C;
 	winMainInitHookLoc = 0x503E79;
@@ -179,6 +182,9 @@ void PatchMW3_382()
 	PatchMW2_Minidump();
 	PatchMW2_Branding();
 	PatchMW2_NoBorder();
+	PatchMW3_UILoading();
+
+	*(DWORD*)0x791420 = (DWORD)custom_gethostbyname;
 
 	// Dvar name re-flag
 	*(BYTE*)0x4BDC99 = 1; // Probably need to write a hook to apply userinfo, but coop isn't working yet, so meh...
@@ -223,6 +229,8 @@ void PatchMW3_382()
 	nop(0x4F6A77, 2);
 	*(BYTE*)0x44B26E = 0xEB; // Steam connect
 	*(BYTE*)0x501CD4 = 0xEB;
+	//nop(0x567665, 5);
+	*(BYTE*)0x567621 = 0xEB; // xrequirelivesignin stuff
 
 	// No XBLive error
 	nop(0x5E3E73, 6);

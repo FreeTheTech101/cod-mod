@@ -36,6 +36,7 @@ Cmd_ExecuteSingleCommand_t Cmd_ExecuteSingleCommand = (Cmd_ExecuteSingleCommand_
 Cmd_SetAutoComplete_t Cmd_SetAutoComplete = (Cmd_SetAutoComplete_t)0x48A880;
 
 DB_FindXAssetHeader_t DB_FindXAssetHeader = (DB_FindXAssetHeader_t)0x40B200;
+DB_FindXAssetHeader_MW3_t DB_FindXAssetHeader_MW3 = (DB_FindXAssetHeader_MW3_t)0;
 DB_LoadXAssets_t DB_LoadXAssets = (DB_LoadXAssets_t)0x4CFC90;
 
 Steam_JoinLobby_t Steam_JoinLobby = (Steam_JoinLobby_t)0x43A4F0;

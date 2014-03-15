@@ -15,10 +15,11 @@ void PatchMW2_159();
 void PatchMW2_184();
 void PatchMW3_358();
 void PatchMW3_382();
+void PatchMW3_461();
 
 void echoError(int version, char* game)
 {
-	MessageBox(0, va("The version of %s you're using (build %d) is not supported as of now!", game, version), "Warning", MB_ICONWARNING);
+	MessageBox(0, va("%s build %d is currently not supported!", game, version), "COD-MOD", MB_ICONWARNING);
 }
 
 void Sys_Init()
@@ -86,6 +87,7 @@ void Sys_Init()
 	// MW3 - Version 461
 	else if(*(int*)0x50BBD6 == 461)
 	{
-		echoError(461, "MW3");
+		//echoError(461, "MW3");
+		PatchMW3_461();
 	}
 }

@@ -10,7 +10,6 @@
 // ==========================================================
 
 #include "stdinc.h"
-#include <winsock.h>
 
 void PatchMW2_SteamFriends();
 void PatchMW2_RunCallbacks();
@@ -25,10 +24,13 @@ hostent* WINAPI custom_gethostbyname(const char* name) {
 	unsigned int web1 = oneAtATimeHash("web1.pc.iw4.iwnet.infinityward.com");
 	unsigned int blob1 = oneAtATimeHash("blob1.pc.iw4.iwnet.infinityward.com");
 
+	unsigned int _ip1 = oneAtATimeHash("mw3-pc-auth.prod.demonware.net");
+	unsigned int _log1 = oneAtATimeHash("mw3-pc-lobby.prod.demonware.net");
+
 	unsigned int current = oneAtATimeHash((char*)name);
 	char* hostname = (char*)name;
 
-	if (current == log1 || current == match1 || current == blob1 || current == ip1 || current == web1)
+	if (current == log1 || current == match1 || current == blob1 || current == ip1 || current == web1 || current == _ip1 || current == _log1)
 	{
 		hostname = "127.0.0.1";
 	}
