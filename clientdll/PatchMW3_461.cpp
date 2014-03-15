@@ -30,14 +30,17 @@ LPTOP_LEVEL_EXCEPTION_FILTER __stdcall CustomSetUnhandledExceptionFilter(LPTOP_L
 
 void PatchMW3_461()
 {
+	version = 461;
+
 	winMainInitHookLoc = 0x534398;
 	Com_Error = (Com_Error_t)0x425540;
 
 	// Replace ExitProcess()
-	*(DWORD*)0x7E2264 = (DWORD)_nullfunc;
+	//*(DWORD*)0x7E2264 = (DWORD)_nullfunc;
 
 	// Patch SteamAuth
 	*(DWORD*)0x4342E0 = 0x90C300B0; // mov al, 1 ; retn ; nop
+	*(BYTE*)0x608871 = 0xEB;
 
 	// Allow correct startup ( Prevent process exit )
 	nop(0x53439D, 9);
@@ -49,16 +52,33 @@ void PatchMW3_461()
 
 	patchExitLea(0x4C7997);
 	patchExitLea(0x405C67);
+	patchExitLea(0x42FF97);
 	//patchExitLea(0x4AEE77);
+
+	nop(0x40CB9F, 5);
 
 	// Prevent Steam popup
 	nop(0x5343AB, 6);
 	*(BYTE*)0x5343B6 = 0xEB;
 
+	// Prevent exit bug call
+	nop(0x4AEEC7, 7);
+
 	*(DWORD*)0x7E2104 = (DWORD)CustomSetUnhandledExceptionFilter;
 
 	// _setjmp3 fail
 	nop(0x433565, 0x14);
+	//nop(0x4C1C83, 5);
+	*(BYTE*)0x4C1C80 = 0xC3;
+
+	// I don't know what I'm doing here :(
+	nop(0x47715A, 2);
+	nop(0x434577, 2);
+	nop(0x62C017, 2);
+	nop(0x62BE5A, 2);
+	nop(0x520CD8, 2);
+
+	//*(DWORD*)0x403750 = 0x90C300B0; // mov al, 1 ; retn ; nop
 
 	PatchMW2_Minidump();
 }
