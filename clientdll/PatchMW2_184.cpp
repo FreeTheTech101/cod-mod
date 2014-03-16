@@ -25,6 +25,7 @@ void PatchMW2_Steam();
 void PatchMW2_MusicalTalent();
 void PatchMW2_ConsoleStart();
 void PatchMW2_Weapons();
+void PatchMW2_AssetRestrict();
 
 dvar_t* nameHookFunc184(const char* name, const char* defaultVal, int flags, const char* description)
 {
@@ -74,6 +75,7 @@ void PatchMW2_184()
 	PatchMW2_MusicalTalent();
 	PatchMW2_ConsoleStart();
 	PatchMW2_Weapons();
+	PatchMW2_AssetRestrict();
 
 	// Force external console
 	memset((void*)0x60182F, 0x90, 23);

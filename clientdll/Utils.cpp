@@ -60,7 +60,7 @@ typedef struct
 
 flagDef_t flags[] =
 {
-	{ L"extract", GAME_FLAG_DUMPDATA },
+	{ L"dump", GAME_FLAG_DUMPDATA },
 	{ 0, 0 }
 };
 

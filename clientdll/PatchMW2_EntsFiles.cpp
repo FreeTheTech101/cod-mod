@@ -10,7 +10,6 @@
 // ==========================================================
 
 #include "StdInc.h"
-#include <vector>
 
 // entity dumping, needs to be split?
 struct MapEnts
@@ -23,16 +22,21 @@ void DumpMapEntities(MapEnts* entities)
 {
 	char filename[255];
 
-	CreateDirectory("raw/maps", NULL);
-	CreateDirectory(va("raw/maps/%s", CURRENT_ZONE_NAME_159), NULL);
+	CreateDirectory("data/maps", NULL);
 
-	_snprintf(filename, sizeof(filename), "raw/%s.ents", entities->name);
+	_snprintf(filename, sizeof(filename), "data/%s.ents", entities->name);
 
+	errno = 0;
 	FILE* file = fopen(filename, "w");
 	if (file)
 	{
+		Com_Printf(0, "Dumping '%s'\n", filename);
 		fwrite(entities->entitystring, 1, strlen(entities->entitystring), file);
 		fclose(file);
+	}
+	else
+	{
+		Com_Printf(0, "Dumping '%s' failed: %s\n", filename, strerror(errno));
 	}
 }
 
@@ -61,16 +65,11 @@ void AssetRestrict_PreLoadFromMaps(assetType_t type, void* entry, const char* zo
 {
 	if (type == ASSET_TYPE_MAP_ENTS)
 	{
-		if (true || GAME_FLAG(GAME_FLAG_DUMPDATA))
+		if (GAME_FLAG(GAME_FLAG_DUMPDATA))
 		{
 			DumpMapEntities((MapEnts*)entry);
 		}
 
 		LoadMapEntities((MapEnts*)entry);
 	}
-}
-
-void PatchMW2_EntsFiles()
-{
-
 }

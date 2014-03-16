@@ -64,6 +64,8 @@ void define184Stuff()
 	printVersionHookLoc = 0x600792;
 	weaponFileHookLoc = 0x657690;
 	vehicleFileHookLoc = 0x665500;
+	dbAddXAssetHookLoc = 0x57F2E0;
+	dbAddXAssetHookRet = 0x57F2E7;
 
 	initializeRenderer = 0x421100;
 	SteamFriendsLoc = 0x691524;
