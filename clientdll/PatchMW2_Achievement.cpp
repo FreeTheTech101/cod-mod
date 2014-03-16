@@ -13,20 +13,21 @@
 #include "stdinc.h"
 #include "achievements.h"
 
-void processAchievement( const char *pchName )
+void processAchievement(int rewardCode)
 {
-	Com_Printf(0, "Processing reward: %s\n", pchName);
+	Com_Printf(0, "Processing reward: '%s'\n", achievements[rewardCode].name);
 	// Do something cool here :D
 }
 
 bool RewardAchievement( const char *pchName )
 {
-	// 51 achievements afaik...
-	for(int i = 0;i<51;i++)
+	buildAchievementList();
+
+	for(int i = 0;i<ACHIEVEMENT_COUNT;i++)
 	{
-		if(!strcmp(achievements[i], pchName))
+		if(!strcmp(achievements[i].code, pchName))
 		{
-			processAchievement(pchName);
+			processAchievement(i);
 			return true;
 		}
 	}
