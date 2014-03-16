@@ -267,6 +267,9 @@
     <ClInclude Include="TSteamUpdateStats.h">
       <Filter>SteamHeader</Filter>
     </ClInclude>
+    <ClInclude Include="achievements.h">
+      <Filter>Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">

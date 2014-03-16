@@ -54,6 +54,10 @@ void steamPatches_159()
 	*(DWORD*)0x57D7F8 = (DWORD)connectHook;
 
 	*(DWORD*)0x6943A8 = (DWORD)custom_gethostbyname;
+
+	// Don't make the game believe we're steam!
+	nop(0x4E9458, 7);
+	nop(0x4E9470, 7);
 }
 
 void steamPatches_184()
@@ -71,6 +75,10 @@ void steamPatches_184()
 	*(DWORD*)0x57AB68 = (DWORD)connectHook;
 
 	*(DWORD*)0x6913A0 = (DWORD)custom_gethostbyname;
+
+	// Don't make the game believe we're steam!
+	nop(0x4C5958, 7);
+	nop(0x4C5970, 7);
 
 	PatchMW2_RunCallbacks();
 }
@@ -114,7 +122,7 @@ void initializeSteamPatch()
 
 	replaceFriendConnect();
 	PatchMW2_SteamFriends();
-	//PatchMW2_SteamUserStats(); // Achievement handling still causes the game to crash...
+	PatchMW2_SteamUserStats();
 	loadGameOverlay();
 }
 

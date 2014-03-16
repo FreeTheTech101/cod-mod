@@ -12,7 +12,7 @@
 #include "StdInc.h"
 #include "SteamUserStats010.h"
 
-bool RewardArchievement( const char *pchName );
+bool RewardAchievement( const char *pchName );
 
 // Ask the server to send down this user's data and achievements for this game
 bool CSteamUserStats010::RequestCurrentStats()
@@ -56,7 +56,7 @@ bool CSteamUserStats010::GetAchievement( const char *pchName, bool *pbAchieved )
 
 bool CSteamUserStats010::SetAchievement( const char *pchName )
 {
-	return RewardArchievement( pchName );
+	return RewardAchievement( pchName );
 }
 
 bool CSteamUserStats010::ClearAchievement( const char *pchName )
