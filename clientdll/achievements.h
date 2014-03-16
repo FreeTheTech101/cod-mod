@@ -6,6 +6,15 @@ typedef struct achievement_s
 	char* description;
 }achievement_t;
 
+// Some small struct for displaying onscreen.
+typedef struct reward_s
+{
+	int rewardCode;
+	int startTime;
+	const char* rewardString;
+}reward_t;
+
+
 #define ACHIEVEMENT_COUNT 49
 
 achievement_t achievements[ACHIEVEMENT_COUNT];

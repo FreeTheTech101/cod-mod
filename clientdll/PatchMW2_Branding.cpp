@@ -12,6 +12,8 @@
 #include "stdinc.h"
 #include "ColorShift.h"
 
+void printAchievements();
+
 dvar_t* Dvar_RegisterBool_MW3(const char* name, int default, int flags);
 
 CallHook drawDevStuffHook;
@@ -34,8 +36,10 @@ void DrawDemoWarning()
 		color[3] = 0.3f;
 	}
 
-	void* font = R_RegisterFont("fonts/normalFont");	
+	void* font = R_RegisterFont("fonts/normalFont");
 	R_AddCmdDrawText(VERSIONSTRING, 0x7FFFFFFF, font, 10, 30, 0.7f, 0.7f, 0.0f, color, 0);
+
+	printAchievements();
 }
 
 void __declspec(naked) DrawDevStuffHookStub()
