@@ -11,6 +11,7 @@
 
 #include "StdInc.h"
 #include "SteamFriends005.h"
+#include "SteamUserStats010.h"
 
 // define so the template can be compiled
 std::map<SteamInterface_t, void*> CSteamBase::_instances;
@@ -27,6 +28,8 @@ void* CSteamBase::CreateInterface(SteamInterface_t interfaceID)
 	{
  		case INTERFACE_STEAMFRIENDS005:
  			return new CSteamFriends005;
+		case INTERFACE_STEAMUSERSTATS010:
+			return new CSteamUserStats010;
 	}
 
 	return NULL;
@@ -116,6 +119,13 @@ __declspec(dllexport) ISteamFriends* __cdecl SteamFriends()
 	//return (ISteamFriends*)g_pSteamFriendsEmu;
 }
 
+__declspec(dllexport) ISteamUserStats* __cdecl SteamUserStats()
+{
+	//Trace("S_API", "SteamUserStats");
+	return (ISteamUserStats*)CSteamBase::GetInterface(INTERFACE_STEAMUSERSTATS010);
+	//return (ISteamUserStats*)g_pSteamUStatsEmu;
+}
+
 __declspec(dllexport) void __cdecl SteamAPI_RunCallbacks()
 {
 	// Prevent debugger shit
@@ -129,6 +139,12 @@ __declspec(dllexport) char __cdecl SteamAPI_RestartAppIfNecessary()
 void PatchMW2_SteamFriends()
 {
 	*(DWORD*)SteamFriendsLoc = (DWORD)SteamFriends;
+}
+
+void PatchMW2_SteamUserStats()
+{
+	*(DWORD*)SteamUserStatsLoc = (DWORD)SteamUserStats;
+	*(DWORD*)SteamUserStatsInstanceLoc = (DWORD)SteamUserStats();
 }
 
 // Version 184 only

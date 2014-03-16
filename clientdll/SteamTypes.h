@@ -126,6 +126,8 @@ typedef unsigned int uintp;
 
 #endif // else _WIN32
 
+typedef uint64 UGCHandle_t;
+
 // steamclient/api
 #include "EAccountType.h"
 #include "EChatMemberStateChange.h"

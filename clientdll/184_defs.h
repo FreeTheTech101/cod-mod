@@ -70,6 +70,8 @@ void define184Stuff()
 
 	initializeRenderer = 0x421100;
 	SteamFriendsLoc = 0x691524;
+	SteamUserStatsLoc = 0x691554;
+	SteamUserStatsInstanceLoc = 0x1BEB4B8;
 
 	dvarName = (dvar_t**)0x925BCC;
 

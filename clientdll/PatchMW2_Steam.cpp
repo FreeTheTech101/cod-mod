@@ -13,6 +13,7 @@
 
 void PatchMW2_SteamFriends();
 void PatchMW2_RunCallbacks();
+void PatchMW2_SteamUserStats();
 void replaceFriendConnect();
 void connectHook();
 
@@ -113,6 +114,7 @@ void initializeSteamPatch()
 
 	replaceFriendConnect();
 	PatchMW2_SteamFriends();
+	//PatchMW2_SteamUserStats(); // Achievement handling still causes the game to crash...
 	loadGameOverlay();
 }
 

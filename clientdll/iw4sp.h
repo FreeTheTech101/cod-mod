@@ -1339,6 +1339,8 @@ extern DWORD getBSPNameHookLoc;
 
 extern DWORD initializeRenderer;
 extern DWORD SteamFriendsLoc;
+extern DWORD SteamUserStatsLoc;
+extern DWORD SteamUserStatsInstanceLoc;
 
 extern source_t **sourceFiles;
 extern keywordHash_t **menuParseKeywordHash;

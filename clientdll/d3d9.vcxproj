@@ -68,6 +68,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="PatchMW2_Achievement.cpp" />
     <ClCompile Include="PatchMW2_EntsFiles.cpp" />
     <ClCompile Include="Hooking.cpp" />
     <ClCompile Include="Bridge.cpp" />
@@ -96,6 +97,7 @@
     <ClCompile Include="PatchMW3_UILoading.cpp" />
     <ClCompile Include="SteamBase.cpp" />
     <ClCompile Include="SteamFriends005.cpp" />
+    <ClCompile Include="SteamUserStats010.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +123,7 @@
     <ClInclude Include="Hooking.h" />
     <ClInclude Include="ISteamClient008.h" />
     <ClInclude Include="ISteamFriends005.h" />
+    <ClInclude Include="ISteamUserStats010.h" />
     <ClInclude Include="LocalizedStrings.h" />
     <ClInclude Include="MatchMakingKeyValuePair.h" />
     <ClInclude Include="resource.h" />
@@ -130,6 +133,30 @@
     <ClInclude Include="iw4sp.h" />
     <ClInclude Include="SteamFriends005.h" />
     <ClInclude Include="SteamTypes.h" />
+    <ClInclude Include="SteamUserStats010.h" />
+    <ClInclude Include="TSteamApp.h" />
+    <ClInclude Include="TSteamAppDependencyInfo.h" />
+    <ClInclude Include="TSteamAppLaunchOption.h" />
+    <ClInclude Include="TSteamAppStats.h" />
+    <ClInclude Include="TSteamAppVersion.h" />
+    <ClInclude Include="TSteamDiscountQualifier.h" />
+    <ClInclude Include="TSteamElemInfo.h" />
+    <ClInclude Include="TSteamError.h" />
+    <ClInclude Include="TSteamExternalBillingInfo.h" />
+    <ClInclude Include="TSteamGlobalUserID.h" />
+    <ClInclude Include="TSteamOfflineStatus.h" />
+    <ClInclude Include="TSteamPaymentCardInfo.h" />
+    <ClInclude Include="TSteamPaymentCardReceiptInfo.h" />
+    <ClInclude Include="TSteamPrepurchaseInfo.h" />
+    <ClInclude Include="TSteamPrepurchaseReceiptInfo.h" />
+    <ClInclude Include="TSteamProgress.h" />
+    <ClInclude Include="TSteamSplitLocalUserID.h" />
+    <ClInclude Include="TSteamSubscription.h" />
+    <ClInclude Include="TSteamSubscriptionBillingInfo.h" />
+    <ClInclude Include="TSteamSubscriptionDiscount.h" />
+    <ClInclude Include="TSteamSubscriptionReceipt.h" />
+    <ClInclude Include="TSteamSubscriptionStats.h" />
+    <ClInclude Include="TSteamUpdateStats.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>

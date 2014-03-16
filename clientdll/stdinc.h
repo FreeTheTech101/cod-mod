@@ -26,6 +26,7 @@
 #define NO_STEAM // to reduce header amount needed
 #include "CCallback.h"
 #include "ISteamClient008.h"
+#include "ISteamUserStats010.h"
 
 // custom headers
 #include "SteamBase.h"

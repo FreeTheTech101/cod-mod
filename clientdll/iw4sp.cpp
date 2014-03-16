@@ -92,6 +92,8 @@ DWORD getBSPNameHookLoc = 0x430C09;
 
 DWORD initializeRenderer = 0x48A400;
 DWORD SteamFriendsLoc = 0x694528;
+DWORD SteamUserStatsLoc = 0x69455C;
+DWORD SteamUserStatsInstanceLoc = 0x1BEE1C0;
 
 source_t **sourceFiles = (source_t **)0x7440E8;
 keywordHash_t **menuParseKeywordHash = (keywordHash_t **)0x1933DB0;
