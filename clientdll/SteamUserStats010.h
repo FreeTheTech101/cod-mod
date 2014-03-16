@@ -58,12 +58,13 @@ public:
 
 	// requests stat information for a user, usable after a successful call to RequestUserStats()
 	bool GetUserStat( CSteamID steamIDUser, const char *pchName, int32 *pData );
+
+	// Reset stats (should be here [eax + 44h] )
+	bool ResetAllStats( bool bAchievementsToo );
+
 	bool GetUserStat( CSteamID steamIDUser, const char *pchName, float *pData );
 	bool GetUserAchievement( CSteamID steamIDUser, const char *pchName, bool *pbAchieved );
 	bool GetUserAchievementAndUnlockTime( CSteamID steamIDUser, const char *pchName, bool *pbAchieved, RTime32 *prtTime );
-
-	// Reset stats 
-	bool ResetAllStats( bool bAchievementsToo );
 
 
 	// Leaderboard functions

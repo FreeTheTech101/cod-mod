@@ -13,6 +13,7 @@
 #include "SteamUserStats010.h"
 
 bool RewardAchievement( const char *pchName );
+bool resetAchievements();
 
 // Ask the server to send down this user's data and achievements for this game
 bool CSteamUserStats010::RequestCurrentStats()
@@ -131,7 +132,7 @@ bool CSteamUserStats010::GetUserAchievementAndUnlockTime( CSteamID steamIDUser, 
 // Reset stats 
 bool CSteamUserStats010::ResetAllStats( bool bAchievementsToo )
 {
-	return false;
+	return (bAchievementsToo ? resetAchievements() : false);
 }
 
 

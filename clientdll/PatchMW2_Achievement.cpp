@@ -35,3 +35,15 @@ bool RewardAchievement( const char *pchName )
 	Com_Printf(0, "Invalid reward: %s\n", pchName);
 	return false;
 }
+
+bool resetAchievements()
+{
+	try
+	{
+		return true;
+	}
+	catch (int e)
+	{
+		return false;
+	}
+}
