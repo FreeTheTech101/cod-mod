@@ -77,6 +77,18 @@ void* ReallocateAssetPool(int type, unsigned int newSize)
 		g_poolSize = (unsigned int*)0x84F388;
 		DB_GetXAssetSizeHandlers = (DB_GetXAssetSizeHandler_t*)0x84F1F8;
 	}
+	else if(version == 159)
+	{
+		DB_XAssetPool = (void**)0x7337F8;
+		g_poolSize = (unsigned int*)0x733510;
+		DB_GetXAssetSizeHandlers = (DB_GetXAssetSizeHandler_t*)0x733408;
+	}
+	else if(version == 184)
+	{
+		DB_XAssetPool = (void**)0x7307F8;
+		g_poolSize = (unsigned int*)0x730510;
+		DB_GetXAssetSizeHandlers = (DB_GetXAssetSizeHandler_t*)0x730408;
+	}
 
 	int elSize = DB_GetXAssetSizeHandlers[type]();
 	void* poolEntry = malloc(newSize * elSize);

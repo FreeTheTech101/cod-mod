@@ -1335,6 +1335,7 @@ extern DWORD weaponFileHookLoc;
 extern DWORD vehicleFileHookLoc;
 extern DWORD dbAddXAssetHookLoc;
 extern DWORD dbAddXAssetHookRet;
+extern DWORD getBSPNameHookLoc;
 
 extern DWORD initializeRenderer;
 extern DWORD SteamFriendsLoc;

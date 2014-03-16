@@ -23,6 +23,7 @@ void DumpMapEntities(MapEnts* entities)
 	char filename[255];
 
 	CreateDirectory("data/maps", NULL);
+	CreateDirectory("data/maps/mp", NULL); // We never know ;)
 
 	_snprintf(filename, sizeof(filename), "data/%s.ents", entities->name);
 

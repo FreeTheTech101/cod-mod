@@ -88,6 +88,7 @@ DWORD weaponFileHookLoc = 0x659E00;
 DWORD vehicleFileHookLoc = 0x667D90;
 DWORD dbAddXAssetHookLoc = 0x581EE0;
 DWORD dbAddXAssetHookRet = 0x581EE7;
+DWORD getBSPNameHookLoc = 0x430C09;
 
 DWORD initializeRenderer = 0x48A400;
 DWORD SteamFriendsLoc = 0x694528;

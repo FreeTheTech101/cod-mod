@@ -66,6 +66,7 @@ void define184Stuff()
 	vehicleFileHookLoc = 0x665500;
 	dbAddXAssetHookLoc = 0x57F2E0;
 	dbAddXAssetHookRet = 0x57F2E7;
+	getBSPNameHookLoc = 0x4BA169;
 
 	initializeRenderer = 0x421100;
 	SteamFriendsLoc = 0x691524;
