@@ -628,7 +628,7 @@ typedef struct
 {
 	char type;
 	char pad[3];
-	DWORD folder;
+	const char** folder;
 	const char* file;
 } StreamFile;
 

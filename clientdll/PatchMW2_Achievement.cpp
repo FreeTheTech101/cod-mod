@@ -26,7 +26,7 @@ void printAchievements()
 	float color[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	void* font = R_RegisterFont("fonts/normalFont");
 
-	R_AddCmdDrawText(cReward.rewardString, 0x7FFFFFFF, font, 10, 70, 0.7f, 0.7f, 0.0f, color, 0);
+	R_AddCmdDrawText(cReward.rewardString, 0x7FFFFFFF, font, 10, 70, 1.0f, 1.0f, 0.0f, color, 0);
 }
 
 void processAchievement(int rewardCode)
@@ -37,7 +37,7 @@ void processAchievement(int rewardCode)
 	cReward.rewardCode = rewardCode;
 	cReward.startTime = Com_Milliseconds();
 	cReward.rewardString = va("Achievement unlocked: ^3%s",achievements[rewardCode].name);
-	Cmd_ExecuteSingleCommand(0, 0, "snd_playlocal mouse_click"); // I don't have any better sound yet :( - Probably load trainer on startup to get flag_spawned equivalent
+	Cmd_ExecuteSingleCommand(0, 0, "snd_playlocal arcademode_kill_streak_won"); // Sound is ok for now
 }
 
 bool RewardAchievement( const char *pchName )
