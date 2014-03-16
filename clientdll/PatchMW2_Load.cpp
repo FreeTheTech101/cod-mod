@@ -89,7 +89,7 @@ void GetBSPNameHookFunc(char* buffer, size_t size, const char* format, const cha
 	_snprintf(buffer, size, format, mapname);
 
 	// check for being MP/SP, and change data accordingly
-	if (_strnicmp("mp_", mapname, 3) || !_stricmp(mapname, "mp_nuked") || !_stricmp(mapname, "mp_cross_fire") || !_stricmp(mapname, "mp_cargoship") || !_stricmp(mapname, "mp_bog_sh") || !_stricmp(mapname, "mp_bloc") || !_stricmp(mapname, "mp_fav_tropical") || !_stricmp(mapname, "mp_killhouse"))
+	if (_strnicmp("mp_", mapname, 3))
 	{
 		if(version == 159)
 		{
@@ -117,6 +117,53 @@ void GetBSPNameHookFunc(char* buffer, size_t size, const char* format, const cha
 	}
 }
 
+typedef struct  
+{
+	char unknown[16];
+} xAssetEntry_t;
+
+static xAssetEntry_t xEntries[789312];
+
+void ReallocXAssetEntries()
+{
+	int newsize = 516 * 2048;
+	//newEnts = malloc(newsize);
+
+	// get (obfuscated) memory locations
+	unsigned int origMin = 0xB2B360;
+	unsigned int origMax = 0xB2B370;
+
+	// scan the .text memory
+	char* scanMin = (char*)0x401000;
+	char* scanMax = (char*)0x694000;
+
+	if(version == 184)
+	{
+		origMin = 0xB27DE0;
+		origMax = 0xB27DF0;
+		scanMax = (char*)0x691000;
+	}
+
+	unsigned int difference = (unsigned int)xEntries - origMin;
+
+	char* current = scanMin;
+
+	for (; current < scanMax; current += 1) {
+		unsigned int* intCur = (unsigned int*)current;
+
+		// if the address points to something within our range of interest
+		if (*intCur == origMin || *intCur == origMax) {
+			// patch it
+			*intCur += difference;
+		}
+	}
+
+	if(version == 159)
+		*(DWORD*)0x581740 = 789312;
+	else
+		*(DWORD*)0x57EB40 = 789312;
+}
+
 void PatchMW2_Load()
 {
 	if(version == 159)
@@ -126,9 +173,9 @@ void PatchMW2_Load()
 
 		// Ignore 'Disc read error.'
 		nop(0x4B7335, 2);
-		*(BYTE*)0x4B7356 = 0xEB;
-		*(BYTE*)0x413629 = 0xEB;
-		*(BYTE*)0x581227 = 0xEB;
+		//*(BYTE*)0x4B7356 = 0xEB;
+		//*(BYTE*)0x413629 = 0xEB;
+		//*(BYTE*)0x581227 = 0xEB;
 		*(BYTE*)0x4256B9 = 0xEB;
 
 		gameWorldSP = (*(DWORD*)0x4B0921) - 4;
@@ -140,9 +187,9 @@ void PatchMW2_Load()
 
 		// Ignore 'Disc read error.'
 		nop(0x4F6E05, 2);
-		*(BYTE*)0x4F6E26 = 0xEB;
-		*(BYTE*)0x47FE69 = 0xEB;
-		*(BYTE*)0x57E637 = 0xEB;
+		//*(BYTE*)0x4F6E26 = 0xEB;
+		//*(BYTE*)0x47FE69 = 0xEB;
+		//*(BYTE*)0x57E637 = 0xEB;
 		*(BYTE*)0x4A4E79 = 0xEB;
 
 		gameWorldSP = (*(DWORD*)0x4D4AA1) - 4;
@@ -153,4 +200,6 @@ void PatchMW2_Load()
 	call(zoneLoadHookLoc, addAlterSPZones, PATCH_CALL);
 	call(getBSPNameHookLoc, GetBSPNameHookFunc, PATCH_CALL);
 	call(ffLoadHook1Loc, loadTeamFile, PATCH_CALL);
+
+	ReallocXAssetEntries();
 }
