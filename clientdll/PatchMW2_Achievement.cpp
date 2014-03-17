@@ -79,8 +79,7 @@ bool hasAlreadyEarnedReward( const char *pchName )
 
 		std::string contentBuffer = buffer;
 
-		if(contentBuffer.find(pchName) != -1)
-			return true;
+		return (contentBuffer.find(pchName) != -1);
 	}
 
 	return false;
