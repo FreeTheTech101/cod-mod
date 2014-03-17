@@ -36,6 +36,7 @@ void define184Stuff()
 	FS_FOpenFileRead = (FS_FOpenFileRead_t)0x442130;
 	FS_FCloseFile = (FS_FCloseFile_t)0x5009E0;
 	FS_Read = (FS_Read_t)0x4CB360;
+	FS_FreeFile = (FS_FreeFile_t)0x4D07A0;
 
 	SE_Load = (SE_Load_t)0x4FCCC0;
 
