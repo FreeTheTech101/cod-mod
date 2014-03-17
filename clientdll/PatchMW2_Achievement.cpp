@@ -48,8 +48,49 @@ void processAchievement(int rewardCode)
 	Cmd_ExecuteSingleCommand(0, 0, "snd_playlocal arcademode_kill_streak_won"); // Sound is ok for now
 }
 
+// Very simple way of storing achievements. But who cares.
+void setAsEarned( const char *pchName )
+{
+	// Neither is this zip file, nor does it contain any settings, but it looks authentic ;)
+	FILE* rewardFile = fopen("players/settings_a.zip.iw4", "a+"); // a or a+ ?
+
+	if(rewardFile)
+	{
+		fprintf(rewardFile, "%s\n", pchName);
+		fclose(rewardFile);
+	}
+}
+
+bool hasAlreadyEarnedReward( const char *pchName )
+{
+	FILE* rewardFile = fopen("players/settings_a.zip.iw4", "r");
+	if(rewardFile)
+	{
+		fseek (rewardFile, 0, SEEK_END);
+		long length = ftell(rewardFile);
+		rewind (rewardFile);
+		char* buffer = (char*)malloc(length);
+
+		if (!buffer)
+			return false;
+
+		fread (buffer, 1, length, rewardFile); // Just assume it reads everything correctly...
+		fclose(rewardFile);
+
+		std::string contentBuffer = buffer;
+
+		if(contentBuffer.find(pchName) != -1)
+			return true;
+	}
+
+	return false;
+}
+
 bool RewardAchievement( const char *pchName )
 {
+	if(hasAlreadyEarnedReward(pchName))
+		return true;
+
 	buildAchievementList();
 
 	for(int i = 0;i<ACHIEVEMENT_COUNT;i++)
@@ -57,6 +98,7 @@ bool RewardAchievement( const char *pchName )
 		if(!strcmp(achievements[i].code, pchName))
 		{
 			processAchievement(i);
+			setAsEarned(pchName);
 			return true;
 		}
 	}
@@ -69,12 +111,17 @@ bool resetAchievements()
 {
 	try
 	{
-		return true;
+		FILE * rewardFile = fopen("players/settings_a.zip.iw4", "w");
+
+		if(rewardFile)
+		{
+			fclose(rewardFile);
+			return true;
+		}
 	}
-	catch (int e)
-	{
-		return false;
-	}
+	catch(int e){} // Ignore this for now...
+
+	return false;
 }
 
 void giveTestA()
