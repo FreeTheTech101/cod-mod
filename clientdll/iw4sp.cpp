@@ -16,6 +16,8 @@ extern "C"
 {
 R_RegisterFont_t R_RegisterFont = (R_RegisterFont_t)0x508910;
 R_AddCmdDrawText_t R_AddCmdDrawText = (R_AddCmdDrawText_t)0x50E7A0;
+R_AddCmdDrawStretchPic_t R_AddCmdDrawStretchPic = (R_AddCmdDrawStretchPic_t)0x50E190;
+UI_TextWidth_t UI_TextWidth = (UI_TextWidth_t)0x4F5070;
 
 BG_LoadWeaponDef_LoadObj_t BG_LoadWeaponDef_LoadObj = (BG_LoadWeaponDef_LoadObj_t)0x659DA0;
 

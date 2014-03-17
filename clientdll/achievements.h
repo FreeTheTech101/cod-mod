@@ -12,6 +12,7 @@ typedef struct reward_s
 	int rewardCode;
 	int startTime;
 	const char* rewardString;
+	const char* rewardDescription;
 }reward_t;
 
 

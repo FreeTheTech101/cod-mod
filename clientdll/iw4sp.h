@@ -1272,6 +1272,12 @@ extern R_RegisterFont_t R_RegisterFont;
 typedef void (__cdecl * R_AddCmdDrawText_t)(const char* text, int, void* font, float screenX, float screenY, float, float, float rotation, float* color, int);
 extern R_AddCmdDrawText_t R_AddCmdDrawText;
 
+typedef void (_cdecl * R_AddCmdDrawStretchPic_t)(float x, float y, float w, float h, float xScale, float yScale, float xay, float yay, const float *color, void* material);
+extern R_AddCmdDrawStretchPic_t R_AddCmdDrawStretchPic;
+
+typedef int (__cdecl * UI_TextWidth_t)(const char* text, int flags, void* font, float size);
+extern UI_TextWidth_t UI_TextWidth;
+
 typedef void (__cdecl * Steam_JoinLobby_t)(CSteamID, char);
 extern Steam_JoinLobby_t Steam_JoinLobby;
 
