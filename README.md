@@ -28,7 +28,7 @@ MW2 Feature List:
 - Working Coop with working connect command (Type "connect ip:port" into the console to connect. Default port is 28960)
 - Developer Console (Write and Read protections removed, tilde (~) key to use it)
 - Ease of use because it HANDLES BOTH VERSIONS of iw4sp.exe with no issues.
-- GameScipt Code loading (.gsc files, \maps or \character, etc.)
+- GameScript Code loading (.gsc files, \maps or \character, etc.)
 - String File loading (.str files, \english\localizedstrings)
 - UI File loading (.menu files, \ui or \ui\scriptmenus)
 - d3dbsp Entity loading and dumping
