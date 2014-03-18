@@ -93,9 +93,24 @@ void PatchMW2_177()
 	// IDK what this does, could be important though...
 	nop(0x593A1A, 3);
 	nop(0x593A52, 2);
+	//nop(0x593A6B, 2);
 
 	// No improper quit popup
 	*(BYTE*)0x4113BB = 0xEB;
+
+	// Ignore popup_getting_data
+	*(BYTE*)0x473829 = 0xEB;
+
+	// Disable 'LiveStorage_EnsureWeHaveStats_Online()'
+	*(BYTE*)0x4BACC0 = 0xC3;
+
+	// Let's assume we're online and we call ourself 'STEAM'
+	*(BYTE*)0x4FC2D8 = 0xEB;
+	*(BYTE*)0x4FC2F4 = 0xEB;
+	*(BYTE*)0x649D6F0 = 1;
+
+	// Disable 'x' commands (except UPNP, that should be added lateron)
+	nop(0x4059E5, 5);
 
 	// Test
 	ReallocateAssetPool(ASSET_TYPE_WEAPON, 2400);
