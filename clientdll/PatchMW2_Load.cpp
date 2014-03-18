@@ -42,15 +42,15 @@ void uncutGame(XZoneInfo* data, int count)
 
 char returnPath[MAX_PATH];
 
-char* addAlterSPZones(char* zone)
+char* addAlterZones(char* zone)
 {
-	char fastfile[128];
-
-	sprintf(fastfile, "zone\\alterSP\\%s", zone); // Add 'alterSP' zone path
-
-	if(GetFileAttributes(fastfile) != INVALID_FILE_ATTRIBUTES)
+	if(GetFileAttributes(va( "zone\\alter\\%s", zone)) != INVALID_FILE_ATTRIBUTES)
 	{
-		strcpy(returnPath, "zone\\alterSP\\");
+		strcpy(returnPath, "zone\\alter\\");
+	}
+	else if(GetFileAttributes(va("zone\\dlc\\%s", zone)) != INVALID_FILE_ATTRIBUTES)
+	{
+		strcpy(returnPath, "zone\\dlc\\");
 	}
 	else
 	{
@@ -195,11 +195,18 @@ void PatchMW2_Load()
 		gameWorldSP = (*(DWORD*)0x4D4AA1) - 4;
 	}
 
-	gameWorldMP = (DWORD)ReallocateAssetPool(ASSET_TYPE_GAME_MAP_MP, 1);
+	if(version == 177)
+	{
+		// Add zone support some time.
+	}
+	else
+	{
+		gameWorldMP = (DWORD)ReallocateAssetPool(ASSET_TYPE_GAME_MAP_MP, 1);
 
-	call(zoneLoadHookLoc, addAlterSPZones, PATCH_CALL);
-	call(getBSPNameHookLoc, GetBSPNameHookFunc, PATCH_CALL);
-	call(ffLoadHook1Loc, loadTeamFile, PATCH_CALL);
+		call(getBSPNameHookLoc, GetBSPNameHookFunc, PATCH_CALL);
+		call(ffLoadHook1Loc, loadTeamFile, PATCH_CALL);
+		call(zoneLoadHookLoc, addAlterZones, PATCH_CALL);
 
-	ReallocXAssetEntries();
+		ReallocXAssetEntries();
+	}
 }

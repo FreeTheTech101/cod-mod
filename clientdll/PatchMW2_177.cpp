@@ -12,6 +12,7 @@
 #include "StdInc.h"
 
 void PatchMW2_Steam();
+void PatchMW2_Load();
 void* ReallocateAssetPool(int type, unsigned int newSize);
 
 DWORD SteamUserStuff177 = 0x47BDA0;
@@ -76,14 +77,18 @@ void PatchMW2_177()
 
 	Com_Printf = (Com_Printf_t)0x402500;
 
+	zoneLoadHookLoc = 0x4D7378;
 	loadGameOverlayHookLoc = 0x60BE51;
 	initializeRenderer = 0x4A6A70;
 	SteamFriendsLoc = 0x6D75EC;
+
+	language = (char*)0x649E748;
 	dvarName = (dvar_t**)0xB2C680;
 
 	PatchMW2_Steam();
 	PatchMW2_ClientConsole_Toggle();
 	PatchMW2_Stats();
+	PatchMW2_Load();
 
 	// Entirely remove steam support... we don't want you to get banned :D
 	*(WORD*)0x45114E = 0x01B0;

@@ -38,9 +38,9 @@ char* _addDLCZones()
 
 	__asm mov zonePtr, ecx // Load pointer to fastfile into our variable
 
-	if(GetFileAttributes(va( "zone\\alterSP\\%s", zonePtr)) != INVALID_FILE_ATTRIBUTES)
+	if(GetFileAttributes(va( "zone\\alter\\%s", zonePtr)) != INVALID_FILE_ATTRIBUTES)
 	{
-		strcpy(__returnPath, "zone\\alterSP\\");
+		strcpy(__returnPath, "zone\\alter\\");
 	}
 	else if(GetFileAttributes(va("zone\\dlc\\%s", zonePtr)) != INVALID_FILE_ATTRIBUTES)
 	{
