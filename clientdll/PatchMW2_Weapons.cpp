@@ -454,9 +454,12 @@ void* WeaponFileHookFunc(const char* filename)
 		current_zone = va(CURRENT_ZONE_NAME);
 		weaponFolder = va("data\\weapons\\%s", current_zone);
 
-		_mkdir("data\\weapons");
-		_mkdir("data\\weapons\\sp");
-		_mkdir(va("data\\weapons\\%s", current_zone));
+		if (GAME_FLAG(GAME_FLAG_DUMPDATA) && version == 159)
+		{
+			_mkdir("data\\weapons");
+			_mkdir("data\\weapons\\sp");
+			_mkdir(va("data\\weapons\\%s", current_zone));
+		}
 
 		_allowZoneChange = false;
 	}
