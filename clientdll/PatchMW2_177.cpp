@@ -71,6 +71,8 @@ void PatchMW2_177()
 
 	loadGameOverlayHookLoc = 0x60BE51;
 	initializeRenderer = 0x4A6A70;
+	SteamFriendsLoc = 0x6D75EC;
+	dvarName = (dvar_t**)0xB2C680;
 
 	PatchMW2_Steam();
 	PatchMW2_ClientConsole_Toggle();
@@ -95,6 +97,9 @@ void PatchMW2_177()
 	nop(0x593A52, 2);
 	//nop(0x593A6B, 2);
 
+	// This looks dangerous to patch
+	nop(0x594260, 5);
+
 	// No improper quit popup
 	*(BYTE*)0x4113BB = 0xEB;
 
@@ -110,7 +115,7 @@ void PatchMW2_177()
 	*(BYTE*)0x649D6F0 = 1;
 
 	// Disable 'x' commands (except UPNP, that should be added lateron)
-	nop(0x4059E5, 5);
+	//nop(0x4059E5, 5);
 
 	// Test
 	ReallocateAssetPool(ASSET_TYPE_WEAPON, 2400);

@@ -127,10 +127,10 @@ void initializeSteamPatch()
 	else
 	{
 		replaceFriendConnect();
-		PatchMW2_SteamFriends();
 		PatchMW2_SteamUserStats();
 	}
 
+	PatchMW2_SteamFriends();
 	loadGameOverlay();
 }
 
