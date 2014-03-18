@@ -12,6 +12,7 @@
 #include "StdInc.h"
 
 void PatchMW2_159();
+void PatchMW2_177();
 void PatchMW2_184();
 void PatchMW3_358();
 void PatchMW3_382();
@@ -31,6 +32,12 @@ void Sys_Init()
 	if(!strcmp((char*)0x6A7DB8, "159"))
 	{
 		PatchMW2_159();
+	}
+
+	// MW2 - Version 177 (Mutliplayer)
+	if(!strcmp((char*)0x6E9638, "177"))
+	{
+		PatchMW2_177();
 	}
 
 	// MW2 - Version 184

@@ -68,6 +68,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="PatchMW2_177.cpp" />
     <ClCompile Include="PatchMW2_Achievement.cpp" />
     <ClCompile Include="PatchMW2_EntsFiles.cpp" />
     <ClCompile Include="Hooking.cpp" />

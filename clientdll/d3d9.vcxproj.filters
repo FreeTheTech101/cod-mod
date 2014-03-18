@@ -22,54 +22,6 @@
     <ClCompile Include="Bridge.cpp">
       <Filter>Base</Filter>
     </ClCompile>
-    <ClCompile Include="PatchMW2_159.cpp">
-      <Filter>MW2 Patches</Filter>
-    </ClCompile>
-    <ClCompile Include="PatchMW2_184.cpp">
-      <Filter>MW2 Patches</Filter>
-    </ClCompile>
-    <ClCompile Include="PatchMW2_Branding.cpp">
-      <Filter>MW2 Patches</Filter>
-    </ClCompile>
-    <ClCompile Include="PatchMW2_ClientConsole.cpp">
-      <Filter>MW2 Patches</Filter>
-    </ClCompile>
-    <ClCompile Include="PatchMW2_Coop.cpp">
-      <Filter>MW2 Patches</Filter>
-    </ClCompile>
-    <ClCompile Include="PatchMW2_NoBorder.cpp">
-      <Filter>MW2 Patches</Filter>
-    </ClCompile>
-    <ClCompile Include="PatchMW2_UILoading.cpp">
-      <Filter>MW2 Patches</Filter>
-    </ClCompile>
-    <ClCompile Include="PatchMW2_Minidump.cpp">
-      <Filter>MW2 Patches</Filter>
-    </ClCompile>
-    <ClCompile Include="PatchMW2_Images.cpp">
-      <Filter>MW2 Patches</Filter>
-    </ClCompile>
-    <ClCompile Include="PatchMW2_LocalizedStrings.cpp">
-      <Filter>MW2 Patches</Filter>
-    </ClCompile>
-    <ClCompile Include="PatchMW2_Load.cpp">
-      <Filter>MW2 Patches</Filter>
-    </ClCompile>
-    <ClCompile Include="PatchMW2_Script.cpp">
-      <Filter>MW2 Patches</Filter>
-    </ClCompile>
-    <ClCompile Include="PatchMW2_Steam.cpp">
-      <Filter>MW2 Patches</Filter>
-    </ClCompile>
-    <ClCompile Include="PatchMW2_MusicalTalent.cpp">
-      <Filter>MW2 Patches</Filter>
-    </ClCompile>
-    <ClCompile Include="PatchMW2_ConsoleStart.cpp">
-      <Filter>MW2 Patches</Filter>
-    </ClCompile>
-    <ClCompile Include="PatchMW2_Weapons.cpp">
-      <Filter>MW2 Patches</Filter>
-    </ClCompile>
     <ClCompile Include="PatchCOD.cpp">
       <Filter>Base</Filter>
     </ClCompile>
@@ -79,19 +31,70 @@
     <ClCompile Include="PatchMW3_358.cpp">
       <Filter>MW3 Patches</Filter>
     </ClCompile>
-    <ClCompile Include="PatchMW2_AssetRestrict.cpp">
-      <Filter>MW2 Patches</Filter>
-    </ClCompile>
-    <ClCompile Include="PatchMW2_EntsFiles.cpp">
-      <Filter>MW2 Patches</Filter>
-    </ClCompile>
     <ClCompile Include="PatchMW3_UILoading.cpp">
       <Filter>MW3 Patches</Filter>
     </ClCompile>
     <ClCompile Include="SteamUserStats010.cpp">
       <Filter>Steam</Filter>
     </ClCompile>
+    <ClCompile Include="PatchMW2_159.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_184.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
     <ClCompile Include="PatchMW2_Achievement.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_AssetRestrict.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_Branding.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_ClientConsole.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_ConsoleStart.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_Coop.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_EntsFiles.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_Images.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_Load.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_LocalizedStrings.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_Minidump.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_MusicalTalent.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_NoBorder.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_Script.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_Steam.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_UILoading.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_Weapons.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_177.cpp">
       <Filter>MW2 Patches</Filter>
     </ClCompile>
   </ItemGroup>

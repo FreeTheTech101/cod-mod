@@ -120,9 +120,17 @@ void initializeSteamPatch()
 		steamPatches_184();
 	}
 
-	replaceFriendConnect();
-	PatchMW2_SteamFriends();
-	PatchMW2_SteamUserStats();
+	if(version == 177)
+	{
+		PatchMW2_RunCallbacks();
+	}
+	else
+	{
+		replaceFriendConnect();
+		PatchMW2_SteamFriends();
+		PatchMW2_SteamUserStats();
+	}
+
 	loadGameOverlay();
 }
 

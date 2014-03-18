@@ -83,6 +83,12 @@ void* ReallocateAssetPool(int type, unsigned int newSize)
 		g_poolSize = (unsigned int*)0x733510;
 		DB_GetXAssetSizeHandlers = (DB_GetXAssetSizeHandler_t*)0x733408;
 	}
+	else if(version == 177)
+	{
+		DB_XAssetPool = (void**)0x7998A8;
+		g_poolSize = (unsigned int*)0x7995E8;
+		DB_GetXAssetSizeHandlers = (DB_GetXAssetSizeHandler_t*)0x799488;
+	}
 	else if(version == 184)
 	{
 		DB_XAssetPool = (void**)0x7307F8;

@@ -150,5 +150,12 @@ void PatchMW2_SteamUserStats()
 // Version 184 only
 void PatchMW2_RunCallbacks()
 {
-	*(DWORD*)0x691544 = (DWORD)SteamAPI_RunCallbacks;
+	if(version == 184)
+	{
+		*(DWORD*)0x691544 = (DWORD)SteamAPI_RunCallbacks;
+	}
+	else if(version == 177)
+	{
+		*(DWORD*)0x6D75D0 = (DWORD)SteamAPI_RunCallbacks;
+	}
 }
