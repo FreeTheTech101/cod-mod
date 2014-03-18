@@ -123,6 +123,7 @@ void initializeSteamPatch()
 	if(version == 177)
 	{
 		PatchMW2_RunCallbacks();
+		*(DWORD*)0x6D7458 = (DWORD)custom_gethostbyname;
 	}
 	else
 	{
