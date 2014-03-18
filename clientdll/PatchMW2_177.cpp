@@ -129,6 +129,5 @@ void PatchMW2_177()
 	ReallocateAssetPool(ASSET_TYPE_WEAPON, 2400);
 
 	// Hide console
-	HWND console = GetConsoleWindow();
-	ShowWindow(console, 0);
+	FreeConsole();
 }
