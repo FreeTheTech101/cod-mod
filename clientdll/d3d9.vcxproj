@@ -83,6 +83,7 @@
     <ClCompile Include="PatchMW2_ClientConsole.cpp" />
     <ClCompile Include="PatchMW2_Coop.cpp" />
     <ClCompile Include="PatchMW2_ConsoleStart.cpp" />
+    <ClCompile Include="PatchMW2_SPMaps.cpp" />
     <ClCompile Include="PatchMW2_Weapons.cpp" />
     <ClCompile Include="PatchMW2_Steam.cpp" />
     <ClCompile Include="PatchMW2_Images.cpp" />

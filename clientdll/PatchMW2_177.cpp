@@ -14,6 +14,7 @@
 void PatchMW2_Steam();
 void PatchMW2_Load();
 void PatchMW2_Branding();
+void PatchMW2_SPMaps();
 void* ReallocateAssetPool(int type, unsigned int newSize);
 
 DWORD SteamUserStuff177 = 0x47BDA0;
@@ -98,6 +99,7 @@ void PatchMW2_177()
 	PatchMW2_Branding();
 	PatchMW2_Stats();
 	PatchMW2_Load();
+	//PatchMW2_SPMaps();
 
 	// Entirely remove steam support... we don't want you to get banned :D
 	*(WORD*)0x45114E = 0x01B0;

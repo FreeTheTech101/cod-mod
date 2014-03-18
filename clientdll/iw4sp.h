@@ -1354,8 +1354,9 @@ extern keywordHash_t **menuParseKeywordHash;
 extern int version;
 
 #define CURRENT_ZONE_NAME_159 (char*)(*(DWORD*)0x9DAD80 + 4)
+#define CURRENT_ZONE_NAME_177 (char*)(*(DWORD*)0x112A680 + 4)
 #define CURRENT_ZONE_NAME_184 (char*)(*(DWORD*)0x9D7800 + 4)
-#define CURRENT_ZONE_NAME (version == 159 ? CURRENT_ZONE_NAME_159 : CURRENT_ZONE_NAME_184)
+#define CURRENT_ZONE_NAME (version == 159 ? CURRENT_ZONE_NAME_159 : (version == 177 ? CURRENT_ZONE_NAME_177 : CURRENT_ZONE_NAME_184))
 
 extern const char* current_zone;
 extern bool _allowZoneChange;

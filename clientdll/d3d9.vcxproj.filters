@@ -97,6 +97,9 @@
     <ClCompile Include="PatchMW2_177.cpp">
       <Filter>MW2 Patches</Filter>
     </ClCompile>
+    <ClCompile Include="PatchMW2_SPMaps.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooking.h">

@@ -530,6 +530,12 @@ void PatchMW2_Load()
 			// fs_basepath for 'players' -> fs_cdpath
 			*(DWORD*)0x482408 = 0x63D0BB0;
 		}
+
+		// disable 'ignoring asset' notices
+		memset((void*)0x5BB902, 0x90, 5);
+
+		// ignore 'no iwd files found in main'
+		memset((void*)0x642A4B, 0x90, 5);
 	}
 	else
 	{
