@@ -19,9 +19,6 @@
     <ClCompile Include="SteamBase.cpp">
       <Filter>Steam</Filter>
     </ClCompile>
-    <ClCompile Include="Bridge.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
     <ClCompile Include="PatchCOD.cpp">
       <Filter>Base</Filter>
     </ClCompile>
@@ -99,6 +96,18 @@
     </ClCompile>
     <ClCompile Include="PatchMW2_SPMaps.cpp">
       <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="Direct3DHook.cpp">
+      <Filter>Direct3D</Filter>
+    </ClCompile>
+    <ClCompile Include="myIDirect3D9.cpp">
+      <Filter>Direct3D</Filter>
+    </ClCompile>
+    <ClCompile Include="myIDirect3DDevice9.cpp">
+      <Filter>Direct3D</Filter>
+    </ClCompile>
+    <ClCompile Include="myIDirect3DSwapChain9.cpp">
+      <Filter>Direct3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -276,6 +285,24 @@
     <ClInclude Include="achievements.h">
       <Filter>Header</Filter>
     </ClInclude>
+    <ClInclude Include="Direct3DHook.h">
+      <Filter>Direct3D</Filter>
+    </ClInclude>
+    <ClInclude Include="myIDirect3D9.h">
+      <Filter>Direct3D</Filter>
+    </ClInclude>
+    <ClInclude Include="myIDirect3DDevice9.h">
+      <Filter>Direct3D</Filter>
+    </ClInclude>
+    <ClInclude Include="myIDirect3DSwapChain9.h">
+      <Filter>Direct3D</Filter>
+    </ClInclude>
+    <ClInclude Include="d3d9.h">
+      <Filter>Direct3D</Filter>
+    </ClInclude>
+    <ClInclude Include="d3dx9.h">
+      <Filter>Direct3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
@@ -295,6 +322,9 @@
     </Filter>
     <Filter Include="MW3 Patches">
       <UniqueIdentifier>{a81347c6-2cbd-4e83-be48-ad9d75d25be7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Direct3D">
+      <UniqueIdentifier>{508a43d3-6989-4f91-9f76-6186b9660619}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
