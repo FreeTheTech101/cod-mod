@@ -82,6 +82,7 @@ void PatchMW2_177()
 	Com_Milliseconds = (Com_Milliseconds_t)0x42A660;
 	CL_IsCgameInitialized = (CL_IsCgameInitialized_t)0x43EB20;
 	Dvar_FindVar = (Dvar_FindVar_t)0x4D5390;
+	DB_LoadXAssets = (DB_LoadXAssets_t)0x4E5930;
 
 	 drawDevStuffHookLoc = 0x5ACB99;
 	zoneLoadHookLoc = 0x4D7378;
@@ -145,6 +146,17 @@ void PatchMW2_177()
 	*(BYTE*)0x45ACE0 = 0xB0;
 	*(BYTE*)0x45ACE1 = 0x01;
 	*(BYTE*)0x45ACE2 = 0xC3;
+
+	// cg_fov
+	*(BYTE*)0x4F8E35 = DVAR_FLAG_SAVED;
+	*(float*)0x6E5788 = 90.0f;
+
+	// remove fs_game check for moddable rawfiles - allows non-fs_game to modify rawfiles
+	*(WORD*)0x61AB76 = 0x9090;
+
+	// remove limit on IWD file loading
+	//memset((void*)0x643B94, 0x90, 6);
+	*(BYTE*)0x642BF3 = 0xEB;
 
 	// Test
 	ReallocateAssetPool(ASSET_TYPE_WEAPON, 2400);
