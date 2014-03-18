@@ -63,6 +63,13 @@ static void PatchMW2_ClientConsole_Toggle()
 	clKeyEventToggleConsoleHook2.installHook();
 }
 
+// Exerimental stuff to get local stat saving to work
+void PatchMW2_Stats()
+{
+	// Just yeah.. we downloaded the stats...
+	*(BYTE*)0x437730 = 0xEB;
+}
+
 void PatchMW2_177()
 {
 	version = 177;
@@ -76,6 +83,7 @@ void PatchMW2_177()
 
 	PatchMW2_Steam();
 	PatchMW2_ClientConsole_Toggle();
+	PatchMW2_Stats();
 
 	// Entirely remove steam support... we don't want you to get banned :D
 	*(WORD*)0x45114E = 0x01B0;
