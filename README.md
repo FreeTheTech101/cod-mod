@@ -4,12 +4,10 @@ COD - Singleplayer Modification
 Created by Momo5502 (https://www.youtube.com/user/TheMomo5502)  
 Bug Testing done by Dasfonia (https://www.youtube.com/user/Those2menoverthere)  
 Code Usage from NTAuthority's IW4M Project (https://www.youtube.com/user/NTAuthority)  
-
 =================================================================================
 
 Brief Summary: This project aims to provide the ability to modify the singleplayer
 portion of the IW4 and IW5 engine, very similar to the way IW4M (FourDeltaOne) allowed.
-
 =================================================================================
 
 Installation/ Utilization: Compile and place d3d9.dll in your root Modern Warfare 2 folder.  
@@ -19,7 +17,6 @@ the new data folder that gets automatically created by the dll.  A few examples.
 Example 1: rootMW2FolderDirectory\data\english\localizedstrings\example.str  
 Example 2: rootMW2FolderDirectory\data\ui\scriptmenus\pausedmenu.menu  
 Example 3: rootMW2FolderDirectory\data\maps\estate.gsc
-
 =================================================================================
 
 MW2 Feature List:
@@ -38,7 +35,6 @@ MW2 Feature List:
 - Common DVAR edits save (/cg_fov 1 to 160)
 - COD:OL .iwi's load without crashing 
 - MiniDump creation for debugging
-
 =================================================================================
 
 MW3 Feature List:
@@ -48,3 +44,4 @@ MW3 Feature List:
 - Noborder (/r_fullscreen 0; vid_xpos 0; vid_ypos 0)
 - Common DVAR edits save (/cg_fov 1 to 160)
 - MiniDump creation for debugging
+- 
