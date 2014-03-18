@@ -48,4 +48,3 @@ MW3 Feature List:
 - Noborder (/r_fullscreen 0; vid_xpos 0; vid_ypos 0)
 - Common DVAR edits save (/cg_fov 1 to 160)
 - MiniDump creation for debugging
-- 
