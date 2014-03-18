@@ -141,6 +141,11 @@ void PatchMW2_177()
 	// Disable 'x' commands (except UPNP, that should be added lateron)
 	//nop(0x4059E5, 5);
 
+	// alt-tab support
+	*(BYTE*)0x45ACE0 = 0xB0;
+	*(BYTE*)0x45ACE1 = 0x01;
+	*(BYTE*)0x45ACE2 = 0xC3;
+
 	// Test
 	ReallocateAssetPool(ASSET_TYPE_WEAPON, 2400);
 
