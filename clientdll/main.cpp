@@ -11,8 +11,6 @@
 
 #include "stdinc.h"
 
-void injectBridge();
-
 static BYTE originalCode[5];
 static PBYTE originalEP = 0;
 
@@ -81,7 +79,6 @@ BOOL __stdcall DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
 	if (dwReason == DLL_PROCESS_ATTACH)
 	{
-		injectBridge();
 		Main_SetSafeInit();
 	}
 

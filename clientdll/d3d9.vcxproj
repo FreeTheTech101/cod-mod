@@ -68,11 +68,14 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Direct3DHook.cpp" />
+    <ClCompile Include="myIDirect3D9.cpp" />
+    <ClCompile Include="myIDirect3DDevice9.cpp" />
+    <ClCompile Include="myIDirect3DSwapChain9.cpp" />
     <ClCompile Include="PatchMW2_177.cpp" />
     <ClCompile Include="PatchMW2_Achievement.cpp" />
     <ClCompile Include="PatchMW2_EntsFiles.cpp" />
     <ClCompile Include="Hooking.cpp" />
-    <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PatchCOD.cpp" />
     <ClCompile Include="iw4sp.cpp" />
@@ -110,6 +113,9 @@
     <ClInclude Include="CGameID.h" />
     <ClInclude Include="ClientCommon.h" />
     <ClInclude Include="ColorShift.h" />
+    <ClInclude Include="d3d9.h" />
+    <ClInclude Include="d3dx9.h" />
+    <ClInclude Include="Direct3DHook.h" />
     <ClInclude Include="EAccountType.h" />
     <ClInclude Include="EChatMemberStateChange.h" />
     <ClInclude Include="ELobbyType.h" />
@@ -129,6 +135,9 @@
     <ClInclude Include="ISteamUserStats010.h" />
     <ClInclude Include="LocalizedStrings.h" />
     <ClInclude Include="MatchMakingKeyValuePair.h" />
+    <ClInclude Include="myIDirect3D9.h" />
+    <ClInclude Include="myIDirect3DDevice9.h" />
+    <ClInclude Include="myIDirect3DSwapChain9.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="rgb_hsv.h" />
     <ClInclude Include="servernetadr.h" />
