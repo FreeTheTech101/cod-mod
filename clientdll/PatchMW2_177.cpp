@@ -16,6 +16,7 @@ void PatchMW2_Load();
 void PatchMW2_Branding();
 void PatchMW2_SPMaps();
 void PatchMW2_Stats();
+void PatchMW2_Images();
 void* ReallocateAssetPool(int type, unsigned int newSize);
 
 DWORD SteamUserStuff177 = 0x47BDA0;
@@ -82,6 +83,7 @@ void PatchMW2_177()
 	FS_ReadFile = (FS_ReadFile_t)0x4F4B90;
 	FS_FreeFile = (FS_FreeFile_t)0x4416B0;
 
+	imageVersionCheckHookLoc = 0x53A456;
 	drawDevStuffHookLoc = 0x5ACB99;
 	zoneLoadHookLoc = 0x4D7378;
 	loadGameOverlayHookLoc = 0x60BE51;
@@ -96,6 +98,7 @@ void PatchMW2_177()
 	PatchMW2_Branding();
 	PatchMW2_Stats();
 	PatchMW2_Load();
+	PatchMW2_Images();
 	//PatchMW2_SPMaps();
 
 	// Entirely remove steam support... we don't want you to get banned :D
