@@ -109,6 +109,9 @@
     <ClCompile Include="myIDirect3DSwapChain9.cpp">
       <Filter>Direct3D</Filter>
     </ClCompile>
+    <ClCompile Include="PatchMW2_Stats.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooking.h">

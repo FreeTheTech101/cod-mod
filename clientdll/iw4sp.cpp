@@ -51,6 +51,7 @@ FS_Read_t FS_Read = (FS_Read_t)0x42EDC0;
 FS_ListFiles_t FS_ListFiles = (FS_ListFiles_t)0x4448F0;
 FS_FreeFileList_t FS_FreeFileList = (FS_FreeFileList_t)0x41C7A0;
 FS_FreeFile_t FS_FreeFile = (FS_FreeFile_t)0x4A7510;
+FS_WriteFile_t FS_WriteFile = (FS_WriteFile_t)0x0;
 
 Field_Clear_t Field_Clear = (Field_Clear_t)0x45C350;
 

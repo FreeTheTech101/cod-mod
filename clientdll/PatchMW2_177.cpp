@@ -15,6 +15,7 @@ void PatchMW2_Steam();
 void PatchMW2_Load();
 void PatchMW2_Branding();
 void PatchMW2_SPMaps();
+void PatchMW2_Stats();
 void* ReallocateAssetPool(int type, unsigned int newSize);
 
 DWORD SteamUserStuff177 = 0x47BDA0;
@@ -64,13 +65,6 @@ static void PatchMW2_ClientConsole_Toggle()
 	clKeyEventToggleConsoleHook2.installHook();
 }
 
-// Exerimental stuff to get local stat saving to work
-void PatchMW2_Stats()
-{
-	// Just yeah.. we downloaded the stats...
-	*(BYTE*)0x437730 = 0xEB;
-}
-
 void PatchMW2_177()
 {
 	version = 177;
@@ -84,8 +78,11 @@ void PatchMW2_177()
 	CL_IsCgameInitialized = (CL_IsCgameInitialized_t)0x43EB20;
 	Dvar_FindVar = (Dvar_FindVar_t)0x4D5390;
 	DB_LoadXAssets = (DB_LoadXAssets_t)0x4E5930;
+	FS_WriteFile = (FS_WriteFile_t)0x426450;
+	FS_ReadFile = (FS_ReadFile_t)0x4F4B90;
+	FS_FreeFile = (FS_FreeFile_t)0x4416B0;
 
-	 drawDevStuffHookLoc = 0x5ACB99;
+	drawDevStuffHookLoc = 0x5ACB99;
 	zoneLoadHookLoc = 0x4D7378;
 	loadGameOverlayHookLoc = 0x60BE51;
 	initializeRenderer = 0x4A6A70;
@@ -127,11 +124,8 @@ void PatchMW2_177()
 	// No improper quit popup
 	*(BYTE*)0x4113BB = 0xEB;
 
-	// Ignore popup_getting_data
+	// Ignore popup_getting_data (need to pix the playlist stuff instead of patching this)
 	*(BYTE*)0x473829 = 0xEB;
-
-	// Disable 'LiveStorage_EnsureWeHaveStats_Online()'
-	*(BYTE*)0x4BACC0 = 0xC3;
 
 	// Let's assume we're online and we call ourself 'STEAM'
 	*(BYTE*)0x4FC2D8 = 0xEB;
@@ -148,6 +142,9 @@ void PatchMW2_177()
 	*(BYTE*)0x45ACE0 = 0xB0;
 	*(BYTE*)0x45ACE1 = 0x01;
 	*(BYTE*)0x45ACE2 = 0xC3;
+
+	// xblive_rankedmatch
+	*(DWORD*)0x420A34 = DVAR_FLAG_NONE;
 
 	// cg_fov
 	*(BYTE*)0x4F8E35 = DVAR_FLAG_SAVED;
