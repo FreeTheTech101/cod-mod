@@ -86,6 +86,7 @@
     <ClCompile Include="PatchMW2_ClientConsole.cpp" />
     <ClCompile Include="PatchMW2_Coop.cpp" />
     <ClCompile Include="PatchMW2_ConsoleStart.cpp" />
+    <ClCompile Include="PatchMW2_PartyBypass.cpp" />
     <ClCompile Include="PatchMW2_SPMaps.cpp" />
     <ClCompile Include="PatchMW2_Stats.cpp" />
     <ClCompile Include="PatchMW2_Weapons.cpp" />
@@ -103,6 +104,7 @@
     <ClCompile Include="PatchMW3_UILoading.cpp" />
     <ClCompile Include="SteamBase.cpp" />
     <ClCompile Include="SteamFriends005.cpp" />
+    <ClCompile Include="SteamMatchmaking007.cpp" />
     <ClCompile Include="SteamUserStats010.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
@@ -133,8 +135,10 @@
     <ClInclude Include="Hooking.h" />
     <ClInclude Include="ISteamClient008.h" />
     <ClInclude Include="ISteamFriends005.h" />
+    <ClInclude Include="ISteamMatchmaking007.h" />
     <ClInclude Include="ISteamUserStats010.h" />
     <ClInclude Include="LocalizedStrings.h" />
+    <ClInclude Include="MatchmakingCommon.h" />
     <ClInclude Include="MatchMakingKeyValuePair.h" />
     <ClInclude Include="myIDirect3D9.h" />
     <ClInclude Include="myIDirect3DDevice9.h" />
@@ -145,6 +149,7 @@
     <ClInclude Include="stdinc.h" />
     <ClInclude Include="iw4sp.h" />
     <ClInclude Include="SteamFriends005.h" />
+    <ClInclude Include="SteamMatchmaking007.h" />
     <ClInclude Include="SteamTypes.h" />
     <ClInclude Include="SteamUserStats010.h" />
     <ClInclude Include="TSteamApp.h" />

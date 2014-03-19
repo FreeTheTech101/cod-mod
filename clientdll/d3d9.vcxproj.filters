@@ -112,6 +112,12 @@
     <ClCompile Include="PatchMW2_Stats.cpp">
       <Filter>MW2 Patches</Filter>
     </ClCompile>
+    <ClCompile Include="PatchMW2_PartyBypass.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="SteamMatchmaking007.cpp">
+      <Filter>Steam</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooking.h">
@@ -305,6 +311,15 @@
     </ClInclude>
     <ClInclude Include="d3dx9.h">
       <Filter>Direct3D</Filter>
+    </ClInclude>
+    <ClInclude Include="SteamMatchmaking007.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="ISteamMatchmaking007.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="MatchmakingCommon.h">
+      <Filter>SteamHeader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

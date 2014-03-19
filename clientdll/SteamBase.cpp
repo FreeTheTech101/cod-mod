@@ -12,6 +12,7 @@
 #include "StdInc.h"
 #include "SteamFriends005.h"
 #include "SteamUserStats010.h"
+#include "SteamMatchmaking007.h"
 
 // define so the template can be compiled
 std::map<SteamInterface_t, void*> CSteamBase::_instances;
@@ -30,6 +31,8 @@ void* CSteamBase::CreateInterface(SteamInterface_t interfaceID)
  			return new CSteamFriends005;
 		case INTERFACE_STEAMUSERSTATS010:
 			return new CSteamUserStats010;
+		case INTERFACE_STEAMMATCHMAKING007:
+			return new CSteamMatchmaking007;
 	}
 
 	return NULL;
@@ -136,9 +139,20 @@ __declspec(dllexport) char __cdecl SteamAPI_RestartAppIfNecessary()
 	return 0;
 }
 
+__declspec(dllexport) ISteamMatchmaking* __cdecl SteamMatchmaking()
+{
+	Trace("S_API", "SteamMatchmaking");
+	return (ISteamMatchmaking*)CSteamBase::GetInterface(INTERFACE_STEAMMATCHMAKING007);
+}
+
 void PatchMW2_SteamFriends()
 {
 	*(DWORD*)SteamFriendsLoc = (DWORD)SteamFriends;
+}
+
+void PatchMW2_SteamMatchmaking()
+{
+	*(DWORD*)0x6D75B0 = (DWORD)SteamMatchmaking;
 }
 
 void PatchMW2_SteamUserStats()

@@ -17,6 +17,8 @@ void PatchMW2_Branding();
 void PatchMW2_SPMaps();
 void PatchMW2_Stats();
 void PatchMW2_Images();
+void PatchMW2_PartyBypass();
+void PatchMW2_SteamMatchmaking();
 void* ReallocateAssetPool(int type, unsigned int newSize);
 
 DWORD SteamUserStuff177 = 0x47BDA0;
@@ -66,10 +68,29 @@ static void PatchMW2_ClientConsole_Toggle()
 	clKeyEventToggleConsoleHook2.installHook();
 }
 
+cmd_function_t Cmd_OpenMenu;
+void Cmd_OpenMenu_f()
+{
+	if (Cmd_Argc() != 2)
+	{
+		Com_Printf(0, "USAGE: openmenu <menu name>\n");
+		return;
+	}
+	char* menu = Cmd_Argv(1);
+	__asm
+	{
+		push menu
+		push 62E2858h
+		mov eax, 4CCE60h
+		call eax
+	}
+}
+
 void PatchMW2_177()
 {
 	version = 177;
 
+	Cmd_AddCommand = (Cmd_AddCommand_t)0x470090;
 	Com_Printf = (Com_Printf_t)0x402500;
 	R_RegisterFont = (R_RegisterFont_t)0x505670;
 	R_AddCmdDrawText = (R_AddCmdDrawText_t)0x509D80;
@@ -93,13 +114,21 @@ void PatchMW2_177()
 	language = (char*)0x649E748;
 	dvarName = (dvar_t**)0xB2C680;
 
-	PatchMW2_Steam();
+	cmd_id = (DWORD*)0x1AAC5D0;
+	cmd_argc = (DWORD*)0x1AAC614;
+	cmd_argv = (DWORD**)0x1AAC634;
+
 	PatchMW2_ClientConsole_Toggle();
+	PatchMW2_SteamMatchmaking();
+	PatchMW2_PartyBypass();
 	PatchMW2_Branding();
+	PatchMW2_Images();
+	PatchMW2_Steam();
 	PatchMW2_Stats();
 	PatchMW2_Load();
-	PatchMW2_Images();
 	//PatchMW2_SPMaps();
+
+	Cmd_AddCommand("openmenu", Cmd_OpenMenu_f, &Cmd_OpenMenu, 0);
 
 	// Entirely remove steam support... we don't want you to get banned :D
 	*(WORD*)0x45114E = 0x01B0;
@@ -159,6 +188,10 @@ void PatchMW2_177()
 	// remove limit on IWD file loading
 	//memset((void*)0x643B94, 0x90, 6);
 	*(BYTE*)0x642BF3 = 0xEB;
+
+	// Force debug logging
+	nop(0x4AA89F, 2);
+	nop(0x4AA8A1, 6);
 
 	// Test
 	ReallocateAssetPool(ASSET_TYPE_WEAPON, 2400);
