@@ -1,4 +1,4 @@
-COD - Singleplayer Modification
+COD - Singleplayer / Multiplayer Modification
 =================================================================================
 
 Created by Momo5502 (https://www.youtube.com/user/TheMomo5502)  
