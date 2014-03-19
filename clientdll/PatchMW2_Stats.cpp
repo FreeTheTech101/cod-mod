@@ -24,8 +24,6 @@ char* statBuffer = (char*)0x1AD3690;
 typedef void (__cdecl * LiveStorage_CompleteStatDownload_t)(int, int, int);
 LiveStorage_CompleteStatDownload_t LiveStorage_CompleteStatDownload = (LiveStorage_CompleteStatDownload_t)0x4C04C0;
 
-static const char* fileID;
-static bool useSteamCloud;
 static unsigned int bufferSize;
 
 void LiveStorage_DownloadStats(const char* profileName)
@@ -77,12 +75,7 @@ void __declspec(naked) WriteStatsHookStub()
 {
 	__asm
 	{
-		// prepare weird optimized parameters
-		mov fileID, ecx
-		mov useSteamCloud, dl
 		mov bufferSize, eax
-
-		// and jump to our normal cdecl function
 		jmp WriteStatsFunc
 	}
 }
