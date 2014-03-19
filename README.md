@@ -1,4 +1,4 @@
-COD - Singleplayer / Multiplayer Modification
+COD - MOD | SP / MP Modification
 =================================================================================
 
 Created by Momo5502 (https://www.youtube.com/user/TheMomo5502)  
@@ -7,7 +7,7 @@ Code Usage from NTAuthority's IW4M Project (https://www.youtube.com/user/NTAutho
 
 =================================================================================
 
-Brief Summary: This project aims to provide the ability to modify the singleplayer
+Brief Summary: This project aims to provide the ability to modify the singleplayer and multiplayer  
 portion of the IW4 and IW5 engine, very similar to the way IW4M (FourDeltaOne) allowed.
 
 =================================================================================
