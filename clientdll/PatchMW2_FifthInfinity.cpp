@@ -13,7 +13,6 @@
 #include "StdInc.h"
 
 extern bool* useEntryNames;
-typedef int uint32_t;
 
 CallHook fxEffectLoadHook;
 DWORD fxEffectLoadHookLoc = 0x49591B;
@@ -25,6 +24,17 @@ int ffVersion = 0;
 
 #define VERSION_ALPHA2 316
 #define VERSION_ALPHA3 319
+
+void WriteProfile(int time, const char* type, const char* message)
+{
+	return;
+	FILE* f = fopen("profile.txt", "a");
+	if (f)
+	{
+		fprintf(f, "[%i] %s - %s\n", time, type, message);
+		fclose(f);
+	}
+}
 
 void DB_AddRelocation(DWORD start, DWORD size, DWORD to);
 void DB_AddNewRelocation(DWORD oldPos, DWORD newPos);
@@ -1094,17 +1104,6 @@ short LogMissingExternalAsset(const char* name, int system)
 	return SL_GetString(name, system);
 }
 
-void WriteProfile(int time, const char* type, const char* message)
-{
-	return;
-	FILE* f = fopen("profile.txt", "a");
-	if (f)
-	{
-		fprintf(f, "[%i] %s - %s\n", time, type, message);
-		fclose(f);
-	}
-}
-
 void PatchMW2_FifthInfinityApply(int fileVersion, bool iw5)
 {
 	// profiling!
@@ -1407,6 +1406,7 @@ skip:
 	}
 }
 
+void PatchMW2_CModels();
 void PatchMW2_FifthInfinityPre();
 
 void PatchMW2_FifthInfinity()

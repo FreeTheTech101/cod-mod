@@ -20,7 +20,15 @@ void PatchMW2_Images();
 void PatchMW2_PartyBypass();
 void PatchMW2_MPClientConsole();
 void PatchMW2_CModels();
+void PatchMW2_CryptoFiles();
+void PatchMW2_T6Clips();
 void PatchMW2_FifthInfinity();
+void PatchMW2_UILoading();
+void PatchMW2_LocalizedStrings();
+void PatchMW2_Materialism();
+void PatchMW2_Loadscreens();
+void PatchMW2_Weapons();
+void PatchMW2_Experimental();
 void* ReallocateAssetPool(int type, unsigned int newSize);
 
 DWORD SteamUserStuff177 = 0x47BDA0;
@@ -66,6 +74,32 @@ void Cmd_OpenMenu_f()
 	}
 }
 
+void PatchMW2_FFHash()
+{
+	// basic checks (hash jumps, both normal and playlist)
+	*(WORD*)0x5B97A3 = 0x9090;
+	*(WORD*)0x5BA493 = 0x9090;
+
+	*(WORD*)0x5B991C = 0x9090;
+	*(WORD*)0x5BA60C = 0x9090;
+
+	*(WORD*)0x5B97B4 = 0x9090;
+	*(WORD*)0x5BA4A4 = 0x9090;
+
+	// some other, unknown, check
+	*(BYTE*)0x5B9912 = 0xB8;
+	*(DWORD*)0x5B9913 = 1;
+
+	*(BYTE*)0x5BA602 = 0xB8;
+	*(DWORD*)0x5BA603 = 1;
+
+	if (IsDebuggerPresent())
+	{
+		// dirty disk breakpoint
+		*(BYTE*)0x4CF7F0 = 0xCC;
+	}
+}
+
 void PatchMW2_177()
 {
 	version = 177;
@@ -108,9 +142,18 @@ void PatchMW2_177()
 	PatchMW2_Stats();
 	PatchMW2_Load();
 	PatchMW2_SPMaps();
-
+	PatchMW2_UILoading();
+	PatchMW2_Materialism();
+	PatchMW2_Loadscreens();
+	PatchMW2_LocalizedStrings();
+	PatchMW2_Weapons();
+	PatchMW2_Experimental();
+	PatchMW2_FFHash();
+	
 	// Extdll stuff
 	PatchMW2_FifthInfinity();
+	PatchMW2_T6Clips();
+	PatchMW2_CryptoFiles();
 
 	Cmd_AddCommand("openmenu", Cmd_OpenMenu_f, &Cmd_OpenMenu, 0);
 

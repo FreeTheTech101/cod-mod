@@ -23,6 +23,7 @@
 #include <unordered_map>
 #include <vector>
 #include <winsock.h>
+#include <stdint.h>
 
 // Direct3D
 #include "d3d9.h"

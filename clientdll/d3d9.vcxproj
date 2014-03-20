@@ -55,8 +55,8 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>wldap32.lib;ws2_32.lib;winmm.lib;shlwapi.lib;dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\..\terminal\libnp\project\vc9\normal;$(SolutionDir)\..\deps\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>wldap32.lib;ws2_32.lib;winmm.lib;shlwapi.lib;dbghelp.lib;tomcrypt.lib;tommath.lib;zlibstat.lib;zzip-1.lib;zziplib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\clientdll\libraries\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -69,12 +69,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Direct3DHook.cpp" />
+    <ClCompile Include="HiddenAssets.cpp" />
     <ClCompile Include="myIDirect3D9.cpp" />
     <ClCompile Include="myIDirect3DDevice9.cpp" />
     <ClCompile Include="myIDirect3DSwapChain9.cpp" />
     <ClCompile Include="PatchMW2_177.cpp" />
     <ClCompile Include="PatchMW2_Achievement.cpp" />
     <ClCompile Include="PatchMW2_CModels.cpp" />
+    <ClCompile Include="PatchMW2_CryptoFiles.cpp" />
+    <ClCompile Include="PatchMW2_CryptoZone.cpp" />
     <ClCompile Include="PatchMW2_EntsFiles.cpp" />
     <ClCompile Include="Hooking.cpp" />
     <ClCompile Include="main.cpp" />
@@ -87,12 +90,16 @@
     <ClCompile Include="PatchMW2_ClientConsole.cpp" />
     <ClCompile Include="PatchMW2_Coop.cpp" />
     <ClCompile Include="PatchMW2_ConsoleStart.cpp" />
+    <ClCompile Include="PatchMW2_Experiments.cpp" />
     <ClCompile Include="PatchMW2_FifthInfinity.cpp" />
     <ClCompile Include="PatchMW2_FilePointers.cpp" />
+    <ClCompile Include="PatchMW2_Loadscreens.cpp" />
+    <ClCompile Include="PatchMW2_Materialism.cpp" />
     <ClCompile Include="PatchMW2_MPClientConsole.cpp" />
     <ClCompile Include="PatchMW2_PartyBypass.cpp" />
     <ClCompile Include="PatchMW2_SPMaps.cpp" />
     <ClCompile Include="PatchMW2_Stats.cpp" />
+    <ClCompile Include="PatchMW2_T6Clips.cpp" />
     <ClCompile Include="PatchMW2_Weapons.cpp" />
     <ClCompile Include="PatchMW2_Steam.cpp" />
     <ClCompile Include="PatchMW2_Images.cpp" />
@@ -134,6 +141,7 @@
     <ClInclude Include="ESteamError.h" />
     <ClInclude Include="ESteamNotify.h" />
     <ClInclude Include="EUniverse.h" />
+    <ClInclude Include="FFKey.h" />
     <ClInclude Include="FriendGameInfo.h" />
     <ClInclude Include="FriendsCommon.h" />
     <ClInclude Include="gameserveritem.h" />
@@ -142,6 +150,7 @@
     <ClInclude Include="ISteamFriends005.h" />
     <ClInclude Include="ISteamMatchmaking007.h" />
     <ClInclude Include="ISteamUserStats010.h" />
+    <ClInclude Include="IWDKey.h" />
     <ClInclude Include="LocalizedStrings.h" />
     <ClInclude Include="MatchmakingCommon.h" />
     <ClInclude Include="MatchMakingKeyValuePair.h" />

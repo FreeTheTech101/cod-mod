@@ -103,16 +103,16 @@ extern "C"
 	SL_GetString_t SL_GetString = (SL_GetString_t)0x4CDC10;
 
 	// 159 stuff
-	SE_Load_t SE_Load = (SE_Load_t)0x409910;
-	LoadScriptFile_t LoadScriptFile = (LoadScriptFile_t)0x405CD0;
-	PC_ReadToken_t 	PC_ReadToken = (PC_ReadToken_t)0x42F1A0;
-	FreeMemory_t FreeMemory = (FreeMemory_t)0x4A7D20;
-	Script_Alloc_t Script_Alloc = (Script_Alloc_t)0x41BCD0;
-	Script_SetupTokens_t Script_SetupTokens = (Script_SetupTokens_t)0x4B59B0;
-	Script_CleanString_t Script_CleanString = (Script_CleanString_t)0x4316A0;
+	SE_Load_t SE_Load = (SE_Load_t)0x502A30;
+	LoadScriptFile_t LoadScriptFile = (LoadScriptFile_t)0x480110;
+	PC_ReadToken_t 	PC_ReadToken = (PC_ReadToken_t)0x4ACCD0;
+	FreeMemory_t FreeMemory = (FreeMemory_t)0x4D6640;
+	Script_Alloc_t Script_Alloc = (Script_Alloc_t)0x422E70;
+	Script_SetupTokens_t Script_SetupTokens = (Script_SetupTokens_t)0x4E6950;
+	Script_CleanString_t Script_CleanString = (Script_CleanString_t)0x498220;
 	R_AddCmdDrawStretchPic_t R_AddCmdDrawStretchPic = (R_AddCmdDrawStretchPic_t)0x50E190;
 	Field_Clear_t Field_Clear = (Field_Clear_t)0x45C350;
-	BG_LoadWeaponDef_LoadObj_t BG_LoadWeaponDef_LoadObj = (BG_LoadWeaponDef_LoadObj_t)0x659DA0;
+	BG_LoadWeaponDef_LoadObj_t BG_LoadWeaponDef_LoadObj = (BG_LoadWeaponDef_LoadObj_t)0x57B5F0;
 };
 
 dvar_t** dvarName = (dvar_t**)0x929154;
@@ -123,19 +123,19 @@ DWORD drawDevStuffHookLoc = 0x57DB09;
 DWORD windowedWindowStyleHookLoc = 0x50C0B3;
 DWORD winMainInitHookLoc = 0x4A7910;
 DWORD imageVersionCheckHookLoc = 0x544756;
-DWORD localizeAssetHookLoc = 0x61BB17;
-DWORD SELoadLanguageHookLoc = 0x61BCA7;
-DWORD SetStringHookLoc = 0x4759FE;
+DWORD localizeAssetHookLoc = 0x629B97;
+DWORD SELoadLanguageHookLoc = 0x629D27;
+DWORD SetStringHookLoc = 0x4CE5EE;
 DWORD zoneLoadHookLoc = 0x582F9C;
 DWORD ffLoadHook1Loc = 0x418DE8;
-DWORD menuFileHookLoc = 0x62DDD0;	
+DWORD menuFileHookLoc = 0x63FE70;
 DWORD scrGetFunctionHookLoc = 0x4ADF9C;
 DWORD scrDeclareFunctionTableEntryLoc = 0x4F59C0;
 DWORD loadGameOverlayHookLoc = 0x604350;
 DWORD findSoundAliasHookLoc = 0x631A39;
 DWORD printVersionHookLoc = 0x6030C2;
-DWORD weaponFileHookLoc = 0x659E00;
-DWORD vehicleFileHookLoc = 0x667D90;
+DWORD weaponFileHookLoc = 0x57B650;
+DWORD vehicleFileHookLoc = 0x67CD40;
 DWORD dbAddXAssetHookLoc = 0x581EE0;
 DWORD dbAddXAssetHookRet = 0x581EE7;
 DWORD getBSPNameHookLoc = 0x430C09;
@@ -145,8 +145,8 @@ DWORD SteamFriendsLoc = 0x694528;
 DWORD SteamUserStatsLoc = 0x69455C;
 DWORD SteamUserStatsInstanceLoc = 0x1BEE1C0;
 
-source_t **sourceFiles = (source_t **)0x7440E8;
-keywordHash_t **menuParseKeywordHash = (keywordHash_t **)0x1933DB0;
+source_t **sourceFiles = (source_t **)0x7C4A98;
+keywordHash_t **menuParseKeywordHash = (keywordHash_t **)0x63AE928;
 
 int version = 0;
 

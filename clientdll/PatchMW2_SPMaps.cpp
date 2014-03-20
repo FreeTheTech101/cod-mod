@@ -156,7 +156,7 @@ static char levelAssetName[64];
 
 static bool _hideIW4CCommon = false;
 
-std::unordered_map<std::string, bool> _allowedAssetMap;
+extern std::unordered_map<std::string, bool> _allowedAssetMap;
 bool* ignoreThisFx;
 
 bool AssetRestrict_RestrictFromMaps(assetType_t type, const char* name, const char* zone)

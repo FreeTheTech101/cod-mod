@@ -106,6 +106,11 @@ script_t* LoadScriptString(const char* string)
 		Script_SetupTokens(script, (void*)0x72F0E0);
 		script->punctuations = (punctuation_t*)0x72F0E0;
 	}
+	else if(version == 177)
+	{
+		Script_SetupTokens(script, (void*)0x797F80);
+		script->punctuations = (punctuation_t*)0x797F80;
+	}
 
 	strcpy(script->buffer, string);
 
@@ -300,6 +305,9 @@ int KeywordHash_Data(char* key)
 
 	if(version == 184)
 		func = 0x62B590;
+
+	if(version == 177)
+		func = 0x63FE90;
 		
 	int retval = 0;
 
@@ -313,7 +321,12 @@ int KeywordHash_Data(char* key)
 		*(DWORD*)0x62B59E = 3523;
 		*(DWORD*)0x62B5CB = 0x7F;
 	}
-	
+	else if(version == 177)
+	{
+		*(DWORD*)0x63FE9E = 3523;
+		*(DWORD*)0x63FECB = 0x7F;
+	}
+
 	__asm
 	{
 		mov eax, key
@@ -331,6 +344,11 @@ int KeywordHash_Data(char* key)
 		*(DWORD*)0x62B59E = 531;
 		*(DWORD*)0x62B5CB = 0x1FF;
 	}
+	else if(version == 177)
+	{
+		*(DWORD*)0x63FE9E = 531;
+		*(DWORD*)0x63FECB = 0x1FF;
+	}
 
 	return retval;
 }
@@ -338,6 +356,7 @@ int KeywordHash_Data(char* key)
 //#define PC_SourceError(x, y, ...) Com_Printf(0, y, __VA_ARGS__)
 #define PC_SourceError_159(x, y, ...) ((void (*)(int, const char*, ...))0x43A6D0)(x, y, __VA_ARGS__)
 #define PC_SourceError_184(x, y, ...) ((void (*)(int, const char*, ...))0x46C8E0)(x, y, __VA_ARGS__)
+#define PC_SourceError_177(x, y, ...) ((void (*)(int, const char*, ...))0x467A00)(x, y, __VA_ARGS__)
 
 bool Menu_Parse(int handle, menuDef_t *menu) {
 	pc_token_t token;
@@ -358,6 +377,8 @@ bool Menu_Parse(int handle, menuDef_t *menu) {
 				PC_SourceError_159(handle, "end of file inside menu\n");
 			else if(version == 184)
 				PC_SourceError_184(handle, "end of file inside menu\n");
+			else if(version == 177)
+				PC_SourceError_177(handle, "end of file inside menu\n");
 			return false;
 		}
 
@@ -375,6 +396,8 @@ bool Menu_Parse(int handle, menuDef_t *menu) {
 				PC_SourceError_159(handle, "unknown menu keyword %s", token.string);
 			else if(version == 184)
 				PC_SourceError_184(handle, "unknown menu keyword %s", token.string);
+			else if(version == 177)
+				PC_SourceError_177(handle, "unknown menu keyword %s", token.string);
 			continue;
 		}
 		if ( !key->func((itemDef_t*)menu, handle) ) 
@@ -383,6 +406,8 @@ bool Menu_Parse(int handle, menuDef_t *menu) {
 				PC_SourceError_159(handle, "couldn't parse menu keyword %s", token.string);
 			else if(version == 184)
 				PC_SourceError_184(handle, "couldn't parse menu keyword %s", token.string);
+			else if(version == 177)
+				PC_SourceError_177(handle, "couldn't parse menu keyword %s", token.string);
 			return false;
 		}
 	}
@@ -471,7 +496,7 @@ void* MenuFileHookFunc(const char* filename)
 		return UI_ParseScriptMenu(filename);
 	}
 
-	if (!strcmp(filename, "ui/code.txt") &&  ui_code)
+	if (!strcmp(filename, va("%s/code.txt", (version == 177 ? "ui_mp" : "ui"))) &&  ui_code)
 	{
 		Com_Printf(1, "MenuFileHookFunc: %s [cached]\n", filename);
 		return ui_code;
@@ -479,7 +504,7 @@ void* MenuFileHookFunc(const char* filename)
 
 	int numCustomMenus = 0;
 
-	if (!strcmp(filename, "ui/menus.txt"))
+	if (!strcmp(filename, va("%s/menus.txt", (version == 177 ? "ui_mp" : "ui"))))
 	{
 		numCustomMenus = NUM_CUSTOM_MENUS;
 	}
@@ -505,7 +530,7 @@ void* MenuFileHookFunc(const char* filename)
 		}
 
 		char uifilename[512];
-		sprintf(uifilename, "ui/%s.menu", menu->window.name);
+		sprintf(uifilename, va("%s/%s.menu", (version == 177 ? "ui_mp" : "ui")), menu->window.name);
 		//Com_Printf(0, va("Parsing %s\n", uifilename));
 		
 		if (FS_ReadFile(uifilename, 0) >= 0)
@@ -551,7 +576,7 @@ void* MenuFileHookFunc(const char* filename)
 		free(newFile->menuFiles);
 		free(newFile);
 	}
-	else if (!strcmp(filename, "ui/code.txt"))
+	else if (!strcmp(filename, va("%s/code.txt", (version == 177 ? "ui_mp" : "ui"))))
 	{
 		Com_Printf(1, "MenuFileHookFunc: %s [replaced]\n", filename);
 		ui_code = newFile;
@@ -590,5 +615,11 @@ void PatchMW2_UILoading()
 		// don't load ASSET_TYPE_MENU assets for every menu (might cause patch menus to fail)
 		memset((void*)0x417686, 0x90, 5);
 	}
-	
+	else if(version == 177)
+	{
+		*(BYTE*)0x640693 = 0xEB;
+
+		// don't load ASSET_TYPE_MENU assets for every menu (might cause patch menus to fail)
+		memset((void*)0x453406, 0x90, 5);
+	}	
 }

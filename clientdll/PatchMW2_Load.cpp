@@ -187,6 +187,17 @@ void __cdecl FFLoadHook1(XZoneInfo* data, int count, int unknown)
 	data[count].type2 = 0;
 	count++;
 
+	// Peacekeeper and uhhhhh... what was that weapon called again?
+	data[count].name = "weap_trey";
+	data[count].type1 = data[2].type1;
+	data[count].type2 = data[2].type2;
+	count++;
+
+	data[count].name = "weap_iw";
+	data[count].type1 = data[2].type1;
+	data[count].type2 = data[2].type2;
+	count++;
+
 	return DB_LoadXAssets(data, count, unknown);
 }
 

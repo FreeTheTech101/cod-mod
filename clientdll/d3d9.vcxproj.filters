@@ -130,6 +130,27 @@
     <ClCompile Include="PatchMW2_FilePointers.cpp">
       <Filter>MW2 Patches</Filter>
     </ClCompile>
+    <ClCompile Include="PatchMW2_CryptoZone.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_CryptoFiles.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_T6Clips.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_Materialism.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_Loadscreens.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_Experiments.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="HiddenAssets.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooking.h">
@@ -334,6 +355,12 @@
       <Filter>SteamHeader</Filter>
     </ClInclude>
     <ClInclude Include="159_defs.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="IWDKey.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="FFKey.h">
       <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>

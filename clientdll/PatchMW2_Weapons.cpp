@@ -13,7 +13,7 @@
 #include "direct.h"
 
 typedef void* (__cdecl * LoadRawFile_t)(const char* filename, void* buffer, size_t buflen);
-LoadRawFile_t LoadRawFile = (LoadRawFile_t)0x46DA60;
+extern LoadRawFile_t LoadRawFile;
 
 #define RAWFILE_BUFSIZE 2097152
 static char rawFileBuffer[RAWFILE_BUFSIZE];
@@ -42,19 +42,7 @@ typedef struct weaponEntry_s
 weaponEntry_t* weaponEntries = (weaponEntry_t*)0x739C68;
 weaponEntry_t* vehicleEntries = (weaponEntry_t*)0x73BEA8;
 
-const char* SL_ConvertToString(unsigned int sl)
-{
-	__asm
-	{
-		push sl
-		mov eax, 40E990h
-		call eax
-		add esp, 4h
-		mov sl, eax
-	}
-
-	return (const char*)sl;
-}
+const char* SL_ConvertToString(unsigned int sl);
 
 void DumpNoteTrackEntry(FILE* file, int type, char* data, char* data2)
 {
@@ -449,7 +437,7 @@ std::string weaponFile;
 
 void* WeaponFileHookFunc(const char* filename)
 {
-	if(_allowZoneChange)
+	if(_allowZoneChange && version != 177)
 	{
 		current_zone = va(CURRENT_ZONE_NAME);
 		weaponFolder = va("data\\weapons\\%s", current_zone);
@@ -464,7 +452,7 @@ void* WeaponFileHookFunc(const char* filename)
 		_allowZoneChange = false;
 	}
 
-	if (FS_ReadFile(va("weapons/sp/%s", filename), NULL) > 0)
+	if (FS_ReadFile(va("weapons/%s/%s", (version == 177 ? "mp" : "sp"), filename), NULL) > 0)
 	{
 		return  BG_LoadWeaponDef_LoadObj(filename);
 	}
@@ -561,6 +549,13 @@ void PatchMW2_Weapons()
 
 		// Ignore missing default weapon
 		*(BYTE*)0x65764E = 0xEB;
+	}
+	else if(version == 177)
+	{
+		// weapon asset existence check
+		nop(0x408228, 5); // find asset header
+		nop(0x408230, 5); // is asset default
+		nop(0x40823A, 2); // jump
 	}
 
 	weaponFileHook.initialize(weaponFileHookLoc, WeaponFileHookStub);

@@ -115,4 +115,75 @@ void PatchMW2_LocalizedStrings()
 	call(localizeAssetHookLoc, loadLocalizeAsset, PATCH_CALL);
 
 	Dvar_RegisterEnum("loc_modLanguage", ModLanguageEnum, 0, DVAR_FLAG_SAVED, "Preferred language for custom localized strings.");
+
+	// String by Dekart811
+	if(version == 177)
+	{
+		addLocStr("EXE_AWAITINGGAMESTATE", "Awaiting gamestate");
+
+		// menu strings
+		addLocStr("MPUI_TITLE", "IW4");
+		addLocStr("MPUI_LAN", "LAN");
+		addLocStr("MPUI_NEWS", "News:");
+		addLocStr("MPUI_NEWS_CAPS", "NEWS:");
+
+		// menu buttons
+		addLocStr("MENU_RECONNECTING_TO_PARTY", "CONNECTING TO SERVER");
+		addLocStr("MENU_PASSWORD_CAPS", "PASSWORD");
+		addLocStr("MENU_MODS_CAPS", "MODS");
+		addLocStr("MENU_NEWS", "News");
+		addLocStr("MENU_NEWS_CAPS", "NEWS");
+		addLocStr("MENU_STORE", "Store");
+		addLocStr("MENU_STORE_CAPS", "STORE");
+		addLocStr("MENU_FRIENDS", "Friends");
+		addLocStr("MENU_FRIENDS_CAPS", "FRIENDS");
+		addLocStr("MENU_LAN", "LAN");
+		addLocStr("MENU_SP_MAPS_C", "^3Singleplayer Maps");
+		addLocStr("MENU_SP_MAPS", "Singleplayer Maps");
+		addLocStr("MENU_JOIN", "Join");
+		addLocStr("MENU_JOIN_CAPS", "JOIN");
+
+		// mennu buttons with shortcuts
+		addLocStr("PLATFORM_FRIENDS", "Friends ^0- ^3F^7");
+		addLocStr("PLATFORM_FRIENDS_CAPS", "FRIENDS ^0- ^3F^7");
+		addLocStr("PLATFORM_STORE", "Store ^0- ^3S^7");
+		addLocStr("PLATFORM_STORE_CAPS", "STORE ^0- ^3S^7");
+		addLocStr("PLATFORM_CONNECT_CAPS",  "CONNECT ^0- ^3C");
+		addLocStr("PLATFROM_CHANGE_NAME", "Change Name ^0- ^3N");
+		addLocStr("PLATFORM_CHANGE_NAME_CAPS", "CHANGE NAME ^0- ^3N");
+
+		// map names
+		addLocStr("MPUI_BURGERTOWN", "Burger Town");
+		addLocStr("MPUI_GHILLIES", "Pripyat");
+		addLocStr("MPUI_TESTMAP", "IW4 Test Map");
+		addLocStr("MPUI_CONTINGENCY", "Contingency");
+		addLocStr("MPUI_NUKED", "Nuketown");
+		addLocStr("MPUI_BOG_SH", "Bog");
+		addLocStr("MPUI_KILLHOUSE", "Killhouse");
+
+		// map descriptions
+		addLocStr("MPUI_DESC_MAP_OILRIG", "TODO: Write description for MPUI_DESC_MAP_OILRIG");
+		addLocStr("MPUI_DESC_MAP_GULAG", "An open air fight in the Gulag, 40 miles east of Petropavlovsk, Russia.");
+		addLocStr("MPUI_DESC_MAP_BURGERTOWN", "Eating a burger while killing enemies?\nForget it!");
+		addLocStr("MPUI_DESC_MAP_GHILLIES", "Stay away of the radiation and survive in Pripyat, Ukraine.");
+		addLocStr("MPUI_DESC_MAP_TESTMAP", "A small testing map.");
+		addLocStr("MPUI_DESC_MAP_CONTINGENCY", "Survive in a biting cold battle.");
+		addLocStr("MPUI_DESC_MAP_TRAINER", "Remember... switching to your pistol is always faster than reloading!");
+		addLocStr("MPUI_DESC_MAP_FAVELA_SP", "A Slum in Brazil. Fast-paced action on a small map.");
+		addLocStr("MPUI_DESC_MAP_NUKED", "A deserted nuke testing facility used in the Cold War.");
+		addLocStr("MPUI_DESC_MAP_KILLHOUSE", "A very small symmetrical map with a looking post in the middle.");
+		addLocStr("MPUI_DESC_SP_MAPS", "Ported maps from the Singleplayer.");
+
+		// gamemodes
+		addLocStr("MPUI_VIP_CAPS", "VIP");
+
+		// misc
+		addLocStr("MPUI_DESC_CHANGE_NAME", "Change your Nickname.");
+
+		// weapons
+		addLocStr("WEAPON_PEACEKEEPER", "Peacekeeper SMG");
+
+		// playercard titles
+		addLocStr("PLAYERCARDS_TITLE_FNG", "<3 IW4LAN"); // new text for the default playercard icon
+	}
 }
