@@ -19,6 +19,8 @@
 
 // C/C++ headers
 #include <map>
+#include <string>
+#include <unordered_map>
 #include <vector>
 #include <winsock.h>
 

@@ -10,6 +10,7 @@
 // ==========================================================
 
 #include "StdInc.h"
+#include "159_defs.h"
 #include <dbghelp.h>
 
 void PatchMW2_ClientConsole();
@@ -71,7 +72,7 @@ returnSafe:
 
 void PatchMW2_159()
 {
-	version = 159;
+	define159Stuff();
 
 	PatchMW2_Minidump();
 	PatchMW2_Coop();

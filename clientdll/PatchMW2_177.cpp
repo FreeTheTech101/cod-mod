@@ -18,7 +18,8 @@ void PatchMW2_SPMaps();
 void PatchMW2_Stats();
 void PatchMW2_Images();
 void PatchMW2_PartyBypass();
-void PatchMW2_SteamMatchmaking();
+void PatchMW2_MPClientConsole();
+void PatchMW2_CModels();
 void* ReallocateAssetPool(int type, unsigned int newSize);
 
 DWORD SteamUserStuff177 = 0x47BDA0;
@@ -46,28 +47,6 @@ returnSafe:
 	}
 }
 
-void _Con_ToggleConsole()
-{
-	*(DWORD*)0xB2C538 ^= 1;
-	Field_Clear((void*)0xA1B6B0);
-	*(BYTE*)0xA15F38 = 0;
-}
-
-CallHook clKeyEventToggleConsoleHook1;
-DWORD clKeyEventToggleConsoleHook1Loc =	0x4F690C;
-
-StompHook clKeyEventToggleConsoleHook2;
-DWORD clKeyEventToggleConsoleHook2Loc = 0x4F65A5;
-
-static void PatchMW2_ClientConsole_Toggle()
-{
-	clKeyEventToggleConsoleHook1.initialize(clKeyEventToggleConsoleHook1Loc, _Con_ToggleConsole);
-	clKeyEventToggleConsoleHook1.installHook();
-
-	clKeyEventToggleConsoleHook2.initialize(clKeyEventToggleConsoleHook2Loc, _Con_ToggleConsole);
-	clKeyEventToggleConsoleHook2.installHook();
-}
-
 cmd_function_t Cmd_OpenMenu;
 void Cmd_OpenMenu_f()
 {
@@ -90,6 +69,7 @@ void PatchMW2_177()
 {
 	version = 177;
 
+	// Need to clean these up
 	Cmd_AddCommand = (Cmd_AddCommand_t)0x470090;
 	Com_Printf = (Com_Printf_t)0x402500;
 	R_RegisterFont = (R_RegisterFont_t)0x505670;
@@ -118,15 +98,15 @@ void PatchMW2_177()
 	cmd_argc = (DWORD*)0x1AAC614;
 	cmd_argv = (DWORD**)0x1AAC634;
 
-	PatchMW2_ClientConsole_Toggle();
-	PatchMW2_SteamMatchmaking();
+	PatchMW2_MPClientConsole();
 	PatchMW2_PartyBypass();
 	PatchMW2_Branding();
+	PatchMW2_CModels();
 	PatchMW2_Images();
 	PatchMW2_Steam();
 	PatchMW2_Stats();
 	PatchMW2_Load();
-	//PatchMW2_SPMaps();
+	PatchMW2_SPMaps();
 
 	Cmd_AddCommand("openmenu", Cmd_OpenMenu_f, &Cmd_OpenMenu, 0);
 
@@ -192,6 +172,9 @@ void PatchMW2_177()
 	// Force debug logging
 	nop(0x4AA89F, 2);
 	nop(0x4AA8A1, 6);
+
+	// Configstring stuff
+	*(BYTE*)0x5AC2C3 = 0xEB; // CL_ParseGamestate
 
 	// Test
 	ReallocateAssetPool(ASSET_TYPE_WEAPON, 2400);

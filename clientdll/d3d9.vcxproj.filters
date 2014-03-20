@@ -118,6 +118,12 @@
     <ClCompile Include="SteamMatchmaking007.cpp">
       <Filter>Steam</Filter>
     </ClCompile>
+    <ClCompile Include="PatchMW2_MPClientConsole.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_CModels.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooking.h">
@@ -320,6 +326,9 @@
     </ClInclude>
     <ClInclude Include="MatchmakingCommon.h">
       <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="159_defs.h">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

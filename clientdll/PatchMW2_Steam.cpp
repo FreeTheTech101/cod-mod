@@ -14,6 +14,7 @@
 void PatchMW2_SteamFriends();
 void PatchMW2_RunCallbacks();
 void PatchMW2_SteamUserStats();
+void PatchMW2_SteamMatchmaking();
 void replaceFriendConnect();
 void connectHook();
 
@@ -122,6 +123,7 @@ void initializeSteamPatch()
 
 	if(version == 177)
 	{
+		PatchMW2_SteamMatchmaking();
 		PatchMW2_RunCallbacks();
 		*(DWORD*)0x6D7458 = (DWORD)custom_gethostbyname;
 	}
