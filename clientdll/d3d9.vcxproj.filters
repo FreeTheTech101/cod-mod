@@ -124,6 +124,12 @@
     <ClCompile Include="PatchMW2_CModels.cpp">
       <Filter>MW2 Patches</Filter>
     </ClCompile>
+    <ClCompile Include="PatchMW2_FifthInfinity.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_FilePointers.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooking.h">

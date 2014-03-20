@@ -87,6 +87,8 @@
     <ClCompile Include="PatchMW2_ClientConsole.cpp" />
     <ClCompile Include="PatchMW2_Coop.cpp" />
     <ClCompile Include="PatchMW2_ConsoleStart.cpp" />
+    <ClCompile Include="PatchMW2_FifthInfinity.cpp" />
+    <ClCompile Include="PatchMW2_FilePointers.cpp" />
     <ClCompile Include="PatchMW2_MPClientConsole.cpp" />
     <ClCompile Include="PatchMW2_PartyBypass.cpp" />
     <ClCompile Include="PatchMW2_SPMaps.cpp" />

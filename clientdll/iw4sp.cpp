@@ -100,6 +100,8 @@ extern "C"
 
 	Steam_JoinLobby_t Steam_JoinLobby = (Steam_JoinLobby_t)0x49CF70;
 
+	SL_GetString_t SL_GetString = (SL_GetString_t)0x4CDC10;
+
 	// 159 stuff
 	SE_Load_t SE_Load = (SE_Load_t)0x409910;
 	LoadScriptFile_t LoadScriptFile = (LoadScriptFile_t)0x405CD0;

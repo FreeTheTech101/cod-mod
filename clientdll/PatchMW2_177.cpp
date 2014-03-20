@@ -20,6 +20,7 @@ void PatchMW2_Images();
 void PatchMW2_PartyBypass();
 void PatchMW2_MPClientConsole();
 void PatchMW2_CModels();
+void PatchMW2_FifthInfinity();
 void* ReallocateAssetPool(int type, unsigned int newSize);
 
 DWORD SteamUserStuff177 = 0x47BDA0;
@@ -107,6 +108,9 @@ void PatchMW2_177()
 	PatchMW2_Stats();
 	PatchMW2_Load();
 	PatchMW2_SPMaps();
+
+	// Extdll stuff
+	PatchMW2_FifthInfinity();
 
 	Cmd_AddCommand("openmenu", Cmd_OpenMenu_f, &Cmd_OpenMenu, 0);
 
