@@ -78,6 +78,7 @@
     <ClCompile Include="PatchMW2_CModels.cpp" />
     <ClCompile Include="PatchMW2_CryptoFiles.cpp" />
     <ClCompile Include="PatchMW2_CryptoZone.cpp" />
+    <ClCompile Include="PatchMW2_Dedicated.cpp" />
     <ClCompile Include="PatchMW2_EntsFiles.cpp" />
     <ClCompile Include="Hooking.cpp" />
     <ClCompile Include="main.cpp" />
@@ -97,9 +98,13 @@
     <ClCompile Include="PatchMW2_Materialism.cpp" />
     <ClCompile Include="PatchMW2_MPClientConsole.cpp" />
     <ClCompile Include="PatchMW2_PartyBypass.cpp" />
+    <ClCompile Include="PatchMW2_Redirect.cpp" />
+    <ClCompile Include="PatchMW2_RemoteConsoleSV.cpp" />
+    <ClCompile Include="PatchMW2_ServerList.cpp" />
     <ClCompile Include="PatchMW2_SPMaps.cpp" />
     <ClCompile Include="PatchMW2_Stats.cpp" />
     <ClCompile Include="PatchMW2_T6Clips.cpp" />
+    <ClCompile Include="PatchMW2_UIScriptFix.cpp" />
     <ClCompile Include="PatchMW2_Weapons.cpp" />
     <ClCompile Include="PatchMW2_Steam.cpp" />
     <ClCompile Include="PatchMW2_Images.cpp" />
@@ -113,6 +118,7 @@
     <ClCompile Include="PatchMW3_358.cpp" />
     <ClCompile Include="PatchMW3_382.cpp" />
     <ClCompile Include="PatchMW3_UILoading.cpp" />
+    <ClCompile Include="PatchMW2_UIScripts.cpp" />
     <ClCompile Include="SteamBase.cpp" />
     <ClCompile Include="SteamFriends005.cpp" />
     <ClCompile Include="SteamMatchmaking007.cpp" />
@@ -146,6 +152,7 @@
     <ClInclude Include="FriendsCommon.h" />
     <ClInclude Include="gameserveritem.h" />
     <ClInclude Include="Hooking.h" />
+    <ClInclude Include="hwbrk.h" />
     <ClInclude Include="ISteamClient008.h" />
     <ClInclude Include="ISteamFriends005.h" />
     <ClInclude Include="ISteamMatchmaking007.h" />
@@ -157,9 +164,12 @@
     <ClInclude Include="myIDirect3D9.h" />
     <ClInclude Include="myIDirect3DDevice9.h" />
     <ClInclude Include="myIDirect3DSwapChain9.h" />
+    <ClInclude Include="PatchMW2ServerList.h" />
+    <ClInclude Include="PatchMW2UIScripts.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="rgb_hsv.h" />
     <ClInclude Include="servernetadr.h" />
+    <ClInclude Include="ServerStorage.h" />
     <ClInclude Include="stdinc.h" />
     <ClInclude Include="iw4sp.h" />
     <ClInclude Include="SteamFriends005.h" />

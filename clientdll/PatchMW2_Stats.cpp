@@ -18,13 +18,14 @@ DWORD downloadStatsHookLoc = 0x4B229D;
 StompHook writeStatsHook;
 DWORD writeStatsHookLoc = 0x682E70;
 
-int* clientState = (int*)0xB2C540;
 char* statBuffer = (char*)0x1AD3690;
 
 typedef void (__cdecl * LiveStorage_CompleteStatDownload_t)(int, int, int);
 LiveStorage_CompleteStatDownload_t LiveStorage_CompleteStatDownload = (LiveStorage_CompleteStatDownload_t)0x4C04C0;
 
 static unsigned int bufferSize;
+
+extern int* clientState;
 
 void LiveStorage_DownloadStats(const char* profileName)
 {

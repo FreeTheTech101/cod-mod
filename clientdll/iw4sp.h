@@ -1,5 +1,8 @@
 #pragma once
 
+#define PROTOCOL 144
+#define MASTER_SERVER "127.0.0.1"
+
 typedef enum assetType_e
 {
 	ASSET_TYPE_PHYSPRESET = 0,
@@ -1352,6 +1355,11 @@ extern source_t **sourceFiles;
 extern keywordHash_t **menuParseKeywordHash;
 
 extern int version;
+
+extern gentity_t* g_entities;
+extern dvar_t* sv_rconPassword;
+extern int* svs_numclients;
+extern client_t* svs_clients;
 
 #define CURRENT_ZONE_NAME_159 (char*)(*(DWORD*)0x9DAD80 + 4)
 #define CURRENT_ZONE_NAME_177 (char*)(*(DWORD*)0x112A680 + 4)

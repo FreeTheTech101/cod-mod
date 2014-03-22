@@ -48,3 +48,5 @@
 #define VERSIONSTRING "COD-MOD: " VERSION
 
 #define CONSOLESTRING VERSIONSTRING " (built " __DATE__ " " __TIME__ ")"
+
+static netadr_t currentLobbyTarget;

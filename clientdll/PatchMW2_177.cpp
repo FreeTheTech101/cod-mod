@@ -29,6 +29,10 @@ void PatchMW2_Materialism();
 void PatchMW2_Loadscreens();
 void PatchMW2_Weapons();
 void PatchMW2_Experimental();
+void PatchMW2_UIScripts();
+void PatchMW2_ServerList();
+void PatchMW2_UIScriptFix();
+void PatchMW2_Dedicated();
 void* ReallocateAssetPool(int type, unsigned int newSize);
 
 DWORD SteamUserStuff177 = 0x47BDA0;
@@ -149,6 +153,14 @@ void PatchMW2_177()
 	PatchMW2_Weapons();
 	PatchMW2_Experimental();
 	PatchMW2_FFHash();
+	PatchMW2_UIScripts();
+	PatchMW2_ServerList();
+	PatchMW2_UIScriptFix();
+
+	if (GAME_FLAG(GAME_FLAG_DEDICATED))
+	{
+		PatchMW2_Dedicated();
+	}
 	
 	// Extdll stuff
 	PatchMW2_FifthInfinity();
@@ -156,6 +168,23 @@ void PatchMW2_177()
 	PatchMW2_CryptoFiles();
 
 	Cmd_AddCommand("openmenu", Cmd_OpenMenu_f, &Cmd_OpenMenu, 0);
+
+	// Ignore DVAR error
+	nop(0x5EC371, 5);
+	nop(0x5EC44E, 5);
+	nop(0x5EC4FA, 5);
+	nop(0x5EC5A7, 5);
+
+	// protocol version (workaround for hacks)
+	*(int*)0x4FB501 = PROTOCOL; // was 8E
+
+	// protocol command
+	*(int*)0x4D36A9 = PROTOCOL; // was 8E
+	*(int*)0x4D36AE = PROTOCOL; // was 8E
+	*(int*)0x4D36B3 = PROTOCOL; // was 8E
+
+	// Master server
+	strcpy((char*)0x6D9CBC, MASTER_SERVER);
 
 	// Entirely remove steam support... we don't want you to get banned :D
 	*(WORD*)0x45114E = 0x01B0;

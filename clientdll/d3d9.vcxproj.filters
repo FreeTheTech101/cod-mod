@@ -151,6 +151,24 @@
     <ClCompile Include="HiddenAssets.cpp">
       <Filter>Base</Filter>
     </ClCompile>
+    <ClCompile Include="PatchMW2_ServerList.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_Dedicated.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_RemoteConsoleSV.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_Redirect.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_UIScripts.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
+    <ClCompile Include="PatchMW2_UIScriptFix.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooking.h">
@@ -361,6 +379,18 @@
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="FFKey.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PatchMW2UIScripts.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerStorage.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PatchMW2ServerList.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="hwbrk.h">
       <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>

@@ -158,6 +158,100 @@ DWORD** cmd_argv = (DWORD**)0x144FF34;
 const char *current_zone = nullptr;
 bool _allowZoneChange = true;
 
+searchpath_t* fs_searchpaths = (searchpath_t*)0x63D96E0;
+int* clientState = (int*)0xB2C540;
+gentity_t* g_entities = (gentity_t*)0x18835D8;
+int* svs_numclients = (int*)0x31D938C;
+client_t* svs_clients = (client_t*)0x31D9390;
+
+DWORD* cmd_id_sv = (DWORD*)0x1ACF8A0;
+DWORD* cmd_argc_sv = (DWORD*)0x1ACF8E4;
+DWORD** cmd_argv_sv = (DWORD**)0x1ACF904;
+
+typedef struct party_s
+{
+	BYTE pad1[544];
+	int privateSlots;
+	int publicSlots;
+} party_t;
+
+static party_t** partyIngame = (party_t**)0x1081C00;
+
+int Party_NumPublicSlots(party_t* party)
+{
+	return party->publicSlots + party->privateSlots;
+}
+
+int Party_NumPublicSlots()
+{
+	return Party_NumPublicSlots(*partyIngame);
+}
+
+/*
+============
+Cmd_Argc
+============
+*/
+int		Cmd_ArgcSV( void ) {
+	return cmd_argc_sv[*cmd_id_sv];
+}
+
+/*
+============
+Cmd_Argv
+============
+*/
+char	*Cmd_ArgvSV( int arg ) {
+	if ( (unsigned)arg >= cmd_argc_sv[*cmd_id_sv] ) {
+		return "";
+	}
+	return (char*)(cmd_argv_sv[*cmd_id_sv][arg]);	
+}
+
+void SV_GetStatus(svstatus_t* status)
+{
+	if (!status) return;
+
+	int clientCount = 0;
+	BYTE* clientAddress = (BYTE*)svs_clients;
+
+	for (int i = 0; i < *svs_numclients; i++) {
+		if (*clientAddress >= 3) {
+			clientCount++;
+		}
+
+		clientAddress += 681872;
+	}
+
+	status->curClients = clientCount;
+	status->maxClients = Party_NumPublicSlots();
+
+	const char* mapname = GetStringConvar("mapname");
+	strcpy(status->map, mapname);
+}
+
+bool SV_IsClientIP(unsigned int ip)
+{
+	BYTE* clientAddress = (BYTE*)svs_clients;
+
+	for (int i = 0; i < *svs_numclients; i++) {
+		if (*clientAddress >= 3) {
+			netadr_t* adr = (netadr_t*)(clientAddress + 40);
+			unsigned int clientIP = (adr->ip[3]) | (adr->ip[2] << 8) | (adr->ip[1] << 16) | (adr->ip[0] << 24);
+
+			if (clientIP == ip)
+			{
+				return true;
+			}
+		}
+
+		clientAddress += 681872;
+	}
+
+	return false;
+}
+
+
 /*
 ============
 Cmd_Argc
@@ -186,4 +280,26 @@ char* GetStringConvar(char* key) {
 	if (!var) return "";
 
 	return var->current.string;
+}
+
+typedef void (__cdecl* sendOOB_t)(int, int, int, int, int, int, const char*);
+sendOOB_t OOBPrint = (sendOOB_t)0x4AEF00;
+
+void OOBPrintT(int type, netadr_t netadr, const char* message)
+{
+	int* adr = (int*)&netadr;
+
+	OOBPrint(type, *adr, *(adr + 1), *(adr + 2), 0xFFFFFFFF, *(adr + 4), message);
+}
+
+void NET_OutOfBandPrint(int type, netadr_t adr, const char* message, ...)
+{
+	va_list args;
+	char buffer[65535];
+
+	va_start(args, message);
+	_vsnprintf(buffer, sizeof(buffer), message, args);
+	va_end(args);
+
+	OOBPrintT(type, adr, buffer);
 }
