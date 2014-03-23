@@ -34,11 +34,11 @@ void Sys_Init()
 		PatchMW2_159();
 	}
 
-	// MW2 - Version 177 (Mutliplayer)
-	if(!strcmp((char*)0x6E9638, "177"))
-	{
-		PatchMW2_177();
-	}
+// 	// MW2 - Version 177 (Mutliplayer)
+// 	if(!strcmp((char*)0x6E9638, "177"))
+// 	{
+// 		PatchMW2_177();
+// 	}
 
 	// MW2 - Version 184
 	else if(!strcmp((char*)0x6D2784, "184"))

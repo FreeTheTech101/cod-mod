@@ -42,7 +42,19 @@ typedef struct weaponEntry_s
 weaponEntry_t* weaponEntries = (weaponEntry_t*)0x739C68;
 weaponEntry_t* vehicleEntries = (weaponEntry_t*)0x73BEA8;
 
-const char* SL_ConvertToString(unsigned int sl);
+const char* SL_ConvertToString(unsigned int sl)
+{
+	__asm
+	{
+		push sl
+			mov eax, 40E990h
+			call eax
+			add esp, 4h
+			mov sl, eax
+	}
+
+	return (const char*)sl;
+}
 
 void DumpNoteTrackEntry(FILE* file, int type, char* data, char* data2)
 {
