@@ -3,7 +3,7 @@ COD - MOD | Singleplayer Modification
 
 Created by Momo5502 (https://www.youtube.com/user/TheMomo5502)  
 Bug Testing done by Dasfonia (https://www.youtube.com/user/Those2menoverthere)  
-Code Usage from NTAuthority's IW4M Project (https://www.youtube.com/user/NTAuthority) 
+Code Usage from NTAuthority's IW4M Project (https://www.youtube.com/user/NTAuthority)  
 Proxy optimization by Archony (https://github.com/archon432)
 
 =================================================================================
