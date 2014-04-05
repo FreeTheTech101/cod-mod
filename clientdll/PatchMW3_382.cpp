@@ -248,7 +248,7 @@ void PatchMW3_382()
 	*(BYTE*)0x44B26E = 0xEB; // Steam connect
 	*(BYTE*)0x501CD4 = 0xEB;
 	//nop(0x567665, 5);
-	*(BYTE*)0x567621 = 0xEB; // xrequirelivesignin stuff
+	//*(BYTE*)0x567621 = 0xEB; // xrequirelivesignin stuff
 
 	// No XBLive error
 	nop(0x5E3E73, 6);

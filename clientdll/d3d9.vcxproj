@@ -53,6 +53,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalUsingDirectories>$(SolutionDir)libs\;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>wldap32.lib;ws2_32.lib;winmm.lib;shlwapi.lib;dbghelp.lib;tomcrypt.lib;tommath.lib;zlibstat.lib;zzip-1.lib;zziplib.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -69,7 +70,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Direct3DHook.cpp" />
-    <ClCompile Include="HiddenAssets.cpp" />
     <ClCompile Include="myIDirect3D9.cpp" />
     <ClCompile Include="myIDirect3DDevice9.cpp" />
     <ClCompile Include="myIDirect3DSwapChain9.cpp" />

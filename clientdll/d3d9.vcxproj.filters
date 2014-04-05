@@ -109,9 +109,6 @@
     <ClCompile Include="SteamMatchmaking007.cpp">
       <Filter>Steam</Filter>
     </ClCompile>
-    <ClCompile Include="HiddenAssets.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooking.h">

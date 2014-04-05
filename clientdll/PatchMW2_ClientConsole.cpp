@@ -26,8 +26,16 @@ void Con_ToggleConsole()
 	Field_Clear((void*)0x88C700);
 }
 
-void checkConsole(int blah, int blahh, DWORD allowToggle)
+void checkConsole()
 {
+	DWORD allowToggle;
+
+	__asm
+	{
+		mov eax, [esp + 08h]
+		mov allowToggle, eax
+	}
+
 	if(allowToggle)
 	{
 		Con_ToggleConsole();
