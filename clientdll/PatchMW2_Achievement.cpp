@@ -134,7 +134,7 @@ bool printAchievements()
 
 void processAchievement(int rewardCode)
 {
-	Com_Printf(0, "Processing reward: '%s'\n", achievements[rewardCode].name);
+	//Com_Printf(0, "Processing reward: '%s'\n", achievements[rewardCode].name);
 
 	reward_t* reward = (reward_t*)malloc(sizeof(reward_t));
 	reward->rewardCode = rewardCode;
