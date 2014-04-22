@@ -109,6 +109,9 @@
     <ClCompile Include="SteamMatchmaking007.cpp">
       <Filter>Steam</Filter>
     </ClCompile>
+    <ClCompile Include="PatchMW2_Icon.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooking.h">
@@ -316,6 +319,9 @@
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="rewardSound.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="icon.h">
       <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>

@@ -31,6 +31,7 @@ void PatchMW2_Weapons();
 void PatchMW2_AssetRestrict();
 void PatchMW2_EntsFiles();
 void PatchMW2_AchievementTest();
+void PatchMW2_Icon();
 
 char ingameUsername[32];
 
@@ -90,6 +91,7 @@ void PatchMW2_159()
 	PatchMW2_Weapons();
 	PatchMW2_AssetRestrict();
 	PatchMW2_AchievementTest();
+	PatchMW2_Icon();
 
 	// prevent stat loading from steam
 	*(BYTE*)0x43FB33 = 0xC3;

@@ -232,6 +232,11 @@ bool resetAchievements()
 
 void giveTestA()
 {
+	dvar_t* sv_cheats = Dvar_FindVar("sv_cheats");
+
+	if(!sv_cheats->current.boolean)
+		return;
+
 	int r = 10;
 
 	if(Cmd_Argc() == 2)
@@ -243,7 +248,6 @@ void giveTestA()
 
 void PatchMW2_AchievementTest()
 {
-	return; // Nope
 	static cmd_function_t achievementTest_cmd;
 	Cmd_AddCommand("giveA", giveTestA, &achievementTest_cmd, 0);
 }
