@@ -1205,6 +1205,8 @@ extern FS_Seek_t FS_Seek;
 typedef void (__cdecl * G_LogPrintf_t)(char*, ...);
 extern G_LogPrintf_t G_LogPrintf;
 
+typedef void (__cdecl * G_GiveAchievement_t)(char* pchName);
+extern G_GiveAchievement_t G_GiveAchievement;
 
 typedef void (__cdecl * MSG_Init_t)(void* msg, void* data, int maxsize);
 extern MSG_Init_t MSG_Init;

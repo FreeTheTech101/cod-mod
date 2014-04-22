@@ -276,16 +276,30 @@ void giveTestA()
 		return;
 
 	int r = 10;
+	bool all = false;
 
 	if(Cmd_Argc() == 2)
-		r = atoi(Cmd_Argv(1));
+	{
+		if(!strcmp(Cmd_Argv(1), "all"))
+		{
+			all = true;
+		}
+		else
+		{
+			r = atoi(Cmd_Argv(1));
+		}
+	}
 
 	buildAchievementList();
-	processAchievement(r);
+
+	for(int i = (all ? 0 : r);i<(all ? ACHIEVEMENT_COUNT : (r+1));i++)
+	{
+		G_GiveAchievement(achievements[i].code);
+	}
 }
 
 void PatchMW2_AchievementTest()
 {
 	static cmd_function_t achievementTest_cmd;
-	Cmd_AddCommand("giveA", giveTestA, &achievementTest_cmd, 0);
+	Cmd_AddCommand("give_achievement", giveTestA, &achievementTest_cmd, 0);
 }

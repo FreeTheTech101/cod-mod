@@ -42,6 +42,8 @@ void define184Stuff()
 
 	SE_Load = (SE_Load_t)0x4FCCC0;
 
+	G_GiveAchievement = (G_GiveAchievement_t)0x4C5920;
+
 	// Menu stuff
 	LoadScriptFile = (LoadScriptFile_t)0x4EE180;
 	PC_ReadToken = (PC_ReadToken_t)0x4D7A00;

@@ -67,6 +67,7 @@ extern "C"
 	FS_Seek_t FS_Seek = (FS_Seek_t)0x4A63D0;
 
 	G_LogPrintf_t G_LogPrintf = (G_LogPrintf_t)0x4B0150;
+	G_GiveAchievement_t G_GiveAchievement = (G_GiveAchievement_t)0;
 
 	MSG_Init_t MSG_Init = (MSG_Init_t)0x45FCA0;
 	MSG_ReadData_t MSG_ReadData = (MSG_ReadData_t)0x4527C0;

@@ -50,6 +50,8 @@ void define159Stuff()
 
 	SE_Load = (SE_Load_t)0x409910;
 
+	G_GiveAchievement = (G_GiveAchievement_t)0x4E9420;
+
 	// Menu stuff
 	LoadScriptFile = (LoadScriptFile_t)0x405CD0;
 	PC_ReadToken = (PC_ReadToken_t)0x42F1A0;
