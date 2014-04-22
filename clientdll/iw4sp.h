@@ -1278,6 +1278,9 @@ extern R_AddCmdDrawText_t R_AddCmdDrawText;
 typedef void (_cdecl * R_AddCmdDrawStretchPic_t)(float x, float y, float w, float h, float xScale, float yScale, float xay, float yay, const float *color, void* material);
 extern R_AddCmdDrawStretchPic_t R_AddCmdDrawStretchPic;
 
+typedef int (__cdecl * R_TextWidth_t)(const char* text, int maxlength, Font* font);
+extern R_TextWidth_t R_TextWidth;
+
 typedef int (__cdecl * UI_TextWidth_t)(const char* text, int flags, void* font, float size);
 extern UI_TextWidth_t UI_TextWidth;
 

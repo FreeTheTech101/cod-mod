@@ -29,6 +29,7 @@ void define184Stuff()
 	R_RegisterFont = (R_RegisterFont_t)0x507FE0;
 	R_AddCmdDrawText = (R_AddCmdDrawText_t)0x50E080;
 	R_AddCmdDrawStretchPic = (R_AddCmdDrawStretchPic_t)0x50DA70;
+	R_TextWidth = (R_TextWidth_t)0x508030;
 
 	FS_ListFiles = (FS_ListFiles_t)0x4B0040;
 	FS_FreeFileList = (FS_FreeFileList_t)0x4E6180;

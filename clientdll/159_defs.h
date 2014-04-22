@@ -8,6 +8,7 @@ void define159Stuff()
 	R_RegisterFont = (R_RegisterFont_t)0x508910;
 	R_AddCmdDrawText = (R_AddCmdDrawText_t)0x50E7A0;
 	R_AddCmdDrawStretchPic = (R_AddCmdDrawStretchPic_t)0x50E190;
+	R_TextWidth = (R_TextWidth_t)0x508960;
 
 	BG_LoadWeaponDef_LoadObj = (BG_LoadWeaponDef_LoadObj_t)0x659DA0;
 
