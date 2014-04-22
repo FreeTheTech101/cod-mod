@@ -80,7 +80,7 @@ bool printAchievements()
 	{
 		reward->startTime = Com_Milliseconds();
 		reward->handledOnce = true;
-		playSound("arcademode_kill_streak_won");
+		playSound("arcademode_kill_streak_lost"); // Old: arcademode_kill_streak_won
 	}
 
 	// Check if reward is valid
