@@ -91,8 +91,9 @@ bool printAchievements()
 	}
 
 	// Prepare display stuff
-	float imageColor[] = { 1.0f, 1.0f, 1.0f, .8f };
-	float textColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	float imageColor[] = { 1.0f, 1.0f, 1.0f, 0.8f };
+	float titleColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	float descrColor[] = { 0.75f, 0.75f, 0.75f, 1.0f };
 	void* font = R_RegisterFont("fonts/normalFont");
 	void* material = DB_FindXAssetHeader(ASSET_TYPE_MATERIAL, "black");
 
@@ -125,8 +126,8 @@ bool printAchievements()
 
 	// Draw stuff
 	R_AddCmdDrawStretchPic(actualXOffset, yOffset - subHeight, totalWidth, height, 1.0f, 1.0f, 1.0f, 1.0f, imageColor, material);
-	R_AddCmdDrawText(reward->rewardString, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, textColor, 0);
-	R_AddCmdDrawText(reward->rewardDescription, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 64 - subHeight, .8f, .8f, 0.0f, textColor, 0);
+	R_AddCmdDrawText(reward->rewardString, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, titleColor, 0);
+	R_AddCmdDrawText(reward->rewardDescription, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 64 - subHeight, .8f, .8f, 0.0f, descrColor, 0);
 
 	return true;
 }
@@ -143,7 +144,7 @@ void processAchievement(int rewardCode)
 	char* description = (char*)malloc(200);
 
 	sprintf(title, "Achievement unlocked: ^3%s", achievements[rewardCode].name);
-	sprintf(description, "^5%s", achievements[rewardCode].description);
+	sprintf(description, "%s", achievements[rewardCode].description);
 
 	reward->rewardDescription = description;
 	reward->rewardString = title;
