@@ -96,12 +96,43 @@ bool printAchievements()
 	// Prepare display stuff
 	float imageColor[] = { 1.0f, 1.0f, 1.0f, 0.8f };
 	float titleColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	float descrColor[] = { 0.75f, 0.75f, 0.75f, 1.0f };
+	float descrColor[] = { 0.6f, 0.6f, 0.6f, 1.0f };
+	float prefixColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+	switch(reward->difficulty)
+	{
+	case bronze:
+		titleColor[0] = 0.68f;
+		titleColor[1] = 0.5f;
+		titleColor[2] = 0.26f;
+		break;
+
+	case silver:
+		titleColor[0] = 0.75f;
+		titleColor[1] = 0.75f;
+		titleColor[2] = 0.75f;
+		break;
+
+	case gold:
+		titleColor[0] = 1.0f;
+		titleColor[1] = 0.84f;
+		titleColor[2] = 0;
+		break;
+
+	case platinum:
+		titleColor[0] = 0;
+		titleColor[1] = 0.87f;
+		titleColor[2] = 1.0f;
+		break;
+	}
+
 	void* font = R_RegisterFont("fonts/normalFont");
 	void* material = DB_FindXAssetHeader(ASSET_TYPE_MATERIAL, "black");
+	char* prefix = "Achievement unlocked: ";
 
 	// Calculate dimension
-	int width_1 = getScaledWidth(reward->rewardString, 1.0f, font);
+	int prefixW = getScaledWidth(prefix, 1.0f, font);
+	int width_1 = getScaledWidth(reward->rewardTitle, 1.0f, font) + prefixW;
 	int width_2 = getScaledWidth(reward->rewardDescription, .8f, font);
 	int totalWidth = (max(width_1, width_2) + (border * 2));
 
@@ -129,7 +160,8 @@ bool printAchievements()
 
 	// Draw stuff
 	R_AddCmdDrawStretchPic(actualXOffset, yOffset - subHeight, totalWidth, height, 1.0f, 1.0f, 1.0f, 1.0f, imageColor, material);
-	R_AddCmdDrawText(reward->rewardString, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, titleColor, 0);
+	R_AddCmdDrawText(prefix, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, prefixColor, 0);
+	R_AddCmdDrawText(reward->rewardTitle, 0x7FFFFFFF, font, actualXOffset + border + prefixW, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, titleColor, 0);
 	R_AddCmdDrawText(reward->rewardDescription, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 64 - subHeight, .8f, .8f, 0.0f, descrColor, 0);
 
 	return true;
@@ -137,21 +169,12 @@ bool printAchievements()
 
 void processAchievement(int rewardCode)
 {
-	//Com_Printf(0, "Processing reward: '%s'\n", achievements[rewardCode].name);
-
 	reward_t* reward = (reward_t*)malloc(sizeof(reward_t));
 	reward->rewardCode = rewardCode;
 	reward->handledOnce = false;
-
-	char* title = (char*)malloc(200);
-	char* description = (char*)malloc(200);
-
-	sprintf(title, "Achievement unlocked: ^3%s", achievements[rewardCode].name);
-	sprintf(description, "%s", achievements[rewardCode].description);
-
-	reward->rewardDescription = description;
-	reward->rewardString = title;
-	
+	reward->difficulty = achievements[rewardCode].difficulty;
+	reward->rewardTitle = achievements[rewardCode].name;
+	reward->rewardDescription = achievements[rewardCode].description;
 	pushQueue(reward);
 }
 
@@ -186,10 +209,24 @@ bool hasAlreadyEarnedReward( const char *pchName )
 
 		std::string contentBuffer = buffer;
 
-		return (contentBuffer.find(pchName) != -1);
+		bool result = (contentBuffer.find(pchName) != -1);
+		free(buffer);
+		return result;
 	}
 
 	return false;
+}
+
+void checkPlatinum()
+{
+	for(int i = 0;i<ACHIEVEMENT_COUNT;i++)
+	{
+		if(!hasAlreadyEarnedReward(achievements[i].code))
+		{
+			return;
+		}
+	}
+	processAchievement(ACHIEVEMENT_COUNT);
 }
 
 bool RewardAchievement( const char *pchName )
@@ -205,6 +242,7 @@ bool RewardAchievement( const char *pchName )
 		{
 			processAchievement(i);
 			setAsEarned(pchName);
+			checkPlatinum();
 			return true;
 		}
 	}
