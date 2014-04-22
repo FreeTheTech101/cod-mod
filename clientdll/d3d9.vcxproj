@@ -151,6 +151,7 @@
     <ClInclude Include="SteamMatchmaking007.h" />
     <ClInclude Include="SteamTypes.h" />
     <ClInclude Include="SteamUserStats010.h" />
+    <ClInclude Include="rewardSound.h" />
     <ClInclude Include="TSteamApp.h" />
     <ClInclude Include="TSteamAppDependencyInfo.h" />
     <ClInclude Include="TSteamAppLaunchOption.h" />

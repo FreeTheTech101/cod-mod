@@ -12,6 +12,8 @@
 
 #include "stdinc.h"
 #include "achievements.h"
+#include "rewardSound.h"
+#include <playsoundapi.h>
 
 reward_t* cRewards[100];
 int cReward = 0;
@@ -80,7 +82,8 @@ bool printAchievements()
 	{
 		reward->startTime = Com_Milliseconds();
 		reward->handledOnce = true;
-		playSound("arcademode_kill_streak_lost"); // Old: arcademode_kill_streak_won
+		//playSound("arcademode_kill_streak_lost"); // Old: arcademode_kill_streak_won
+		PlaySound(rewardSound, GetModuleHandle(0), SND_MEMORY | SND_ASYNC);
 	}
 
 	// Check if reward is valid

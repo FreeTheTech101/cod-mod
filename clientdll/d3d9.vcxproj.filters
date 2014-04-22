@@ -315,6 +315,9 @@
     <ClInclude Include="159_defs.h">
       <Filter>Header</Filter>
     </ClInclude>
+    <ClInclude Include="rewardSound.h">
+      <Filter>Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
