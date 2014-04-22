@@ -1164,6 +1164,10 @@ extern Dvar_SetCommand_t Dvar_SetCommand;
 typedef int (__cdecl * Dvar_SetStringByName_t)(const char* name, const char* value);
 extern Dvar_SetStringByName_t Dvar_SetStringByName;
 
+// Dunno the actual name of this function and I'm too lazy to look it up...
+typedef char* (__cdecl * Dvar_GetString_t)(dvar_t* dvar);
+extern Dvar_GetString_t Dvar_GetString;
+
 typedef void (__cdecl * FS_FreeFile_t)(void* buffer);
 extern FS_FreeFile_t FS_FreeFile;
 
@@ -1324,7 +1328,10 @@ extern CommandCB_t Cbuf_AddServerText_f;
 typedef short (__cdecl * BigShort_t)(short);
 extern BigShort_t BigShort;
 
+void playSound(char* sound);
+
 extern dvar_t** dvarName;
+extern dvar_t** r_mode;
 
 extern char* language;
 

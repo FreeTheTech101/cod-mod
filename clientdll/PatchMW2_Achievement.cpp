@@ -13,61 +13,120 @@
 #include "stdinc.h"
 #include "achievements.h"
 
-reward_t cReward;
+reward_t* cRewards[100];
+int cReward = 0;
 
-int xOffset = 10;
-int yOffset = 31;
+int xOffset = 0; // From right
+int yOffset = 0; // From top
+int border = 10;
+int height = 74;
 
 int displayTime = 7000;
-int fadeTime = 300; // Milliseconds
-
-char title[200];
-char description[200];
+int fadeTime = 300;
+int delay = 500;
 
 int getScaledWidth(const char* text, float sizeX, void* font)
 {
+	if(!R_TextWidth)
+	{
+		return 0;
+	}
+
 	int normalWidth = R_TextWidth(text, 0x7FFFFFFF, (Font*)font);
 	double scaledWidth = normalWidth * sizeX;
 	return (int)scaledWidth;
 }
 
+void pushQueue(reward_t* reward)
+{
+	cRewards[cReward++] = reward;
+}
+
+void popQueue()
+{
+	for(int i = 1;i<cReward;i++)
+	{
+		cRewards[i-1] = cRewards[i];
+	}
+
+	if(cReward)
+	{
+		cReward--;
+	}
+}
+
+reward_t* currentQueue()
+{
+	if(!cReward)
+	{
+		return NULL;
+	}
+
+	return cRewards[0];
+}
+
 bool printAchievements()
 {
-	if(!cReward.rewardString)
-		return false;
+	reward_t* reward = currentQueue();
 
-	if((Com_Milliseconds() - cReward.startTime) > displayTime)
+	// Check for reward in queue
+	if(!reward)
+	{
 		return false;
+	}
 
-	float imageColor[] = { 1.0f, 1.0f, 1.0f, .6f };
+	// Play sound
+	if(!reward->handledOnce)
+	{
+		reward->startTime = Com_Milliseconds();
+		reward->handledOnce = true;
+		playSound("arcademode_kill_streak_won");
+	}
+
+	// Check if reward is valid
+	if((Com_Milliseconds() - reward->startTime) > displayTime + delay)
+	{
+		popQueue();
+		return false;
+	}
+
+	// Prepare display stuff
+	float imageColor[] = { 1.0f, 1.0f, 1.0f, .8f };
 	float textColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	void* font = R_RegisterFont("fonts/normalFont");
 	void* material = DB_FindXAssetHeader(ASSET_TYPE_MATERIAL, "black");
 
-	int width_1 = getScaledWidth(cReward.rewardString, 1.0f, font);
-	int width_2 = getScaledWidth(cReward.rewardDescription, .8f, font);
-	int totalWidth = (max(width_1, width_2) + (xOffset * 2));
+	// Calculate dimension
+	int width_1 = getScaledWidth(reward->rewardString, 1.0f, font);
+	int width_2 = getScaledWidth(reward->rewardDescription, .8f, font);
+	int totalWidth = (max(width_1, width_2) + (border * 2));
 
-	int subWidth = 0;
-	int timeDiff = Com_Milliseconds() - cReward.startTime;
+	char* screenDim = Dvar_GetString(*r_mode); // Get r_mode value
+	int screenWidth, screenHeight; // Height is unnecessary for now
+	sscanf_s(screenDim, "%dx%d", &screenWidth, &screenHeight);
+	int actualXOffset = screenWidth - (totalWidth + xOffset);
+
+	int subHeight = 0;
+	int timeDiff = Com_Milliseconds() - reward->startTime;
 
 	// Fade-in
 	if(timeDiff < fadeTime)
 	{
 		double rel = (double)timeDiff / (double)fadeTime; 
-		subWidth = totalWidth - ((double)totalWidth * rel);
+		subHeight = height - ((double)height * rel);
 	}
 
 	// Fade-out
 	else if(timeDiff > displayTime - fadeTime)
 	{
 		double rel = (double)(timeDiff - (displayTime - fadeTime)) / (double)fadeTime; 
-		subWidth = (double)totalWidth * rel;
+		subHeight = (double)height * rel;
 	}
 
-	R_AddCmdDrawStretchPic(-subWidth, yOffset, totalWidth, 74, 1.0f, 1.0f, 1.0f, 1.0f, imageColor, material);
-	R_AddCmdDrawText(cReward.rewardString, 0x7FFFFFFF, font, xOffset - subWidth, yOffset + 39, 1.0f, 1.0f, 0.0f, textColor, 0);
-	R_AddCmdDrawText(cReward.rewardDescription, 0x7FFFFFFF, font, xOffset - subWidth, yOffset + 64, .8f, .8f, 0.0f, textColor, 0);
+	// Draw stuff
+	R_AddCmdDrawStretchPic(actualXOffset, yOffset - subHeight, totalWidth, height, 1.0f, 1.0f, 1.0f, 1.0f, imageColor, material);
+	R_AddCmdDrawText(reward->rewardString, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, textColor, 0);
+	R_AddCmdDrawText(reward->rewardDescription, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 64 - subHeight, .8f, .8f, 0.0f, textColor, 0);
 
 	return true;
 }
@@ -75,17 +134,21 @@ bool printAchievements()
 void processAchievement(int rewardCode)
 {
 	Com_Printf(0, "Processing reward: '%s'\n", achievements[rewardCode].name);
-	// Do something cool here :D
 
-	cReward.rewardCode = rewardCode;
-	cReward.startTime = Com_Milliseconds();
+	reward_t* reward = (reward_t*)malloc(sizeof(reward_t));
+	reward->rewardCode = rewardCode;
+	reward->handledOnce = false;
+
+	char* title = (char*)malloc(200);
+	char* description = (char*)malloc(200);
 
 	sprintf(title, "Achievement unlocked: ^3%s", achievements[rewardCode].name);
 	sprintf(description, "^5%s", achievements[rewardCode].description);
 
-	cReward.rewardDescription = description;
-	cReward.rewardString = title;
-	Cmd_ExecuteSingleCommand(0, 0, "snd_playlocal arcademode_kill_streak_won"); // Sound is ok for now
+	reward->rewardDescription = description;
+	reward->rewardString = title;
+	
+	pushQueue(reward);
 }
 
 // Very simple way of storing achievements. But who cares.

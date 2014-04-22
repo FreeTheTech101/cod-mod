@@ -12,6 +12,7 @@ void define184Stuff()
 	Dvar_RegisterString = (Dvar_RegisterString_t)0x433DF0;
 	Dvar_RegisterBool = (Dvar_RegisterBool_t)0x4866B0;
 	Dvar_RegisterEnum = (Dvar_RegisterEnum_t)0x4FB5C0;
+	Dvar_GetString = (Dvar_GetString_t)0x459960;
 
 	DB_FindXAssetHeader = (DB_FindXAssetHeader_t)0x4F6F10;
 	DB_LoadXAssets = (DB_LoadXAssets_t)0x49EDB0;
@@ -77,6 +78,7 @@ void define184Stuff()
 	SteamUserStatsInstanceLoc = 0x1BEB4B8;
 
 	dvarName = (dvar_t**)0x925BCC;
+	r_mode = (dvar_t**)0x1F19FA4;
 
 	language = (char*)0x19FC2B0;
 

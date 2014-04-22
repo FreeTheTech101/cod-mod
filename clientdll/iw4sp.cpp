@@ -51,6 +51,7 @@ extern "C"
 	Dvar_InfoString_Big_t Dvar_InfoString_Big = (Dvar_InfoString_Big_t)0x4D98A0;
 	Dvar_SetCommand_t Dvar_SetCommand = (Dvar_SetCommand_t)0x4EE430;
 	Dvar_SetStringByName_t Dvar_SetStringByName = (Dvar_SetStringByName_t)0x4F52E0;
+	Dvar_GetString_t Dvar_GetString = (Dvar_GetString_t)0;
 
 	FS_FreeFile_t FS_FreeFile = (FS_FreeFile_t)0x4416B0;
 	FS_ReadFile_t FS_ReadFile = (FS_ReadFile_t)0x4F4B90;
@@ -117,6 +118,7 @@ extern "C"
 };
 
 dvar_t** dvarName = (dvar_t**)0x929154;
+dvar_t** r_mode = (dvar_t**)0;
 
 char* language = (char*)0x19FF828;
 
@@ -303,4 +305,9 @@ void NET_OutOfBandPrint(int type, netadr_t adr, const char* message, ...)
 	va_end(args);
 
 	OOBPrintT(type, adr, buffer);
+}
+
+void playSound(char* sound)
+{
+	Cmd_ExecuteSingleCommand(0, 0, va("snd_playlocal %s", sound));
 }

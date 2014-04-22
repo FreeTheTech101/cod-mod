@@ -13,6 +13,7 @@ typedef struct reward_s
 	int startTime;
 	const char* rewardString;
 	const char* rewardDescription;
+	bool handledOnce;
 }reward_t;
 
 

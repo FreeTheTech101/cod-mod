@@ -23,6 +23,7 @@ void define159Stuff()
 	Dvar_RegisterString = (Dvar_RegisterString_t)0x49E0B0;
 	Dvar_RegisterInt = (Dvar_RegisterInt_t)0x4E9490;
 	Dvar_RegisterEnum = (Dvar_RegisterEnum_t)0x4CB7C0;
+	Dvar_GetString = (Dvar_GetString_t)0x44D830;
 
 	Cmd_AddCommand = (Cmd_AddCommand_t)0x4478A0;
 	Cmd_ExecuteSingleCommand = (Cmd_ExecuteSingleCommand_t)0x46AFD0;
@@ -57,8 +58,8 @@ void define159Stuff()
 	Script_SetupTokens = (Script_SetupTokens_t)0x4B59B0;
 	Script_CleanString = (Script_CleanString_t)0x4316A0;
 
-
 	dvarName = (dvar_t**)0x929154;
+	r_mode = (dvar_t**)0x1F1CC30;
 
 	language = (char*)0x19FF828;
 
