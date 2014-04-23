@@ -39,7 +39,7 @@ float* rgba(int r, int g, int b, float a)
 	return color;
 }
 
-void R_DrawGradient(float x, float y, float w, float h, const float *color_top, const float *color_bottom)
+void R_AddCmdDrawGradient(float x, float y, float w, float h, const float *color_top, const float *color_bottom)
 {
 	void* material = DB_FindXAssetHeader(ASSET_TYPE_MATERIAL, "white");
 
@@ -56,7 +56,7 @@ void R_DrawGradient(float x, float y, float w, float h, const float *color_top, 
 	}
 }
 
-void R_DrawBorder(int x, int y, int w, int h, int size, const float *color, bool inset)
+void R_AddCmdDrawBorder(int x, int y, int w, int h, int size, const float *color, bool inset)
 {
 	void* material = DB_FindXAssetHeader(ASSET_TYPE_MATERIAL, "white");
 
@@ -139,21 +139,21 @@ bool printAchievements()
 
 	switch(reward->difficulty)
 	{
-	case bronze:
-		titleColor = rgba(255, 228, 181, 1.0f);
-		break;
+		case bronze:
+			titleColor = rgba(255, 228, 181, 1.0f);
+			break;
 
-	case silver:
-		titleColor = rgba(211, 211, 211, 1.0f);
-		break;
+		case silver:
+			titleColor = rgba(211, 211, 211, 1.0f);
+			break;
 
-	case gold:
-		titleColor = rgba(255, 215, 0, 1.0f);
-		break;
+		case gold:
+			titleColor = rgba(255, 215, 0, 1.0f);
+			break;
 
-	case platinum:
-		titleColor = rgba(0, 255, 255, 1.0f);
-		break;
+		case platinum:
+			titleColor = rgba(0, 255, 255, 1.0f);
+			break;
 	}
 
 	void* font = R_RegisterFont("fonts/normalFont");
@@ -193,8 +193,8 @@ bool printAchievements()
 	float bottom[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 	float black[] = { 0, 0, 0, 1.0f };
 
-	R_DrawGradient(actualXOffset, yOffset - subHeight, totalWidth, height, top, bottom);
-	R_DrawBorder(actualXOffset, yOffset - subHeight, totalWidth, height, 1, black, true);
+	R_AddCmdDrawGradient(actualXOffset, yOffset - subHeight, totalWidth, height, top, bottom);
+	R_AddCmdDrawBorder(actualXOffset, yOffset - subHeight, totalWidth, height, 1, black, true);
 	R_AddCmdDrawText(prefix, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, prefixColor, 0);
 	R_AddCmdDrawText(reward->rewardTitle, 0x7FFFFFFF, font, actualXOffset + border + prefixW, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, titleColor, 0);
 	R_AddCmdDrawText(reward->rewardDescription, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 64 - subHeight, .8f, .8f, 0.0f, descrColor, 0);
@@ -297,8 +297,8 @@ void showProgress()
 	float bottom[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 	float black[] = { 0, 0, 0, 1.0f };
 
-	R_DrawGradient(actualXOffset - subWidth, yOffset - subHeight, totalWidth, height, top, bottom);
-	R_DrawBorder(actualXOffset - subWidth,yOffset - subHeight, totalWidth, height, 1, black, false);
+	R_AddCmdDrawGradient(actualXOffset - subWidth, yOffset - subHeight, totalWidth, height, top, bottom);
+	R_AddCmdDrawBorder(actualXOffset - subWidth,yOffset - subHeight, totalWidth, height, 1, black, false);
 	R_AddCmdDrawText(progressText, 0x7FFFFFFF, font, actualXOffset + border - subWidth, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, titleColor, 0);
 
 	// Progressbar :D
@@ -317,14 +317,14 @@ void showProgress()
 // 		bar2_width = ((double)bar2_width / (double)(fadeTime*2)) * (double)timeDiff;
 // 	}
 
-	float barbg_top[] = { 0.8f, 0.8f, 0.8f, 1.0f };
+	float* barbg_top = rgba(163, 163, 163, 1.0f);
 	float* barbg_bottom = rgba(255, 255, 255, 1.0f);
-	R_DrawGradient(actualXOffset + border - subWidth, bar1_yOffset, bar1_width, bar1_height, barbg_top, barbg_bottom);
+	R_AddCmdDrawGradient(actualXOffset + border - subWidth, bar1_yOffset, bar1_width, bar1_height, barbg_top, barbg_bottom);
 
-	float* bar_top = rgba(72, 205, 242, 1.0f);
-	float* bar_bottom = rgba(12, 139, 178, 1.0f);
-	R_DrawGradient(actualXOffset + border + bar_border - subWidth, bar1_yOffset + bar_border, bar2_width, bar2_height, bar_top, bar_bottom);
-	R_DrawBorder(actualXOffset + border - subWidth, bar1_yOffset, bar1_width, bar1_height, 1, black, false);
+	float* bar_top = rgba(0, 199, 220, 1.0f);
+	float* bar_bottom = rgba(15, 120, 156, 1.0f);
+	R_AddCmdDrawGradient(actualXOffset + border + bar_border - subWidth, bar1_yOffset + bar_border, bar2_width, bar2_height, bar_top, bar_bottom);
+	R_AddCmdDrawBorder(actualXOffset + border - subWidth, bar1_yOffset, bar1_width, bar1_height, 1, black, false);
 }
 
 void processAchievement(int rewardCode)
