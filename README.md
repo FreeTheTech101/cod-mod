@@ -26,6 +26,8 @@ Example 3: rootMW2FolderDirectory\data\maps\estate.gsc
 MW2 Feature List:
 - Remove Steam Authentication
 - Remove censorship in German versions.
+- Allow campaign intro to be skipped :D
+- Custom achievement system (press F11 ingame to see your progress)
 - Working Coop with working connect command (Type "connect ip:port" into the console to connect. Default port is 28960)
 - Developer Console (Write and Read protections removed, tilde (~) key to use it)
 - Ease of use because it HANDLES BOTH VERSIONS of iw4sp.exe with no issues.
