@@ -452,7 +452,7 @@ void* WeaponFileHookFunc(const char* filename)
 	if(_allowZoneChange && version != 177)
 	{
 		if(!current_zone)
-			current_zone = (char*)malloc(strlen(CURRENT_ZONE_NAME));
+			current_zone = (char*)malloc(100);
 
 		strcpy(current_zone, CURRENT_ZONE_NAME);
 		sprintf(weaponFolder, "data\\weapons\\%s", current_zone);
