@@ -33,6 +33,7 @@ void PatchMW2_EntsFiles();
 void PatchMW2_AchievementTest();
 void PatchMW2_Icon();
 void PatchMW2_Materialism();
+void PatchMW2_RecoverDevice();
 
 char ingameUsername[32];
 
@@ -94,6 +95,7 @@ void PatchMW2_159()
 	PatchMW2_AchievementTest();
 	PatchMW2_Icon();
 	PatchMW2_Materialism();
+	PatchMW2_RecoverDevice();
 
 	// prevent stat loading from steam
 	*(BYTE*)0x43FB33 = 0xC3;

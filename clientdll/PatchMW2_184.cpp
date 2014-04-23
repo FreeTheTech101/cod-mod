@@ -29,6 +29,7 @@ void PatchMW2_AssetRestrict();
 void PatchMW2_AchievementTest();
 void PatchMW2_Icon();
 void PatchMW2_Materialism();
+void PatchMW2_RecoverDevice();
 
 dvar_t* nameHookFunc184(const char* name, const char* defaultVal, int flags, const char* description)
 {
@@ -82,6 +83,7 @@ void PatchMW2_184()
 	PatchMW2_AchievementTest();
 	PatchMW2_Icon();
 	PatchMW2_Materialism();
+	PatchMW2_RecoverDevice();
 
 	// Force external console
 	memset((void*)0x60182F, 0x90, 23);

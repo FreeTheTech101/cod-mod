@@ -174,6 +174,17 @@ void ReallocXAssetEntries()
 		*(DWORD*)0x57EB40 = 789312;
 }
 
+// Experimental 4K resolution
+dvar_t* YUNO4K(const char* name, char** enumValues, int default, int flags, const char* description)
+{
+	int enumSize = 18;
+	char** newEnum = (char**)malloc(sizeof(DWORD) * (enumSize + 2));
+	memset(newEnum, 0, sizeof(DWORD) * (enumSize + 2));
+	memcpy(newEnum, enumValues, sizeof(DWORD) * enumSize);
+	newEnum[enumSize] = "3840x2160";
+	return Dvar_RegisterEnum(name, newEnum, default, flags, description);
+}
+
 void PatchMW2_Load()
 {
 	if(version == 159)
@@ -214,4 +225,6 @@ void PatchMW2_Load()
 
 	// Allow campaign intro to be skipped :P
 	*(DWORD*)(version == 159 ? 0x47529F : 0x4F39AF) = (DWORD)cinematic_f;
+
+	//call((version == 159 ? 0x50BBD2 : 0x50B302), YUNO4K, PATCH_CALL);
 }

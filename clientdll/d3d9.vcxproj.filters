@@ -112,6 +112,9 @@
     <ClCompile Include="PatchMW2_Materialism.cpp">
       <Filter>MW2 Patches</Filter>
     </ClCompile>
+    <ClCompile Include="PatchMW2_RecoverDevice.cpp">
+      <Filter>MW2 Patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooking.h">
