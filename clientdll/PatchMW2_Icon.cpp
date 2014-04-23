@@ -40,10 +40,12 @@ void PatchMW2_Icon()
 		remove(TEMP_ICO);
 	}
 
-	DWORD loadIconLoc = 0x69433C;
-
-	if(version == 184)
-		loadIconLoc = 0x691334;
-
-	*(DWORD*)loadIconLoc = (DWORD)LoadIconAHook;
+	if(version == 159)
+	{
+		*(DWORD*)0x69433C = (DWORD)LoadIconAHook;
+	}
+	else if(version == 184)
+	{
+		*(DWORD*)0x691334 = (DWORD)LoadIconAHook;
+	}
 }
