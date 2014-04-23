@@ -32,6 +32,7 @@ void PatchMW2_AssetRestrict();
 void PatchMW2_EntsFiles();
 void PatchMW2_AchievementTest();
 void PatchMW2_Icon();
+void PatchMW2_Materialism();
 
 char ingameUsername[32];
 
@@ -92,6 +93,7 @@ void PatchMW2_159()
 	PatchMW2_AssetRestrict();
 	PatchMW2_AchievementTest();
 	PatchMW2_Icon();
+	PatchMW2_Materialism();
 
 	// prevent stat loading from steam
 	*(BYTE*)0x43FB33 = 0xC3;
@@ -154,8 +156,9 @@ void PatchMW2_159()
 	// Apply m2demo stuff
 	*(DWORD*)0x631561 = (DWORD)"data";
 
-	// Change external console title
-	*(DWORD*)0x446A48 = (DWORD)"IW4SP: Console";
+	// Change window titles
+	*(DWORD*)0x446A48 = (DWORD)"COD-MOD: Console";
+	*(DWORD*)0x50C110 = (DWORD)"COD-MOD: Game";
 
 	// Yay, hitmarker in sp :D
 	Dvar_RegisterBool("scr_damageFeedback", 0, DVAR_FLAG_SAVED, "Show marker when hitting enemies.");

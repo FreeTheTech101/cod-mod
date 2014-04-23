@@ -105,6 +105,9 @@ extern "C"
 
 	SL_GetString_t SL_GetString = (SL_GetString_t)0x4CDC10;
 
+	Image_LoadFromFileWithReader_t Image_LoadFromFileWithReader = (Image_LoadFromFileWithReader_t)0x53ABF0;
+	Image_Release_t Image_Release = (Image_Release_t)0x51F010;
+
 	// 159 stuff
 	SE_Load_t SE_Load = (SE_Load_t)0x502A30;
 	LoadScriptFile_t LoadScriptFile = (LoadScriptFile_t)0x480110;
@@ -143,6 +146,7 @@ DWORD vehicleFileHookLoc = 0x67CD40;
 DWORD dbAddXAssetHookLoc = 0x581EE0;
 DWORD dbAddXAssetHookRet = 0x581EE7;
 DWORD getBSPNameHookLoc = 0x430C09;
+DWORD materialLoadHookLoc = 0x505E50;
 
 DWORD initializeRenderer = 0x48A400;
 DWORD SteamFriendsLoc = 0x694528;

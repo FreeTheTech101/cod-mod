@@ -25,6 +25,7 @@ void printHelloWorld(int type)
 	Com_Printf(type, "- Icedream\n");
 	Com_Printf(type, "- The_Uli\n");
 	Com_Printf(type, "- Dekart811\n");
+	Com_Printf(type, "- Archony\n");
 	Com_Printf(type, "----------------------------------\n");
 }
 

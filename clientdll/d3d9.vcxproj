@@ -87,6 +87,7 @@
     <ClCompile Include="PatchMW2_Coop.cpp" />
     <ClCompile Include="PatchMW2_ConsoleStart.cpp" />
     <ClCompile Include="PatchMW2_Icon.cpp" />
+    <ClCompile Include="PatchMW2_Materialism.cpp" />
     <ClCompile Include="PatchMW2_Stats.cpp" />
     <ClCompile Include="PatchMW2_Weapons.cpp" />
     <ClCompile Include="PatchMW2_Steam.cpp" />
@@ -132,6 +133,7 @@
     <ClInclude Include="FriendGameInfo.h" />
     <ClInclude Include="FriendsCommon.h" />
     <ClInclude Include="gameserveritem.h" />
+    <ClInclude Include="cursor.h" />
     <ClInclude Include="Hooking.h" />
     <ClInclude Include="icon.h" />
     <ClInclude Include="ISteamClient008.h" />

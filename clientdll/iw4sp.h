@@ -1317,6 +1317,13 @@ extern Script_SetupTokens_t Script_SetupTokens;
 typedef int (__cdecl * Script_CleanString_t)(char* buffer);
 extern Script_CleanString_t Script_CleanString;
 
+typedef int (__cdecl * _Reader_t)(int, int); // defaulting to int for now
+typedef bool (__cdecl * Image_LoadFromFileWithReader_t)(GfxImage* image, _Reader_t reader);
+extern Image_LoadFromFileWithReader_t Image_LoadFromFileWithReader;
+
+typedef void (__cdecl * Image_Release_t)(GfxImage* image);
+extern Image_Release_t Image_Release;
+
 typedef FS_ListFiles_t Sys_ListFiles_t;
 extern Sys_ListFiles_t Sys_ListFiles;
 typedef FS_FreeFileList_t Sys_FreeFileList_t;
@@ -1357,6 +1364,7 @@ extern DWORD vehicleFileHookLoc;
 extern DWORD dbAddXAssetHookLoc;
 extern DWORD dbAddXAssetHookRet;
 extern DWORD getBSPNameHookLoc;
+extern DWORD materialLoadHookLoc;
 
 extern DWORD initializeRenderer;
 extern DWORD SteamFriendsLoc;

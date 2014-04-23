@@ -28,6 +28,7 @@ void PatchMW2_Weapons();
 void PatchMW2_AssetRestrict();
 void PatchMW2_AchievementTest();
 void PatchMW2_Icon();
+void PatchMW2_Materialism();
 
 dvar_t* nameHookFunc184(const char* name, const char* defaultVal, int flags, const char* description)
 {
@@ -80,6 +81,7 @@ void PatchMW2_184()
 	PatchMW2_AssetRestrict();
 	PatchMW2_AchievementTest();
 	PatchMW2_Icon();
+	PatchMW2_Materialism();
 
 	// Force external console
 	memset((void*)0x60182F, 0x90, 23);
@@ -117,8 +119,9 @@ void PatchMW2_184()
 	// Apply m2demo stuff
 	*(DWORD*)0x62ED01 = (DWORD)"data";
 
-	// Change external console title
-	*(DWORD*)0x414828 = (DWORD)"IW4SP: Console";
+	// Change window titles
+	*(DWORD*)0x414828 = (DWORD)"COD-MOD: Console";
+	*(DWORD*)0x50B880 = (DWORD)"COD-MOD: Game";
 
 	// Flag cg_fov as saved
 	*(BYTE*)0x47C165 = DVAR_FLAG_SAVED;

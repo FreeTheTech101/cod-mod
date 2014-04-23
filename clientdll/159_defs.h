@@ -52,6 +52,9 @@ void define159Stuff()
 
 	G_GiveAchievement = (G_GiveAchievement_t)0x4E9420;
 
+	Image_LoadFromFileWithReader = (Image_LoadFromFileWithReader_t)0x544EF0;
+	Image_Release = (Image_Release_t)0x520BC0;
+
 	// Menu stuff
 	LoadScriptFile = (LoadScriptFile_t)0x405CD0;
 	PC_ReadToken = (PC_ReadToken_t)0x42F1A0;
@@ -85,6 +88,7 @@ void define159Stuff()
 	dbAddXAssetHookLoc = 0x581EE0;
 	dbAddXAssetHookRet = 0x581EE7;
 	getBSPNameHookLoc = 0x430C09;
+	materialLoadHookLoc = 0x509080;
 
 	initializeRenderer = 0x48A400;
 	SteamFriendsLoc = 0x694528;

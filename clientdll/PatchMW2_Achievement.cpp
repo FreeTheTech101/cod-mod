@@ -82,7 +82,6 @@ bool printAchievements()
 	{
 		reward->startTime = Com_Milliseconds();
 		reward->handledOnce = true;
-		//playSound("arcademode_kill_streak_lost"); // Old: arcademode_kill_streak_won
 		PlaySound(rewardSound, GetModuleHandle(0), SND_MEMORY | SND_ASYNC);
 	}
 

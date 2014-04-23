@@ -44,6 +44,9 @@ void define184Stuff()
 
 	G_GiveAchievement = (G_GiveAchievement_t)0x4C5920;
 
+	Image_LoadFromFileWithReader = (Image_LoadFromFileWithReader_t)0x5447E0;
+	Image_Release = (Image_Release_t)0x520540;
+
 	// Menu stuff
 	LoadScriptFile = (LoadScriptFile_t)0x4EE180;
 	PC_ReadToken = (PC_ReadToken_t)0x4D7A00;
@@ -73,6 +76,7 @@ void define184Stuff()
 	dbAddXAssetHookLoc = 0x57F2E0;
 	dbAddXAssetHookRet = 0x57F2E7;
 	getBSPNameHookLoc = 0x4BA169;
+	materialLoadHookLoc = 0x508750;
 
 	initializeRenderer = 0x421100;
 	SteamFriendsLoc = 0x691524;
