@@ -11,6 +11,7 @@
 
 #include "stdinc.h"
 #include "ColorShift.h"
+#include <playsoundapi.h>
 
 bool printAchievements();
 
@@ -20,13 +21,37 @@ CallHook drawDevStuffHook;
 dvar_t* cl_paused;
 dvar_t* cg_drawVersion;
 
+bool progressWasLastPressed;
+bool showprogress;
+int startShowProgress;
+void showProgress();
+
 void DrawDemoWarning()
 {
-	if(printAchievements())
+	// Achievement stuff
+	if(!showprogress && !printAchievements())
 	{
-		//return;
+		if(GetKeyState(VK_F11) & 0x8000)
+		{
+			if(!progressWasLastPressed)
+			{
+				progressWasLastPressed = true;
+				showprogress = true;
+				startShowProgress = Com_Milliseconds();
+			}
+		}
+		else
+		{
+			progressWasLastPressed = false;
+		}
 	}
 
+	if(showprogress)
+	{
+		showProgress();
+	}
+
+	// Branding stuff
 	if(!(version >= 358 ? ((dvar_MW3_t*)cg_drawVersion)->current.boolean : cg_drawVersion->current.boolean))
 		return;
 

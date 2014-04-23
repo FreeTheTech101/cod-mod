@@ -15,6 +15,8 @@
 #include "rewardSound.h"
 #include <playsoundapi.h>
 
+extern bool showprogress;
+extern int startShowProgress;
 reward_t* cRewards[100];
 int cReward = 0;
 
@@ -27,7 +29,44 @@ int displayTime = 7000;
 int fadeTime = 300;
 int delay = 500;
 
-int getScaledWidth(const char* text, float sizeX, void* font)
+float* rgba(int r, int g, int b, float a)
+{
+	float* color = (float*)malloc(sizeof(float) * 4);
+	color[0] = r / 255.0;
+	color[1] = g / 255.0;
+	color[2] = b / 255.0;
+	color[3] = a;
+	return color;
+}
+
+void R_DrawGradient(float x, float y, float w, float h, const float *color_top, const float *color_bottom)
+{
+	void* material = DB_FindXAssetHeader(ASSET_TYPE_MATERIAL, "white");
+
+	for(int i = 0;i<h;i++)
+	{
+		float color[] = { 0, 0, 0, 0 };
+
+		color[0] = (((h - i) * color_top[0]) + (i * color_bottom[0])) / h;
+		color[1] = (((h - i) * color_top[1]) + (i * color_bottom[1])) / h;
+		color[2] = (((h - i) * color_top[2]) + (i * color_bottom[2])) / h;
+		color[3] = (((h - i) * color_top[3]) + (i * color_bottom[3])) / h;
+
+		R_AddCmdDrawStretchPic(x, y + i, w, 1, 1.0f, 1.0f, 1.0f, 1.0f, color, material);
+	}
+}
+
+void R_DrawBorder(int x, int y, int w, int h, int size, const float *color, bool inset)
+{
+	void* material = DB_FindXAssetHeader(ASSET_TYPE_MATERIAL, "white");
+
+	R_AddCmdDrawStretchPic(x - (inset ? 0 : size), y - (inset ? 0 : size), w + (inset ? 0 : (size * 2)), size, 1.0f, 1.0f, 1.0f, 1.0f, color, material); // Top: Left to Right
+	R_AddCmdDrawStretchPic(x - (inset ? 0 : size), y + (inset ? size : 0), size, h - (inset ? (size * 2) : 0), 1.0f, 1.0f, 1.0f, 1.0f, color, material); // Left: Top to Bottom
+	R_AddCmdDrawStretchPic(x - (inset ? 0 : size), y + h - (inset ? size : 0), w + (inset ? 0 : (size * 2)), size, 1.0f, 1.0f, 1.0f, 1.0f, color, material); // Bottom: Left to Right
+	R_AddCmdDrawStretchPic(x + w - (inset ? size : 0), y + (inset ? size : 0), size, h - (inset ? (size * 2) : 0), 1.0f, 1.0f, 1.0f, 1.0f, color, material); // Right: Top to Bottom
+}
+
+int R_GetScaledWidth(const char* text, float sizeX, void* font)
 {
 	if(!R_TextWidth)
 	{
@@ -89,39 +128,31 @@ bool printAchievements()
 	if((Com_Milliseconds() - reward->startTime) > displayTime + delay)
 	{
 		popQueue();
-		return false;
+		return true;
 	}
 
 	// Prepare display stuff
 	float imageColor[] = { 1.0f, 1.0f, 1.0f, 0.8f };
-	float titleColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	float* titleColor;
 	float descrColor[] = { 0.6f, 0.6f, 0.6f, 1.0f };
 	float prefixColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 	switch(reward->difficulty)
 	{
 	case bronze:
-		titleColor[0] = 0.68f;
-		titleColor[1] = 0.5f;
-		titleColor[2] = 0.26f;
+		titleColor = rgba(255, 228, 181, 1.0f);
 		break;
 
 	case silver:
-		titleColor[0] = 0.75f;
-		titleColor[1] = 0.75f;
-		titleColor[2] = 0.75f;
+		titleColor = rgba(211, 211, 211, 1.0f);
 		break;
 
 	case gold:
-		titleColor[0] = 1.0f;
-		titleColor[1] = 0.84f;
-		titleColor[2] = 0;
+		titleColor = rgba(255, 215, 0, 1.0f);
 		break;
 
 	case platinum:
-		titleColor[0] = 0;
-		titleColor[1] = 0.87f;
-		titleColor[2] = 1.0f;
+		titleColor = rgba(0, 255, 255, 1.0f);
 		break;
 	}
 
@@ -130,9 +161,9 @@ bool printAchievements()
 	char* prefix = "Achievement unlocked: ";
 
 	// Calculate dimension
-	int prefixW = getScaledWidth(prefix, 1.0f, font);
-	int width_1 = getScaledWidth(reward->rewardTitle, 1.0f, font) + prefixW;
-	int width_2 = getScaledWidth(reward->rewardDescription, .8f, font);
+	int prefixW = R_GetScaledWidth(prefix, 1.0f, font);
+	int width_1 = R_GetScaledWidth(reward->rewardTitle, 1.0f, font) + prefixW;
+	int width_2 = R_GetScaledWidth(reward->rewardDescription, .8f, font);
 	int totalWidth = (max(width_1, width_2) + (border * 2));
 
 	char* screenDim = Dvar_GetString(*r_mode); // Get r_mode value
@@ -158,12 +189,135 @@ bool printAchievements()
 	}
 
 	// Draw stuff
-	R_AddCmdDrawStretchPic(actualXOffset, yOffset - subHeight, totalWidth, height, 1.0f, 1.0f, 1.0f, 1.0f, imageColor, material);
+	float top[] = { 0.4f, 0.4f, 0.4f, 1.0f };
+	float bottom[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+	float black[] = { 0, 0, 0, 1.0f };
+
+	R_DrawGradient(actualXOffset, yOffset - subHeight, totalWidth, height, top, bottom);
+	R_DrawBorder(actualXOffset, yOffset - subHeight, totalWidth, height, 1, black, true);
 	R_AddCmdDrawText(prefix, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, prefixColor, 0);
 	R_AddCmdDrawText(reward->rewardTitle, 0x7FFFFFFF, font, actualXOffset + border + prefixW, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, titleColor, 0);
 	R_AddCmdDrawText(reward->rewardDescription, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 64 - subHeight, .8f, .8f, 0.0f, descrColor, 0);
 
 	return true;
+}
+
+int getTrophyValue(diffculty_s diff)
+{
+	switch(diff)
+	{
+		case bronze:
+			return 1;
+
+		case silver:
+			return 2;
+
+		case gold:
+			return 3;
+
+		// Platinum doesn't have a value, as you can't actively achieve it.
+		default:
+			return 0;
+	}
+}
+
+char progressText[25];
+int firstPopup;
+int percent;
+int progressDisplayTime = 3500;
+
+bool hasAlreadyEarnedReward( const char *pchName );
+
+void showProgress()
+{
+	if((Com_Milliseconds() - startShowProgress) > progressDisplayTime + 10)
+	{
+		showprogress = false;
+		firstPopup = 0;
+		return;
+	}
+
+	if(!firstPopup)
+	{
+		PlaySound(rewardSound, GetModuleHandle(0), SND_MEMORY | SND_ASYNC);
+		firstPopup = 1;
+
+		int totalValue = 0;
+		int playerValue = 0;
+
+		for(int i = 0;i<ACHIEVEMENT_COUNT;i++)
+		{
+			totalValue += getTrophyValue(achievements[i].difficulty);
+			if(hasAlreadyEarnedReward(achievements[i].code))
+			{
+				playerValue += getTrophyValue(achievements[i].difficulty);
+			}
+		}
+
+		percent = (100 / (double)totalValue) * (double)playerValue;
+	}
+
+	int width = 400;
+
+	sprintf(progressText, "Achievement Progress: %d%s", percent, "%");
+
+	float titleColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	void* font = R_RegisterFont("fonts/normalFont");
+	void* material = DB_FindXAssetHeader(ASSET_TYPE_MATERIAL, "black");
+	void* white = DB_FindXAssetHeader(ASSET_TYPE_MATERIAL, "white");
+
+	int textW = R_GetScaledWidth(progressText, 1.0f, font);
+	int totalWidth = max(textW + (border * 2), width);
+
+	char* screenDim = Dvar_GetString(*r_mode); // Get r_mode value
+	int screenWidth, screenHeight; // Height is unnecessary for now
+	sscanf_s(screenDim, "%dx%d", &screenWidth, &screenHeight);
+	int actualXOffset = screenWidth - (totalWidth + xOffset);
+
+	int subHeight = 0;
+	int timeDiff = Com_Milliseconds() - startShowProgress;
+
+	// Fade-in
+	if(timeDiff < fadeTime)
+	{
+		double rel = (double)timeDiff / (double)fadeTime; 
+		subHeight = height - ((double)height * rel);
+	}
+
+	// Fade-out
+	else if(timeDiff > progressDisplayTime - fadeTime)
+	{
+		double rel = (double)(timeDiff - (progressDisplayTime - fadeTime)) / (double)fadeTime; 
+		subHeight = (double)height * rel;
+	}
+
+	float top[] = { 0.4f, 0.4f, 0.4f, 1.0f };
+	float bottom[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+	float black[] = { 0, 0, 0, 1.0f };
+
+	R_DrawGradient(actualXOffset, yOffset - subHeight, totalWidth, height, top, bottom);
+	R_DrawBorder(actualXOffset,yOffset - subHeight, totalWidth, height, 1, black, false);
+	//R_AddCmdDrawStretchPic(actualXOffset, yOffset - subHeight, totalWidth, height, 1.0f, 1.0f, 1.0f, 1.0f, imageColor, material);
+	R_AddCmdDrawText(progressText, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, titleColor, 0);
+
+	// Progressbar :D
+	int bar1_width = totalWidth - (border * 2);
+	int bar1_height = 20;
+	int bar1_yOffset = yOffset - subHeight + height - bar1_height - border;
+
+	int bar_border = 0;
+	int bar2_width = totalWidth - (border * 2) - (bar_border * 2); // Max progress width
+	int bar2_height = 20 - (bar_border * 2);
+	bar2_width = ((double)bar2_width / (double)100) * (double)percent; // Current progress
+
+	float barbg_top[] = { 0.8f, 0.8f, 0.8f, 1.0f };
+	float* barbg_bottom = rgba(255, 255, 255, 1.0f);
+	R_DrawGradient(actualXOffset + border, bar1_yOffset, bar1_width, bar1_height, barbg_top, barbg_bottom);
+
+	float* bar_top = rgba(72, 205, 242, 1.0f);
+	float* bar_bottom = rgba(12, 139, 178, 1.0f);
+	R_DrawGradient(actualXOffset + border + bar_border, bar1_yOffset + bar_border, bar2_width, bar2_height, bar_top, bar_bottom);
+	R_DrawBorder(actualXOffset + border, bar1_yOffset, bar1_width, bar1_height, 1, black, false);
 }
 
 void processAchievement(int rewardCode)
@@ -206,6 +360,11 @@ bool hasAlreadyEarnedReward( const char *pchName )
 		fread (buffer, 1, length, rewardFile); // Just assume it reads everything correctly...
 		fclose(rewardFile);
 
+		if(!buffer)
+		{
+			return 0;
+		}
+
 		std::string contentBuffer = buffer;
 
 		bool result = (contentBuffer.find(pchName) != -1);
@@ -232,8 +391,6 @@ bool RewardAchievement( const char *pchName )
 {
 	if(hasAlreadyEarnedReward(pchName))
 		return true;
-
-	buildAchievementList();
 
 	for(int i = 0;i<ACHIEVEMENT_COUNT;i++)
 	{
@@ -289,8 +446,6 @@ void giveTestA()
 		}
 	}
 
-	buildAchievementList();
-
 	for(int i = (all ? 0 : r);i<(all ? ACHIEVEMENT_COUNT : (r+1));i++)
 	{
 		G_GiveAchievement(achievements[i].code);
@@ -299,6 +454,8 @@ void giveTestA()
 
 void PatchMW2_AchievementTest()
 {
+	buildAchievementList();
+
 	static cmd_function_t achievementTest_cmd;
 	Cmd_AddCommand("give_achievement", giveTestA, &achievementTest_cmd, 0);
 }
