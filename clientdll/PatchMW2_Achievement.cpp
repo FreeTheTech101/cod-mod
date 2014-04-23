@@ -157,13 +157,14 @@ bool printAchievements()
 	}
 
 	void* font = R_RegisterFont("fonts/normalFont");
+	void* sfont = R_RegisterFont("fonts/smallFont");
 	void* material = DB_FindXAssetHeader(ASSET_TYPE_MATERIAL, "black");
 	char* prefix = "Achievement unlocked: ";
 
 	// Calculate dimension
-	int prefixW = R_GetScaledWidth(prefix, 1.0f, font);
-	int width_1 = R_GetScaledWidth(reward->rewardTitle, 1.0f, font) + prefixW;
-	int width_2 = R_GetScaledWidth(reward->rewardDescription, .8f, font);
+	int prefixW = R_GetScaledWidth(prefix, 0.9f, font);
+	int width_1 = R_GetScaledWidth(reward->rewardTitle, 0.9f, font) + prefixW;
+	int width_2 = R_GetScaledWidth(reward->rewardDescription, 0.9f, sfont);
 	int totalWidth = (max(width_1, width_2) + (border * 2));
 
 	char* screenDim = Dvar_GetString(*r_mode); // Get r_mode value
@@ -195,9 +196,9 @@ bool printAchievements()
 
 	R_DrawGradient(actualXOffset, yOffset - subHeight, totalWidth, height, top, bottom);
 	R_DrawBorder(actualXOffset, yOffset - subHeight, totalWidth, height, 1, black, true);
-	R_AddCmdDrawText(prefix, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, prefixColor, 0);
-	R_AddCmdDrawText(reward->rewardTitle, 0x7FFFFFFF, font, actualXOffset + border + prefixW, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, titleColor, 0);
-	R_AddCmdDrawText(reward->rewardDescription, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 64 - subHeight, .8f, .8f, 0.0f, descrColor, 0);
+	R_AddCmdDrawText(prefix, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 36 - subHeight, 0.9f, 0.9f, 0.0f, prefixColor, 0);
+	R_AddCmdDrawText(reward->rewardTitle, 0x7FFFFFFF, font, actualXOffset + border + prefixW, yOffset + 36 - subHeight, 0.9f, 0.9f, 0.0f, titleColor, 0);
+	R_AddCmdDrawText(reward->rewardDescription, 0x7FFFFFFF, sfont, actualXOffset + border, yOffset + 64 - subHeight, 0.9f, 0.9f, 0.0f, descrColor, 0);
 
 	return true;
 }
@@ -266,13 +267,10 @@ void showProgress()
 	void* material = DB_FindXAssetHeader(ASSET_TYPE_MATERIAL, "black");
 	void* white = DB_FindXAssetHeader(ASSET_TYPE_MATERIAL, "white");
 
-	int textW = R_GetScaledWidth(progressText, 1.0f, font);
-	int totalWidth = max(textW + (border * 2), width);
-
 	char* screenDim = Dvar_GetString(*r_mode); // Get r_mode value
 	int screenWidth, screenHeight; // Height is unnecessary for now
 	sscanf_s(screenDim, "%dx%d", &screenWidth, &screenHeight);
-	int actualXOffset = screenWidth - (totalWidth + xOffset);
+	int actualXOffset = screenWidth - (width + xOffset);
 
 	int subHeight = 0;
 	int timeDiff = Com_Milliseconds() - startShowProgress;
@@ -295,18 +293,18 @@ void showProgress()
 	float bottom[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 	float black[] = { 0, 0, 0, 1.0f };
 
-	R_DrawGradient(actualXOffset, yOffset - subHeight, totalWidth, height, top, bottom);
-	R_DrawBorder(actualXOffset,yOffset - subHeight, totalWidth, height, 1, black, false);
+	R_DrawGradient(actualXOffset, yOffset - subHeight, width, height, top, bottom);
+	R_DrawBorder(actualXOffset,yOffset - subHeight, width, height, 1, black, false);
 	//R_AddCmdDrawStretchPic(actualXOffset, yOffset - subHeight, totalWidth, height, 1.0f, 1.0f, 1.0f, 1.0f, imageColor, material);
-	R_AddCmdDrawText(progressText, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, titleColor, 0);
+	R_AddCmdDrawText(progressText, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 36 - subHeight, 0.9f, 0.9f, 0.0f, titleColor, 0);
 
 	// Progressbar :D
-	int bar1_width = totalWidth - (border * 2);
+	int bar1_width = width - (border * 2);
 	int bar1_height = 20;
 	int bar1_yOffset = yOffset - subHeight + height - bar1_height - border;
 
 	int bar_border = 0;
-	int bar2_width = totalWidth - (border * 2) - (bar_border * 2); // Max progress width
+	int bar2_width = width - (border * 2) - (bar_border * 2); // Max progress width
 	int bar2_height = 20 - (bar_border * 2);
 	bar2_width = ((double)bar2_width / (double)100) * (double)percent; // Current progress
 
