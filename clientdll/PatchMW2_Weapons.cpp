@@ -444,15 +444,18 @@ void DumpWeaponTypes(FILE* file)
 }
 
 StompHook weaponFileHook;
-std::string weaponFolder;
-std::string weaponFile;
+char weaponFolder[MAX_PATH];
+char weaponFile[MAX_PATH];
 
 void* WeaponFileHookFunc(const char* filename)
 {
 	if(_allowZoneChange && version != 177)
 	{
-		current_zone = va(CURRENT_ZONE_NAME);
-		weaponFolder = va("data\\weapons\\%s", current_zone);
+		if(!current_zone)
+			current_zone = (char*)malloc(strlen(CURRENT_ZONE_NAME));
+
+		strcpy(current_zone, CURRENT_ZONE_NAME);
+		sprintf(weaponFolder, "data\\weapons\\%s", current_zone);
 
 		if (GAME_FLAG(GAME_FLAG_DUMPDATA) && version == 159)
 		{
@@ -473,11 +476,11 @@ void* WeaponFileHookFunc(const char* filename)
 
 	if (GAME_FLAG(GAME_FLAG_DUMPDATA) && version == 159)
 	{   
-		_mkdir(weaponFolder.c_str());
+		_mkdir(weaponFolder);
 
-		weaponFile = va("%s\\%s", weaponFolder.c_str(), filename);
+		sprintf(weaponFile, "%s\\%s", weaponFolder, filename);
 
-		FILE* dump = fopen(weaponFile.c_str(), "w");
+		FILE* dump = fopen(weaponFile, "w");
 
 		if(dump)
 		{
