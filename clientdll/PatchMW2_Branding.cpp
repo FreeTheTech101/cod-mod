@@ -29,7 +29,7 @@ void showProgress();
 void DrawDemoWarning()
 {
 	// Achievement stuff
-	if(!showprogress && !printAchievements())
+	if(version > 358 && !showprogress && !printAchievements())
 	{
 		if(GetKeyState(VK_F11) & 0x8000)
 		{

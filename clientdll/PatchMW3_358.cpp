@@ -16,6 +16,7 @@ dvar_t* Dvar_RegisterBool_MW3(const char* name, int default, int flags);
 void PatchMW2_Minidump();
 void PatchMW2_Branding();
 void PatchMW2_NoBorder();
+void PatchMW2_Icon();
 
 void _patchDevmap()
 {
@@ -117,6 +118,7 @@ void PatchMW3_358()
 	PatchMW2_Minidump();
 	PatchMW2_Branding();
 	PatchMW2_NoBorder();
+	PatchMW2_Icon();
 
 	// nop improper quit pop up
 	memset((void*)0x4E18EA, 0x90, 5);
@@ -153,6 +155,10 @@ void PatchMW3_358()
 	// Fix more stats
 	nop(0x648AEF, 122);
 	*(BYTE*)0x648B69 = 0xEB;
+
+	// Change window titles
+	*(DWORD*)0x40C9E4 = (DWORD)"COD-MOD: Console";
+	*(DWORD*)0x65E56F = (DWORD)"COD-MOD: Game";
 
 	// Enable chaos
 	Dvar_RegisterBool_MW3("content_allow_chaos_mode", 1, 4);

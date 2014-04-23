@@ -14,6 +14,7 @@
 void PatchMW2_Minidump();
 void PatchMW2_Branding();
 void PatchMW2_NoBorder();
+void PatchMW2_Icon();
 void PatchMW3_UILoading();
 ISteamFriends* __cdecl SteamFriends();
 hostent* WINAPI custom_gethostbyname(const char* name);
@@ -201,6 +202,7 @@ void PatchMW3_382()
 	PatchMW2_Branding();
 	PatchMW2_NoBorder();
 	PatchMW3_UILoading();
+	PatchMW2_Icon();
 
 	*(DWORD*)0x791420 = (DWORD)custom_gethostbyname;
 
@@ -258,6 +260,7 @@ void PatchMW3_382()
 	// Content not found hook
 	call(0x56E9B3, contentErrorHook, PATCH_CALL);
 	
+	// CEG stuff?
 	patchExit(0x456395);
 	patchExit(0x47DE15);
 	patchExit(0x4A7925);
@@ -265,6 +268,10 @@ void PatchMW3_382()
 	patchExit(0x502125);
 	patchExit(0x514365);
 	patchExit(0x5279E5);
+
+	// Change window titles
+	*(DWORD*)0x40ACC4 = (DWORD)"COD-MOD: Console";
+	*(DWORD*)0x65F6AF = (DWORD)"COD-MOD: Game";
 
 	// Fix leaderboarddefinition stuff
 	ReallocateAssetPool(41, 228);

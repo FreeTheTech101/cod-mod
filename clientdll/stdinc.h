@@ -43,8 +43,8 @@
 #include "Hooking.h"
 #include "iw4sp.h"
 
-#define VERSION "2.2"
-#define VERSION_NUM 2,2
+#define VERSION "2.3"
+#define VERSION_NUM 2,3
 #define VERSIONSTRING "COD-MOD: " VERSION
 
 #define CONSOLESTRING VERSIONSTRING " (built " __DATE__ " " __TIME__ ")"
