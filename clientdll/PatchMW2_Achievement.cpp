@@ -201,10 +201,10 @@ bool printAchievements()
 	// Draw stuff
 	float* top = rgba(89,89,89, 1.0f);
 	float* bottom = rgba(14, 14, 14, 1.0f);
-	float black[] = { 0, 0, 0, 1.0f };
+	float* borderC = rgba(0, 122, 204, 1.0f);
 
 	R_AddCmdDrawGradient(actualXOffset, yOffset - subHeight, totalWidth, height, top, bottom);
-	R_AddCmdDrawBorder(actualXOffset, yOffset - subHeight, totalWidth, height, 1, black, true);
+	R_AddCmdDrawBorder(actualXOffset, yOffset - subHeight, totalWidth, height, 1, borderC, true);
 	R_AddCmdDrawText(prefix, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, prefixColor, 0);
 	R_AddCmdDrawText(reward->rewardTitle, 0x7FFFFFFF, font, actualXOffset + border + prefixW, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, titleColor, 0);
 	R_AddCmdDrawText(reward->rewardDescription, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 64 - subHeight, .8f, .8f, 0.0f, descrColor, 0);
@@ -315,10 +315,10 @@ void showProgress()
 
 	float* top = rgba(89,89,89, 1.0f);
 	float* bottom = rgba(14, 14, 14, 1.0f);
-	float* black = rgba(0, 0, 0, 1.0f);
+	float* borderC = rgba(0, 122, 204, 1.0f);
 
 	R_AddCmdDrawGradient(actualXOffset - subWidth, yOffset - subHeight, totalWidth, height, top, bottom);
-	R_AddCmdDrawBorder(actualXOffset - subWidth,yOffset - subHeight, totalWidth, height, 1, black, false);
+	R_AddCmdDrawBorder(actualXOffset - subWidth,yOffset - subHeight, totalWidth, height, 1, borderC, false);
 	R_AddCmdDrawText(progressText, 0x7FFFFFFF, font, actualXOffset + border - subWidth, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, titleColor, 0);
 
 	// Progressbar :D
@@ -344,7 +344,7 @@ void showProgress()
 	float* bar_top = rgba(0, 199, 220, 1.0f);
 	float* bar_bottom = rgba(15, 120, 156, 1.0f);
 	R_AddCmdDrawGradient(actualXOffset + border + bar_border - subWidth, bar1_yOffset + bar_border, bar2_width, bar2_height, bar_top, bar_bottom);
-	R_AddCmdDrawBorder(actualXOffset + border - subWidth, bar1_yOffset, bar1_width, bar1_height, 1, black, false);
+	R_AddCmdDrawBorder(actualXOffset + border - subWidth, bar1_yOffset, bar1_width, bar1_height, 1, rgba(0, 0, 0, 1.0f), false);
 }
 
 void processAchievement(int rewardCode)
