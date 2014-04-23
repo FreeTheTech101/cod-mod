@@ -187,8 +187,11 @@ void PatchMW3_382()
 
 	Com_Error = (Com_Error_t)0x451A10;
 	Dvar_FindVar = (Dvar_FindVar_t)0x540520;
+	Dvar_GetString = (Dvar_GetString_t)0x474B00;
 	R_AddCmdDrawText = (R_AddCmdDrawText_t)0x520D50;
+	R_AddCmdDrawStretchPic = (R_AddCmdDrawStretchPic_t)0x5151A0;
 	R_RegisterFont = (R_RegisterFont_t)0x484A10;
+	R_TextWidth = (R_TextWidth_t)0x4D0820;
 	Com_Milliseconds = (Com_Milliseconds_t)0x4AB890;
 	CL_IsCgameInitialized = (CL_IsCgameInitialized_t)0x4C61D0;
 	DB_FindXAssetHeader_MW3 = (DB_FindXAssetHeader_MW3_t)0x52CED0;
@@ -197,6 +200,7 @@ void PatchMW3_382()
 	winMainInitHookLoc = 0x503E79;
 	windowedWindowStyleHookLoc = 0x65F652;
 	dvarName = (dvar_t**)0xA5BBDC; // Actually dvar_MW3_t**
+	r_mode = (dvar_t**)0x20E730C;
 
 	PatchMW2_Minidump();
 	PatchMW2_Branding();

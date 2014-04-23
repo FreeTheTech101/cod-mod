@@ -169,6 +169,16 @@ bool printAchievements()
 	char* screenDim = Dvar_GetString(*r_mode); // Get r_mode value
 	int screenWidth, screenHeight; // Height is unnecessary for now
 	sscanf_s(screenDim, "%dx%d", &screenWidth, &screenHeight);
+
+	if(version == 358)
+	{
+		screenWidth = *(int*)0x20E9380;
+	}
+	else if(version == 382)
+	{
+		screenWidth = *(int*)0x20ECD00;
+	}
+
 	int actualXOffset = screenWidth - (totalWidth + xOffset);
 
 	int subHeight = 0;
@@ -272,6 +282,16 @@ void showProgress()
 	char* screenDim = Dvar_GetString(*r_mode); // Get r_mode value
 	int screenWidth, screenHeight; // Height is unnecessary for now
 	sscanf_s(screenDim, "%dx%d", &screenWidth, &screenHeight);
+
+	if(version == 358)
+	{
+		screenWidth = *(int*)0x20E9380;
+	}
+	else if(version == 382)
+	{
+		screenWidth = *(int*)0x20ECD00;
+	}
+
 	int actualXOffset = screenWidth - (totalWidth + xOffset);
 
 	int subHeight = 0;
