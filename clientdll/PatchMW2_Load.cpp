@@ -44,6 +44,12 @@ void uncutGame(XZoneInfo* data, int count)
 	}
 }
 
+void cinematic_f()
+{
+	((void(*)())(version == 159 ? 0x4CC950 : 0x4BDE20))(); // Call cintematics
+	*(BOOL*)(version == 159 ? 0x73264C : 0x72F64C) = !strcmp(Cmd_Argv(1), "intro_credits_load"); // Allow skipping if intro
+}
+
 char returnPath[MAX_PATH];
 
 char* addAlterZones(char* zone)
@@ -205,4 +211,7 @@ void PatchMW2_Load()
 	call(ffLoadHook1Loc, loadTeamFile, PATCH_CALL);
 	call(zoneLoadHookLoc, addAlterZones, PATCH_CALL);
 	ReallocXAssetEntries();
+
+	// Allow campaign intro to be skipped :P
+	*(DWORD*)(version == 159 ? 0x47529F : 0x4F39AF) = (DWORD)cinematic_f;
 }
