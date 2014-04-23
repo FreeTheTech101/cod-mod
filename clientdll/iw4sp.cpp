@@ -34,7 +34,6 @@ extern "C"
 	Com_PrintError_t Com_PrintError = (Com_PrintError_t)0x4F8C70;
 
 	DB_FindXAssetHeader_t DB_FindXAssetHeader = (DB_FindXAssetHeader_t)0x407930;
-	DB_FindXAssetHeader_MW3_t DB_FindXAssetHeader_MW3 = (DB_FindXAssetHeader_MW3_t)0;
 	DB_LoadXAssets_t DB_LoadXAssets = (DB_LoadXAssets_t)0x4E5930;
 
 	Dvar_RegisterBool_t Dvar_RegisterBool = (Dvar_RegisterBool_t)0x4CE1A0;

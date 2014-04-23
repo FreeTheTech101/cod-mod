@@ -1121,10 +1121,6 @@ extern DB_LoadXAssets_t DB_LoadXAssets;
 typedef void* (__cdecl * DB_FindXAssetHeader_t)(int type, const char* filename);
 extern DB_FindXAssetHeader_t DB_FindXAssetHeader;
 
-typedef void* (__cdecl * DB_FindXAssetHeader_MW3_t)(int type, const char* filename, bool);
-extern DB_FindXAssetHeader_MW3_t DB_FindXAssetHeader_MW3;
-
-
 typedef dvar_t* (__cdecl * Dvar_RegisterBool_t)(const char* name, bool default, int flags, const char* description);
 extern Dvar_RegisterBool_t Dvar_RegisterBool;
 

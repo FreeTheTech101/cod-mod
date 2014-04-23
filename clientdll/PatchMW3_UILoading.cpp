@@ -16,7 +16,7 @@ void Printf_Con(const char* buffer);
 void* loadMenuHook(int type, const char* reference, bool stuff)
 {
 	Printf_Con(va("Loading menu: '%s'\n", reference));
-	return DB_FindXAssetHeader_MW3(type, reference, stuff);
+	return DB_FindXAssetHeader(type, reference);
 }
 
 

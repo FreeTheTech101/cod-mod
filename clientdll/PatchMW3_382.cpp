@@ -194,7 +194,7 @@ void PatchMW3_382()
 	R_TextWidth = (R_TextWidth_t)0x4D0820;
 	Com_Milliseconds = (Com_Milliseconds_t)0x4AB890;
 	CL_IsCgameInitialized = (CL_IsCgameInitialized_t)0x4C61D0;
-	DB_FindXAssetHeader_MW3 = (DB_FindXAssetHeader_MW3_t)0x52CED0;
+	DB_FindXAssetHeader = (DB_FindXAssetHeader_t)0x52CED0;
 
 	drawDevStuffHookLoc = 0x567B6C;
 	winMainInitHookLoc = 0x503E79;
