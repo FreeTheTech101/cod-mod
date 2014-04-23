@@ -14,14 +14,13 @@
 
 #define TEMP_ICO "iw4_ico.temp"
 
-HICON hicon_16x16;
-HICON hicon_64x64;
+HICON hicon;
 
 HICON WINAPI LoadIconAHook(HINSTANCE hInstance, LPCSTR lpIconName)
 {
-	if(hicon_16x16)
+	if(hicon)
 	{
-		return hicon_16x16;
+		return hicon;
 	}
 	else
 	{
@@ -31,24 +30,13 @@ HICON WINAPI LoadIconAHook(HINSTANCE hInstance, LPCSTR lpIconName)
 
 void PatchMW2_Icon()
 {
-	HINSTANCE hInstance = GetModuleHandle(0);
-
-	// Load icons
+	// Load icon
 	FILE* fp = fopen(TEMP_ICO, "wb");
 	if(fp)
 	{
-		fwrite(icon_16x16, sizeof(BYTE), sizeof(icon_16x16), fp);
+		fwrite(icon, sizeof(BYTE), sizeof(icon), fp);
 		fclose(fp);
-		hicon_16x16 = (HICON)LoadImage(hInstance, TEMP_ICO, IMAGE_ICON, 16, 16, LR_LOADFROMFILE);
-		remove(TEMP_ICO);
-	}
-
-	fp = fopen(TEMP_ICO, "wb");
-	if(fp)
-	{
-		fwrite(icon_64x64, sizeof(BYTE), sizeof(icon_64x64), fp);
-		fclose(fp);
-		hicon_64x64 = (HICON)LoadImage(hInstance, TEMP_ICO, IMAGE_ICON, 64, 64, LR_LOADFROMFILE);
+		hicon = (HICON)LoadImage(GetModuleHandle(0), TEMP_ICO, IMAGE_ICON, 64, 64, LR_LOADFROMFILE);
 		remove(TEMP_ICO);
 	}
 
