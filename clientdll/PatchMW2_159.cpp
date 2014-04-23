@@ -30,7 +30,7 @@ void PatchMW2_ConsoleStart();
 void PatchMW2_Weapons();
 void PatchMW2_AssetRestrict();
 void PatchMW2_EntsFiles();
-void PatchMW2_AchievementTest();
+void PatchMW2_Achievement();
 void PatchMW2_Icon();
 void PatchMW2_Materialism();
 void PatchMW2_RecoverDevice();
@@ -92,7 +92,7 @@ void PatchMW2_159()
 	PatchMW2_ConsoleStart();
 	PatchMW2_Weapons();
 	PatchMW2_AssetRestrict();
-	PatchMW2_AchievementTest();
+	PatchMW2_Achievement();
 	PatchMW2_Icon();
 	PatchMW2_Materialism();
 	PatchMW2_RecoverDevice();

@@ -451,7 +451,7 @@ bool resetAchievements()
 	return false;
 }
 
-void giveTestA()
+void give_achievement_f()
 {
 	dvar_t* sv_cheats = Dvar_FindVar("sv_cheats");
 
@@ -479,10 +479,10 @@ void giveTestA()
 	}
 }
 
-void PatchMW2_AchievementTest()
+void PatchMW2_Achievement()
 {
 	buildAchievementList();
 
-	static cmd_function_t achievementTest_cmd;
-	Cmd_AddCommand("give_achievement", giveTestA, &achievementTest_cmd, 0);
+	static cmd_function_t give_achievement_cmd;
+	Cmd_AddCommand("give_achievement", give_achievement_f, &give_achievement_cmd, 0);
 }

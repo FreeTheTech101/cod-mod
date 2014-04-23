@@ -226,5 +226,6 @@ void PatchMW2_Load()
 	// Allow campaign intro to be skipped :P
 	*(DWORD*)(version == 159 ? 0x47529F : 0x4F39AF) = (DWORD)cinematic_f;
 
+	// 4k stuff causes problems
 	//call((version == 159 ? 0x50BBD2 : 0x50B302), YUNO4K, PATCH_CALL);
 }
