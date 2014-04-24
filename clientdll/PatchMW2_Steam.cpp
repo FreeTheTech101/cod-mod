@@ -143,7 +143,7 @@ void checkSteamRun()
 	callVoid(initializeRenderer);
 
 	// Check if game got started using steam
-	if (GetModuleHandle("gameoverlayrenderer.dll") == NULL)
+	if (!GetModuleHandle("gameoverlayrenderer.dll"))
 	{
 		// Patch steam stuff
 		initializeSteamPatch();

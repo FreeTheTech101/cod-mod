@@ -39,6 +39,11 @@ float* rgba(int r, int g, int b, float a)
 	return color;
 }
 
+void R_AddCmdDrawBoxShadow(float x, float y, float w, float h, float spread, float blur, const float* color)
+{
+	// Will do this later :D
+}
+
 void R_AddCmdDrawGradient(float x, float y, float w, float h, const float *color_top, const float *color_bottom)
 {
 	void* material = DB_FindXAssetHeader(ASSET_TYPE_MATERIAL, "white");
@@ -318,7 +323,7 @@ void showProgress()
 	float* borderC = rgba(0, 122, 204, 1.0f);
 
 	R_AddCmdDrawGradient(actualXOffset - subWidth, yOffset - subHeight, totalWidth, height, top, bottom);
-	R_AddCmdDrawBorder(actualXOffset - subWidth,yOffset - subHeight, totalWidth, height, 1, borderC, false);
+	R_AddCmdDrawBorder(actualXOffset - subWidth,yOffset - subHeight, totalWidth, height, 1, borderC, true);
 	R_AddCmdDrawText(progressText, 0x7FFFFFFF, font, actualXOffset + border - subWidth, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, titleColor, 0);
 
 	// Progressbar :D
