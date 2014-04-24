@@ -39,11 +39,6 @@ float* rgba(int r, int g, int b, float a)
 	return color;
 }
 
-void R_AddCmdDrawBoxShadow(float x, float y, float w, float h, float spread, float blur, const float* color)
-{
-	// Will do this later :D
-}
-
 void R_AddCmdDrawGradient(float x, float y, float w, float h, const float *color_top, const float *color_bottom)
 {
 	void* material = DB_FindXAssetHeader(ASSET_TYPE_MATERIAL, "white");

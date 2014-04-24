@@ -35,6 +35,8 @@ snd_alias_list_t* FindSoundAliasHookFunc(assetType_t type, const char* name)
 	replaceMusic("music_mainmenu_mp", "hz_dc_burning_intropeak_LR_1.mp3");
 	replaceMusic("music_opening", "hz_af_chase_boatride_lr_r1.mp3");
 
+	//interesting sound: so_defeat_desert (only ingame)
+
 	return aliases;
 }
 
