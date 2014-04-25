@@ -102,8 +102,8 @@ char* ModLanguageEnum[] = { "english", "french", "german", "italian", "spanish",
 
 void replaceFriendConnect()
 {
-	addLocStr("MENU_INVITE_FRIEND", "Quick connect");
-	addLocStr("MENU_DESC_INVITE_FRIEND", "Reconnect to last player.");
+	addLocStr("MENU_INVITE_FRIEND", "Search party");
+	addLocStr("MENU_DESC_INVITE_FRIEND", "Search another player.");
 	addLocStr("MENU_SP_STEAM_CHAT_HINT", "");
 }
 

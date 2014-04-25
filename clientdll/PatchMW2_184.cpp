@@ -63,6 +63,8 @@ returnSafe:
 	}
 }
 
+void xstopparty_f();
+
 void PatchMW2_184()
 {
 	define184Stuff();
@@ -169,6 +171,9 @@ void PatchMW2_184()
 
 	static cmd_function_t connectWrapper_cmd;
 	Cmd_AddCommand("connect", connectWrapper, &connectWrapper_cmd, 0);
+
+	static cmd_function_t xstopparty_cmd;
+	Cmd_AddCommand("xstopparty", xstopparty_f, &xstopparty_cmd, 0);
 
 	// Patch dvar name
 	call(0x4F3866, nameHookFunc184, PATCH_CALL);

@@ -19,9 +19,14 @@ void addLocStr(const char* key, const char* value)
 	localizedStrings[key] = value;
 }
 
+void removeLocStr(const char* key)
+{
+	localizedStrings[key] = "";
+}
+
 bool isCustomLoc(const char* key)
 {
-	return (localizedStrings.find(key) != localizedStrings.end());
+	return (localizedStrings.find(key) != localizedStrings.end() && strcmp(localizedStrings[key].c_str(), ""));
 }
 
 void buildCustomEntry(localizedEntry_s* entry, const char* key)

@@ -11,20 +11,10 @@
 
 #include "stdinc.h"
 
-void connectHook()
-{
-	//Cmd_ExecuteSingleCommand(0,0, "openmenu connect_coop");
-	Cmd_ExecuteSingleCommand(0,0, "connect");
-}
+void addLocStr(const char* key, const char* value);
+void removeLocStr(const char* key);
 
-USHORT getReversedPort(const char* _port)
-{
-	USHORT port = (USHORT)atoi(_port);
-
-	return (USHORT)(port >> 8) | (port << 8);
-}
-
-void connectWrapper()
+void startCoopListening()
 {
 	// Preparation stuff
 	Dvar_SetCommand("arcademode", "0");
@@ -38,7 +28,118 @@ void connectWrapper()
 	Cmd_ExecuteSingleCommand(0, 0, "stopListening; set arcademode_lives 2; set arcademode_combined_score 0; set splitscreen 0; set mblur_enable 0");
 	Cmd_ExecuteSingleCommand(0, 0, "listen");
 	//Cmd_ExecuteSingleCommand(0, 0, "set coop_mapName so_killspree_trainer");
+}
 
+HANDLE coopPartyThread;
+
+char connectAddress[50];
+int connectState;
+int negociatedHost;
+
+void listener()
+{
+	if(connectState == 4)
+	{
+		connectState = 0;
+		if(!negociatedHost)
+		{
+			Sleep(2000); // Time for host to start listening
+			if(coopPartyThread)
+			{
+				TerminateThread(coopPartyThread, 0);
+				coopPartyThread = NULL;
+			}
+
+			Dvar_SetCommand("connect_ip", connectAddress);
+			Cmd_ExecuteSingleCommand(0, 0, "connect");
+		}
+		else
+		{
+			startCoopListening();
+		}
+		removeLocStr("PLATFORM_POPUP_CONNECTION");
+	}
+}
+
+static DWORD WINAPI coop_thread(LPVOID param)
+{
+	//while(true)
+	//{
+		Sleep(4000);
+		connectState = 1;
+		addLocStr("PLATFORM_POPUP_CONNECTION", "Testing partner connection");
+		Sleep(3000);
+		connectState = 2;
+		addLocStr("PLATFORM_POPUP_CONNECTION", "Determining host");
+		negociatedHost = rand() % 2;
+		Sleep(2000);
+		connectState = 3;
+
+		if(!negociatedHost)
+		{
+			addLocStr("PLATFORM_POPUP_CONNECTION", "Setting up the connection");
+			Sleep(1000);
+			strcpy(connectAddress, "");
+		}
+		else
+		{
+			addLocStr("PLATFORM_POPUP_CONNECTION", "Setting up the party");
+			Sleep(1000);
+		}
+		connectState = 4;
+	//}
+	return 0;
+}
+
+void xstopparty_f()
+{
+	// Tell server to remove from list
+	OutputDebugString("Party unlisted.\n");
+	connectState = 0;
+	removeLocStr("PLATFORM_POPUP_CONNECTION");
+
+	if(coopPartyThread)
+	{
+		TerminateThread(coopPartyThread, 0);
+		coopPartyThread = NULL;
+	}
+}
+
+void connectHook()
+{
+	//Cmd_ExecuteSingleCommand(0,0, "connect");
+	addLocStr("PLATFORM_POPUP_CONNECTION", "Searching for partner");
+	*(DWORD*)(version == 159 ? 0x19FF7F4 : 0x19FC27C) = 1; // Set message type
+	((void(*)(char*))(version == 159 ? 0x063A850 : 0x638060))("@PLATFORM_POPUP_CONNECTION"); // Display message
+	startCoopListening();
+
+	// Tell server to add to list
+	OutputDebugString("Party listed.\n");
+
+	if(coopPartyThread)
+	{
+		TerminateThread(coopPartyThread, 0);
+		coopPartyThread = NULL;
+	}
+
+	coopPartyThread = CreateThread(0, 0, coop_thread, 0, 0, 0);
+}
+
+void test_f()
+{
+	*(DWORD*)(version == 159 ? 0x19FF7F4 : 0x19FC27C) = 2;
+}
+
+USHORT getReversedPort(const char* _port)
+{
+	USHORT port = (USHORT)atoi(_port);
+
+	return (USHORT)(port >> 8) | (port << 8);
+}
+
+void connectWrapper()
+{
+	startCoopListening();
 	const char* ip = "";
 
 	if(Cmd_Argc() == 3)
@@ -141,6 +242,12 @@ void PatchMW2_Coop()
 
 	static cmd_function_t connectWrapper_cmd;
 	Cmd_AddCommand("connect", connectWrapper, &connectWrapper_cmd, 0);
+
+	static cmd_function_t xstopparty_cmd;
+	Cmd_AddCommand("xstopparty", xstopparty_f, &xstopparty_cmd, 0);
+
+	static cmd_function_t test;
+	Cmd_AddCommand("test", test_f, &test, 0);
 
 	// Patch dvar name
 	call(0x475156, nameHookFunc, PATCH_CALL);
