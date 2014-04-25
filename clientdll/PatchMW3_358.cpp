@@ -87,6 +87,8 @@ void fixStats()
 	DWORD jump = 0x648CB1;
 }
 
+void printHelloWorld(int type);
+
 void _enableConsole()
 {
 	// Enable external console
@@ -95,7 +97,11 @@ void _enableConsole()
 
 	// Continue startup
 	((void(*)())0x5ED550)();
+
+	printHelloWorld(0);
 }
+
+void Com_Printf_MW3(int type, const char *fmt, ... );
 
 void PatchMW3_358()
 {
@@ -104,6 +110,7 @@ void PatchMW3_358()
 	Dvar_FindVar = (Dvar_FindVar_t)0x4755D0;
 	Dvar_GetString = (Dvar_GetString_t)0x43BC90;
 	Com_Error = (Com_Error_t)0x472BC0;
+	Com_Printf = Com_Printf_MW3;
 	Cmd_AddCommand = (Cmd_AddCommand_t)0x475C40;
 	Cmd_ExecuteSingleCommand = (Cmd_ExecuteSingleCommand_t)0x4DA7D0;
 	R_AddCmdDrawText = (R_AddCmdDrawText_t)0x502730;

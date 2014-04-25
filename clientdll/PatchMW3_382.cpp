@@ -28,6 +28,18 @@ DWORD SteamAPIMW3;
 DWORD returnSuccessMW3 = 0x443855;
 DWORD otherStuffMW3 = 0x40CCB0;
 
+void Printf_Con(const char* buffer);
+
+void Com_Printf_MW3(int type, const char *fmt, ... )
+{
+	va_list ap;
+	char *dest = (char*)malloc(1024);
+	va_start(ap, fmt);
+	vsprintf( dest, fmt, ap );
+	va_end(ap);
+	Printf_Con(dest);
+}
+
 void __declspec(naked) steamInitPatchMW3()
 {
 	SteamAPIMW3 = *(DWORD*)0x7915D4;
@@ -104,6 +116,8 @@ void* ReallocateAssetPool(int type, unsigned int newSize)
 	return poolEntry;
 }
 
+void printHelloWorld(int type);
+
 void enableConsole()
 {
 	*(DWORD*)0x7915CC = (DWORD)SteamFriends;
@@ -118,6 +132,8 @@ void enableConsole()
 
 	// Continue startup
 	((void(*)())0x5EE380)();
+
+	printHelloWorld(0);
 }
 
 dvar_t* Dvar_RegisterBool_MW3(const char* name, int default, int flags)
@@ -154,7 +170,7 @@ void contentErrorHook(int type, const char* format, ...)
 
 void Printf_Con(const char* buffer)
 {
-	((void(*)(const char*))0x406D80)(buffer);
+	((void(*)(const char*))(version == 382 ? 0x406D80 : 0x49CEE0))(buffer);
 }
 
 char _returnPath[MAX_PATH];
@@ -186,6 +202,7 @@ void PatchMW3_382()
 	version = 382;
 
 	Com_Error = (Com_Error_t)0x451A10;
+	Com_Printf = Com_Printf_MW3;
 	Dvar_FindVar = (Dvar_FindVar_t)0x540520;
 	Dvar_GetString = (Dvar_GetString_t)0x474B00;
 	R_AddCmdDrawText = (R_AddCmdDrawText_t)0x520D50;

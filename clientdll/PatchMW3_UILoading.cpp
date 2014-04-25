@@ -22,5 +22,5 @@ void* loadMenuHook(int type, const char* reference, bool stuff)
 
 void PatchMW3_UILoading()
 {
-	call(0x5415E9, loadMenuHook, PATCH_CALL);
+	//call(0x5415E9, loadMenuHook, PATCH_CALL);
 }
