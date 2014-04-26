@@ -14,6 +14,122 @@
 void addLocStr(const char* key, const char* value);
 void removeLocStr(const char* key);
 
+typedef void (__cdecl* sendOOB_t)(int, int, int, int, int, int, const char*);
+sendOOB_t OOBPrint = (sendOOB_t)0;
+
+void OOBPrintT(int type, netadr_t netadr, const char* message)
+{
+	OOBPrint = (sendOOB_t)(version == 159 ? 0x500350 : 0x43D160);
+
+	int* adr = (int*)&netadr;
+
+	OOBPrint(type, *adr, *(adr + 1), *(adr + 2), 0xFFFFFFFF, *(adr + 4), message);
+}
+
+void NET_OutOfBandPrint(int type, netadr_t adr, const char* message, ...)
+{
+	va_list args;
+	char buffer[65535];
+
+	va_start(args, message);
+	_vsnprintf(buffer, sizeof(buffer), message, args);
+	va_end(args);
+
+	OOBPrintT(type, adr, buffer);
+}
+
+#define MAX_SERVERSPERPACKET	256
+
+typedef struct {
+	unsigned char ip[4];
+	unsigned short	port;
+} serverAddress_t;
+
+serverAddress_t addresses[MAX_SERVERSPERPACKET];
+int	numservers;
+
+enum connectState_s
+{
+	idle,
+	searching,
+	pinging,
+	negotiating,
+	connecting,
+	listening
+};
+
+connectState_s connectState;
+
+void CL_ServersResponsePacket( msg_t *msg ) {
+	int				i, count, max, total;
+	char*			buffptr;
+	char*			buffend;
+	
+	Com_Printf(0, "Receiving parties from master\n");
+
+	// parse through server response string
+	numservers = 0;
+	buffptr    = msg->data;
+	buffend    = buffptr + msg->cursize;
+	while (buffptr+1 < buffend) {
+		// advance to initial token
+		do {
+			if (*buffptr++ == '\\')
+				break;		
+		}
+		while (buffptr < buffend);
+
+		if ( buffptr >= buffend - 6 ) {
+			break;
+		}
+
+		// parse out ip
+		addresses[numservers].ip[0] = *buffptr++;
+		addresses[numservers].ip[1] = *buffptr++;
+		addresses[numservers].ip[2] = *buffptr++;
+		addresses[numservers].ip[3] = *buffptr++;
+
+		// parse out port
+		addresses[numservers].port = (*(buffptr++))<<8;
+		addresses[numservers].port += (*(buffptr++)) & 0xFF;
+		addresses[numservers].port = ntohs( addresses[numservers].port );
+
+		// syntax check
+		if (*buffptr != '\\') {
+			break;
+		}
+
+		/*Com_DPrintf( 0, "server: %d ip: %d.%d.%d.%d:%d\n",numservers,
+				addresses[numservers].ip[0],
+				addresses[numservers].ip[1],
+				addresses[numservers].ip[2],
+				addresses[numservers].ip[3],
+				ntohs(addresses[numservers].port) );*/
+
+		numservers++;
+		if (numservers >= MAX_SERVERSPERPACKET) {
+			break;
+		}
+
+		// parse out EOT
+		if (buffptr[1] == 'E' && buffptr[2] == 'O' && buffptr[3] == 'T') {
+			break;
+		}
+	}
+	Com_Printf(0, "Parties received from master: %d\n", numservers);
+
+	if(!numservers)
+	{
+		//*(DWORD*)(version == 159 ? 0x19FF7F4 : 0x19FC27C) = 0; // Set message type
+		//((void(*)(char*))(version == 159 ? 0x063A850 : 0x638060))("No players available!"); // Display message
+		connectState = listening;
+	}
+	else
+	{
+		connectState = pinging;
+	}
+}
+
 void startCoopListening()
 {
 	// Preparation stuff
@@ -30,28 +146,71 @@ void startCoopListening()
 	//Cmd_ExecuteSingleCommand(0, 0, "set coop_mapName so_killspree_trainer");
 }
 
-HANDLE coopPartyThread;
-
 char connectAddress[50];
-int connectState;
 int negociatedHost;
+int isSearching;
+serverAddress_t partner;
 
+// TODO: Move NET stuff out of render thread
 void listener()
 {
-	if(connectState == 4)
+	if(!isSearching)
+		return;
+
+	if(connectState == searching)
 	{
-		connectState = 0;
+		connectState = idle;
+		static netadr_t	adr;
+		const char* masterName = COOP_MASTER;
+
+		if ( !masterName[0] ) {
+			return;
+		}
+
+		if ( adr.type != NA_IP ) 
+		{
+			Com_Printf( 0, "Resolving master %s\n", masterName );
+			if ( !NET_StringToAdr( masterName, &adr ) ) {
+				Com_Printf( 0, "Couldn't resolve address: %s\n", masterName );
+				return;
+			}
+			if ( !strstr( ":", masterName ) ) {
+				adr.port = htons(COOP_MASTER_PORT);
+			}
+			Com_Printf( 0, "Master %s resolved to %i.%i.%i.%i:%i\n", masterName,
+				adr.ip[0], adr.ip[1], adr.ip[2], adr.ip[3],
+				htons(adr.port) );
+		}
+
+		// Send heartbeat and serverrequest
+		Com_Printf( 0, "Sending heartbeat and serverrequest to master.\n", masterName );
+		NET_OutOfBandPrint( NS_SERVER, adr, "heartbeat %s\n", "IW4SP" );
+		NET_OutOfBandPrint( NS_SERVER, adr, "getservers %s %i empty", "IW4SP", 29 );
+	}
+	else if(connectState == pinging)
+	{
+		addLocStr("PLATFORM_POPUP_CONNECTION", "Selecting best partner");
+		// Insert ping stuff here
+		partner = addresses[0];
+		connectState = connecting;
+	}
+	else if(connectState == negotiating)
+	{
+		//addLocStr("PLATFORM_POPUP_CONNECTION", "Selecting best partner");
+
+	}
+	else if(connectState == connecting)
+	{
+		connectState = idle;
 		if(!negociatedHost)
 		{
+			addLocStr("PLATFORM_POPUP_CONNECTION", "Setting up the connection");
 			Sleep(2000); // Time for host to start listening
-			if(coopPartyThread)
-			{
-				TerminateThread(coopPartyThread, 0);
-				coopPartyThread = NULL;
-			}
 
-			Dvar_SetCommand("connect_ip", connectAddress);
-			Cmd_ExecuteSingleCommand(0, 0, "connect");
+			startCoopListening();
+
+			Dvar_SetCommand("connect_ip", va("%i.%i.%i.%i:%i", partner.ip[0], partner.ip[1], partner.ip[2], partner.ip[3], htons(partner.port)));
+			Cbuf_AddText(0, "connect");
 		}
 		else
 		{
@@ -59,50 +218,20 @@ void listener()
 		}
 		removeLocStr("PLATFORM_POPUP_CONNECTION");
 	}
-}
-
-static DWORD WINAPI coop_thread(LPVOID param)
-{
-	//while(true)
-	//{
-		Sleep(4000);
-		connectState = 1;
-		addLocStr("PLATFORM_POPUP_CONNECTION", "Testing partner connection");
-		Sleep(3000);
-		connectState = 2;
-		addLocStr("PLATFORM_POPUP_CONNECTION", "Determining host");
-		negociatedHost = rand() % 2;
-		Sleep(2000);
-		connectState = 3;
-
-		if(!negociatedHost)
-		{
-			addLocStr("PLATFORM_POPUP_CONNECTION", "Setting up the connection");
-			Sleep(1000);
-			strcpy(connectAddress, "");
-		}
-		else
-		{
-			addLocStr("PLATFORM_POPUP_CONNECTION", "Setting up the party");
-			Sleep(1000);
-		}
-		connectState = 4;
-	//}
-	return 0;
+	else if(connectState == listening)
+	{
+		addLocStr("PLATFORM_POPUP_CONNECTION", "Waiting for connection");
+	}
 }
 
 void xstopparty_f()
 {
 	// Tell server to remove from list
 	OutputDebugString("Party unlisted.\n");
-	connectState = 0;
+	connectState = idle;
 	removeLocStr("PLATFORM_POPUP_CONNECTION");
 
-	if(coopPartyThread)
-	{
-		TerminateThread(coopPartyThread, 0);
-		coopPartyThread = NULL;
-	}
+	isSearching = 0;
 }
 
 void connectHook()
@@ -116,18 +245,8 @@ void connectHook()
 	// Tell server to add to list
 	OutputDebugString("Party listed.\n");
 
-	if(coopPartyThread)
-	{
-		TerminateThread(coopPartyThread, 0);
-		coopPartyThread = NULL;
-	}
-
-	coopPartyThread = CreateThread(0, 0, coop_thread, 0, 0, 0);
-}
-
-void test_f()
-{
-	*(DWORD*)(version == 159 ? 0x19FF7F4 : 0x19FC27C) = 2;
+	isSearching = 1;
+	connectState = searching;
 }
 
 USHORT getReversedPort(const char* _port)
@@ -245,9 +364,6 @@ void PatchMW2_Coop()
 
 	static cmd_function_t xstopparty_cmd;
 	Cmd_AddCommand("xstopparty", xstopparty_f, &xstopparty_cmd, 0);
-
-	static cmd_function_t test;
-	Cmd_AddCommand("test", test_f, &test, 0);
 
 	// Patch dvar name
 	call(0x475156, nameHookFunc, PATCH_CALL);

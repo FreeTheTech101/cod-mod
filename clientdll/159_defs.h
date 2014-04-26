@@ -12,6 +12,8 @@ void define159Stuff()
 
 	BG_LoadWeaponDef_LoadObj = (BG_LoadWeaponDef_LoadObj_t)0x659DA0;
 
+	Cbuf_AddText = (Cbuf_AddText_t)0x4A1090;
+
 	Com_Error = (Com_Error_t)0x43DD90;
 	Com_Printf = (Com_Printf_t)0x41BD20;
 	Com_PrintError = (Com_PrintError_t)0x4C6980;

@@ -7,6 +7,8 @@ void define184Stuff()
 
 	BG_LoadWeaponDef_LoadObj = (BG_LoadWeaponDef_LoadObj_t)0x657630;
 
+	Cbuf_AddText = (Cbuf_AddText_t)0x409B40;
+
 	Dvar_FindVar = (Dvar_FindVar_t)0x4BCA20;
 	Dvar_SetCommand = (Dvar_SetCommand_t)0x43A000;
 	Dvar_RegisterString = (Dvar_RegisterString_t)0x433DF0;
@@ -31,6 +33,8 @@ void define184Stuff()
 	R_AddCmdDrawText = (R_AddCmdDrawText_t)0x50E080;
 	R_AddCmdDrawStretchPic = (R_AddCmdDrawStretchPic_t)0x50DA70;
 	R_TextWidth = (R_TextWidth_t)0x508030;
+
+	NET_StringToAdr = (NET_StringToAdr_t)0x40AF70;
 
 	FS_ListFiles = (FS_ListFiles_t)0x4B0040;
 	FS_FreeFileList = (FS_FreeFileList_t)0x4E6180;
