@@ -237,7 +237,7 @@ void listener()
 	}
 	else if(connectState == negotiating)
 	{
-		if(Com_Milliseconds() - stateConnectStart > 10000)
+		if(Com_Milliseconds() - stateConnectStart > 6000)
 		{
 			addrNum++;
 			connectState = pinging;
@@ -250,7 +250,7 @@ void listener()
 			addLocStr("PLATFORM_POPUP_CONNECTION", "Setting up the connection");
 			//Sleep(2000); // Wow really? Sleep in render thread????
 
-			if(Com_Milliseconds() - stateConnectStart > 2000)
+			if(Com_Milliseconds() - stateConnectStart > 1000)
 			{
 				connectState = idle;
 				startCoopListening();
@@ -273,7 +273,7 @@ void listener()
 	{
 		addLocStr("PLATFORM_POPUP_CONNECTION", "Waiting for connection");
 
-		if(Com_Milliseconds() - lastheartbeat > 15000)
+		if(Com_Milliseconds() - lastheartbeat > 20000)
 		{
 // 			netadr_t adr = getMaster();
 // 			lastheartbeat = Com_Milliseconds();

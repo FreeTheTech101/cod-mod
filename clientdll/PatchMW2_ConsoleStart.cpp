@@ -23,7 +23,7 @@ void printHelloWorld(int type)
 	Com_Printf(type, "- kiwidog (kiwidog.me | allenthinks.com)\n");
 	Com_Printf(type, "- zxz0O0\n");
 	Com_Printf(type, "- Icedream\n");
-	Com_Printf(type, "- The_Uli\n");
+	Com_Printf(type, "- the_Uli\n");
 	Com_Printf(type, "- Dekart811\n");
 	Com_Printf(type, "- archony (http://triobit.net, http://archon.rekt.in)\n");
 	Com_Printf(type, "----------------------------------\n");
