@@ -148,6 +148,7 @@ void startCoopListening()
 
 char connectAddress[50];
 int negociatedHost;
+int stateConnectStart;
 int isSearching;
 serverAddress_t partner;
 
@@ -192,31 +193,37 @@ void listener()
 		addLocStr("PLATFORM_POPUP_CONNECTION", "Selecting best partner");
 		// Insert ping stuff here
 		partner = addresses[0];
+		stateConnectStart = Com_Milliseconds();
 		connectState = connecting;
 	}
 	else if(connectState == negotiating)
 	{
-		//addLocStr("PLATFORM_POPUP_CONNECTION", "Selecting best partner");
+		addLocStr("PLATFORM_POPUP_CONNECTION", "Negotiating with partner");
 
 	}
 	else if(connectState == connecting)
 	{
-		connectState = idle;
 		if(!negociatedHost)
 		{
 			addLocStr("PLATFORM_POPUP_CONNECTION", "Setting up the connection");
-			Sleep(2000); // Time for host to start listening
+			//Sleep(2000); // Wow really? Sleep in render thread????
 
-			startCoopListening();
+			if(Com_Milliseconds() - stateConnectStart > 2000)
+			{
+				connectState = idle;
+				startCoopListening();
 
-			Dvar_SetCommand("connect_ip", va("%i.%i.%i.%i:%i", partner.ip[0], partner.ip[1], partner.ip[2], partner.ip[3], htons(partner.port)));
-			Cbuf_AddText(0, "connect");
+				Dvar_SetCommand("connect_ip", va("%i.%i.%i.%i:%i", partner.ip[0], partner.ip[1], partner.ip[2], partner.ip[3], htons(partner.port)));
+				Cbuf_AddText(0, "connect");
+				removeLocStr("PLATFORM_POPUP_CONNECTION");
+			}
 		}
 		else
 		{
+			connectState = idle;
 			startCoopListening();
+			removeLocStr("PLATFORM_POPUP_CONNECTION");
 		}
-		removeLocStr("PLATFORM_POPUP_CONNECTION");
 	}
 	else if(connectState == listening)
 	{
@@ -226,7 +233,7 @@ void listener()
 
 void xstopparty_f()
 {
-	// Tell server to remove from list
+	// TODO: Tell master to remove from list
 	OutputDebugString("Party unlisted.\n");
 	connectState = idle;
 	removeLocStr("PLATFORM_POPUP_CONNECTION");
