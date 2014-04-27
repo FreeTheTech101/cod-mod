@@ -13,9 +13,26 @@
 
 static enum
 {
+	GSC_GETNEGO,
 	GSC_GETINFO,
+	GSC_GETNEGORESPONSE,
 	GSR_GETSERVERSRESPONSE
 } lastGsrCommand;
+
+enum connectState_s
+{
+	idle,
+	searching,
+	pinging,
+	negotiating,
+	connecting,
+	listening
+};
+
+extern connectState_s connectState;
+extern serverAddress_t partner;
+
+static netadr_t me;
 
 void CL_ServersResponsePacket( msg_t *msg );
 void Info_SetValueForKey( char *s, const char *key, const char *value );
@@ -48,6 +65,45 @@ void sendInfoResponse(netadr_t from, msg_t* msg)
 	NET_OutOfBandPrint(NS_SERVER, from, "infoResponse\n%s", infostring);
 }
 
+extern int negociatedHost;
+
+void getNego(netadr_t from, msg_t* msg)
+{
+	char* status;
+	if(!isSearching)
+	{
+		status = "NET"; // NET: Not eligible for transmission
+	}
+	else
+	{
+		status = "OK"; // OK: Oll Korrect ;)
+		negociatedHost = true;
+		partner = natosa(from);
+		connectState = connecting;
+	}
+
+	NET_OutOfBandPrint(NS_SERVER, from, "negoResponse\n%s", status);
+}
+
+extern int stateConnectStart;
+extern int addrNum;
+
+void getNegoResponse(netadr_t from, msg_t* msg)
+{
+	if(!strcmp(msg->data + 17, "OK"))
+	{
+		stateConnectStart = Com_Milliseconds();
+		negociatedHost = false;
+		connectState = connecting;
+	}
+	else
+	{
+		Com_Printf(0, va("Bad negotiation response: '%s'\n", msg->data + 17));
+		addrNum++;
+		connectState = pinging;
+	}
+}
+
 void CL_DeployOOB(netadr_t* from, msg_t* msg)
 {
 	if(!isSearching)
@@ -56,6 +112,16 @@ void CL_DeployOOB(netadr_t* from, msg_t* msg)
 	if (lastGsrCommand == GSC_GETINFO)
 	{
 		return sendInfoResponse(*from, msg);
+	}
+
+	if (lastGsrCommand == GSC_GETNEGO)
+	{
+		return getNego(*from, msg);
+	}
+
+	if (lastGsrCommand == GSC_GETNEGORESPONSE)
+	{
+		return getNegoResponse(*from, msg);
 	}
 
 	if (lastGsrCommand == GSR_GETSERVERSRESPONSE)
@@ -78,6 +144,18 @@ int GsrCmpHookFunc(const char* a1, const char* a2)
 	if (!_strnicmp(a1, "getinfo", 7))
 	{
 		lastGsrCommand = GSC_GETINFO;
+		return 0;
+	}
+
+	if (!_strnicmp(a1, "getnego", 7))
+	{
+		lastGsrCommand = GSC_GETNEGO;
+		return 0;
+	}
+
+	if (!_strnicmp(a1, "negoResponse", 12))
+	{
+		lastGsrCommand = GSC_GETNEGORESPONSE;
 		return 0;
 	}
 

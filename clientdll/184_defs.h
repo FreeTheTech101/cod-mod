@@ -35,6 +35,7 @@ void define184Stuff()
 	R_TextWidth = (R_TextWidth_t)0x508030;
 
 	NET_StringToAdr = (NET_StringToAdr_t)0x40AF70;
+	NET_CompareAdr = (NET_CompareAdr_t)0x401BF0;
 
 	FS_ListFiles = (FS_ListFiles_t)0x4B0040;
 	FS_FreeFileList = (FS_FreeFileList_t)0x4E6180;

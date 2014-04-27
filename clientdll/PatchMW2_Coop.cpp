@@ -40,11 +40,6 @@ void NET_OutOfBandPrint(int type, netadr_t adr, const char* message, ...)
 
 #define MAX_SERVERSPERPACKET	256
 
-typedef struct {
-	unsigned char ip[4];
-	unsigned short	port;
-} serverAddress_t;
-
 serverAddress_t addresses[MAX_SERVERSPERPACKET];
 int	numservers;
 
@@ -150,7 +145,54 @@ char connectAddress[50];
 int negociatedHost;
 int stateConnectStart;
 int isSearching;
+int addrNum;
 serverAddress_t partner;
+
+netadr_t satona(serverAddress_t address)
+{
+	netadr_t* netAddrPtr = (netadr_t*)malloc(sizeof(netadr_t));
+	NET_StringToAdr(va("%i.%i.%i.%i:%i", address.ip[0], address.ip[1], address.ip[2], address.ip[3], htons(address.port)), netAddrPtr);
+	return *netAddrPtr;
+}
+
+serverAddress_t natosa(netadr_t address)
+{
+	serverAddress_t* serverAddrPtr = (serverAddress_t*)malloc(sizeof(serverAddress_t));
+	memcpy(&(serverAddrPtr->ip[0]), &(address.ip[0]), sizeof(BYTE) * 4);
+	serverAddrPtr->port = address.port;
+	return *serverAddrPtr;
+}
+
+netadr_t getMaster()
+{
+	static netadr_t	adr;
+	const char* masterName = COOP_MASTER;
+
+	if ( !masterName[0] ) {
+		adr.type = NA_BAD;
+		return adr;
+	}
+
+	if ( adr.type != NA_IP ) 
+	{
+		Com_Printf( 0, "Resolving master %s\n", masterName );
+		if ( !NET_StringToAdr( masterName, &adr ) ) {
+			adr.type = NA_BAD;
+			Com_Printf( 0, "Couldn't resolve address: %s\n", masterName );
+			return adr;
+		}
+		if ( !strstr( ":", masterName ) ) {
+			adr.port = htons(COOP_MASTER_PORT);
+		}
+		Com_Printf( 0, "Master %s resolved to %i.%i.%i.%i:%i\n", masterName,
+			adr.ip[0], adr.ip[1], adr.ip[2], adr.ip[3],
+			htons(adr.port) );
+	}
+
+	return adr;
+}
+
+int lastheartbeat;
 
 // TODO: Move NET stuff out of render thread
 void listener()
@@ -161,30 +203,13 @@ void listener()
 	if(connectState == searching)
 	{
 		connectState = idle;
-		static netadr_t	adr;
-		const char* masterName = COOP_MASTER;
-
-		if ( !masterName[0] ) {
-			return;
-		}
-
-		if ( adr.type != NA_IP ) 
-		{
-			Com_Printf( 0, "Resolving master %s\n", masterName );
-			if ( !NET_StringToAdr( masterName, &adr ) ) {
-				Com_Printf( 0, "Couldn't resolve address: %s\n", masterName );
-				return;
-			}
-			if ( !strstr( ":", masterName ) ) {
-				adr.port = htons(COOP_MASTER_PORT);
-			}
-			Com_Printf( 0, "Master %s resolved to %i.%i.%i.%i:%i\n", masterName,
-				adr.ip[0], adr.ip[1], adr.ip[2], adr.ip[3],
-				htons(adr.port) );
-		}
+		addrNum = 0;
+		
+		netadr_t adr = getMaster();
 
 		// Send heartbeat and serverrequest
-		Com_Printf( 0, "Sending heartbeat and serverrequest to master.\n", masterName );
+		Com_Printf( 0, "Sending heartbeat and serverrequest to master.\n", COOP_MASTER );
+		lastheartbeat = Com_Milliseconds();
 		NET_OutOfBandPrint( NS_SERVER, adr, "heartbeat %s\n", "IW4SP" );
 		NET_OutOfBandPrint( NS_SERVER, adr, "getservers %s %i empty", "IW4SP", 29 );
 	}
@@ -192,14 +217,21 @@ void listener()
 	{
 		addLocStr("PLATFORM_POPUP_CONNECTION", "Selecting best partner");
 		// Insert ping stuff here
-		partner = addresses[0];
-		stateConnectStart = Com_Milliseconds();
-		connectState = connecting;
+
+		if(addrNum >= numservers)
+		{
+			connectState = listening;
+			return;
+		}
+
+		partner = addresses[addrNum];
+		connectState = negotiating;
 	}
 	else if(connectState == negotiating)
 	{
 		addLocStr("PLATFORM_POPUP_CONNECTION", "Negotiating with partner");
-
+		NET_OutOfBandPrint(NS_SERVER, satona(partner), "getNego");
+		connectState = idle;
 	}
 	else if(connectState == connecting)
 	{
@@ -212,6 +244,7 @@ void listener()
 			{
 				connectState = idle;
 				startCoopListening();
+				isSearching = false;
 
 				Dvar_SetCommand("connect_ip", va("%i.%i.%i.%i:%i", partner.ip[0], partner.ip[1], partner.ip[2], partner.ip[3], htons(partner.port)));
 				Cbuf_AddText(0, "connect");
@@ -222,12 +255,21 @@ void listener()
 		{
 			connectState = idle;
 			startCoopListening();
+			isSearching = false;
 			removeLocStr("PLATFORM_POPUP_CONNECTION");
 		}
 	}
 	else if(connectState == listening)
 	{
 		addLocStr("PLATFORM_POPUP_CONNECTION", "Waiting for connection");
+
+		if(Com_Milliseconds() - lastheartbeat > 60000)
+		{
+			netadr_t adr = getMaster();
+			lastheartbeat = Com_Milliseconds();
+			Com_Printf(0, "Sending heartbeat to master: %s", COOP_MASTER);
+			NET_OutOfBandPrint( NS_SERVER, adr, "heartbeat %s\n", "IW4SP" );
+		}
 	}
 }
 

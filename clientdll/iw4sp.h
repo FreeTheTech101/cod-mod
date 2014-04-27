@@ -1333,8 +1333,15 @@ extern CommandCB_t Cbuf_AddServerText_f;
 typedef short (__cdecl * BigShort_t)(short);
 extern BigShort_t BigShort;
 
+typedef struct {
+	unsigned char ip[4];
+	unsigned short	port;
+} serverAddress_t;
+
 void playSound(char* sound);
 void NET_OutOfBandPrint(int type, netadr_t adr, const char* message, ...);
+serverAddress_t natosa(netadr_t address);
+netadr_t satona(serverAddress_t address);
 
 extern dvar_t** dvarName;
 extern dvar_t** r_mode;

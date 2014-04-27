@@ -35,7 +35,9 @@ void define159Stuff()
 	DB_LoadXAssets = (DB_LoadXAssets_t)0x4CFC90;
 
 	Steam_JoinLobby = (Steam_JoinLobby_t)0x43A4F0;
+
 	NET_StringToAdr = (NET_StringToAdr_t)0x40A590;
+	NET_CompareAdr = (NET_CompareAdr_t)0x4B2CC0;
 
 	FS_ReadFile = (FS_ReadFile_t)0x4A5480;
 	FS_FOpenFileRead = (FS_FOpenFileRead_t)0x48DD10;
