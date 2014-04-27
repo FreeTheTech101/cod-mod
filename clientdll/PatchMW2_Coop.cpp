@@ -192,6 +192,14 @@ netadr_t getMaster()
 	return adr;
 }
 
+void negotiate()
+{
+	addLocStr("PLATFORM_POPUP_CONNECTION", "Negotiating with partner");
+	NET_OutOfBandPrint(NS_SERVER, satona(partner), "getNego");
+	stateConnectStart = Com_Milliseconds();
+	connectState = negotiating;
+}
+
 int lastheartbeat;
 
 // TODO: Move NET stuff out of render thread
@@ -225,13 +233,15 @@ void listener()
 		}
 
 		partner = addresses[addrNum];
-		connectState = negotiating;
+		negotiate();
 	}
 	else if(connectState == negotiating)
 	{
-		addLocStr("PLATFORM_POPUP_CONNECTION", "Negotiating with partner");
-		NET_OutOfBandPrint(NS_SERVER, satona(partner), "getNego");
-		connectState = idle;
+		if(Com_Milliseconds() - stateConnectStart > 10000)
+		{
+			addrNum++;
+			connectState = pinging;
+		}
 	}
 	else if(connectState == connecting)
 	{
@@ -263,12 +273,13 @@ void listener()
 	{
 		addLocStr("PLATFORM_POPUP_CONNECTION", "Waiting for connection");
 
-		if(Com_Milliseconds() - lastheartbeat > 60000)
+		if(Com_Milliseconds() - lastheartbeat > 15000)
 		{
-			netadr_t adr = getMaster();
-			lastheartbeat = Com_Milliseconds();
-			Com_Printf(0, "Sending heartbeat to master: %s", COOP_MASTER);
-			NET_OutOfBandPrint( NS_SERVER, adr, "heartbeat %s\n", "IW4SP" );
+// 			netadr_t adr = getMaster();
+// 			lastheartbeat = Com_Milliseconds();
+// 			Com_Printf(0, "Sending heartbeat to master: %s", COOP_MASTER);
+// 			NET_OutOfBandPrint( NS_SERVER, adr, "heartbeat %s\n", "IW4SP" );
+			connectState = searching;
 		}
 	}
 }
