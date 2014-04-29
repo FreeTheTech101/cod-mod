@@ -65,6 +65,7 @@ returnSafe:
 }
 
 void xstopparty_f();
+void patchExit(DWORD address);
 
 void PatchMW2_184()
 {
@@ -179,4 +180,16 @@ void PatchMW2_184()
 
 	// Patch dvar name
 	call(0x4F3866, nameHookFunc184, PATCH_CALL);
+
+	// CEG again?
+	patchExit(0x424CB5);
+	patchExit(0x474E15);
+	patchExit(0x410875);
+	patchExit(0x401195);
+	patchExit(0x4516F5);
+	patchExit(0x427545);
+	patchExit(0x4A9F85);
+	patchExit(0x478985);
+	patchExit(0x4A6745);
+	patchExit(0x4093E5);
 }
