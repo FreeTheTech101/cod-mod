@@ -165,7 +165,7 @@ void PatchMW2_159()
 	*(DWORD*)0x50C110 = (DWORD)"COD-MOD: Game";
 
 	// Yay, hitmarker in sp :D
-	Dvar_RegisterBool("scr_damageFeedback", 0, DVAR_FLAG_SAVED | DVAR_FLAG_CHEAT, "Show marker when hitting enemies.");
+	Dvar_RegisterBool("scr_damageFeedback", 0, DVAR_FLAG_SAVED, "Show marker when hitting enemies.");
 
 	// Build os path stuff
 	*(BYTE*)0x6300BF = 0xEB;

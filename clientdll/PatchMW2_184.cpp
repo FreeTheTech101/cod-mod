@@ -170,7 +170,7 @@ void PatchMW2_184()
 	memset((void*)0x41796A, 0x90, 2);
 
 	// Yay, hitmarker in sp :D
-	Dvar_RegisterBool("scr_damageFeedback", 0, DVAR_FLAG_SAVED | DVAR_FLAG_CHEAT, "Show marker when hitting enemies.");
+	Dvar_RegisterBool("scr_damageFeedback", 0, DVAR_FLAG_SAVED, "Show marker when hitting enemies.");
 
 	static cmd_function_t connectWrapper_cmd;
 	Cmd_AddCommand("connect", connectWrapper, &connectWrapper_cmd, 0);
