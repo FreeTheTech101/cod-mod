@@ -117,6 +117,7 @@ void* ReallocateAssetPool(int type, unsigned int newSize)
 }
 
 void printHelloWorld(int type);
+void __cdecl SteamAPI_RunCallbacks();
 
 void enableConsole()
 {
@@ -334,4 +335,6 @@ void PatchMW3_382()
 	*(DWORD*)0x525EB9 = 0x1C7;
 
 	*(BYTE*)0x452C15 = DVAR_FLAG_SAVED; // cg_fov
+
+	*(DWORD*)0x7915B4 = (DWORD)SteamAPI_RunCallbacks;
 }

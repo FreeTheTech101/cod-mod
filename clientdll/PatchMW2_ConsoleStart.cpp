@@ -16,7 +16,7 @@ void printHelloWorld(int type)
 	Com_Printf(type, "----------------------------------\n");
 	Com_Printf(type, CONSOLESTRING "\n");
 	Com_Printf(type, "----------------------------------\n");
-	Com_Printf(type, "Creted by momo5502 & Dasfonia\n");
+	Com_Printf(type, "Created by momo5502 & Dasfonia\n");
 	Com_Printf(type, "----------------------------------\n");
 	Com_Printf(type, "Credit and big thanks to:\n");
 	Com_Printf(type, "- NTAuthority (http://refint.net)\n");

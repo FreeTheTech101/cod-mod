@@ -102,6 +102,7 @@ void _enableConsole()
 }
 
 void Com_Printf_MW3(int type, const char *fmt, ... );
+void __cdecl SteamAPI_RunCallbacks();
 
 void PatchMW3_358()
 {
@@ -209,4 +210,6 @@ void PatchMW3_358()
 	*(DWORD*)0x4E66F9 = 0x1C7;
 
 	*(BYTE*)0x4043C5 = DVAR_FLAG_SAVED; // cg_fov
+
+	*(DWORD*)0x7905B4 = (DWORD)SteamAPI_RunCallbacks;
 }
