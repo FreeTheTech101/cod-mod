@@ -100,11 +100,13 @@ void loadLanguage()
 
 char* ModLanguageEnum[] = { "english", "french", "german", "italian", "spanish", "english", "russian", "polish",  0 };
 
-void replaceFriendConnect()
+void replaceLocalizedStrings()
 {
 	addLocStr("MENU_INVITE_FRIEND", "Search party");
 	addLocStr("MENU_DESC_INVITE_FRIEND", "Search another player.");
 	addLocStr("MENU_SP_STEAM_CHAT_HINT", "");
+	addLocStr("PATCH_STRICTHINT", "");
+	addLocStr("PATCH_STRICTHINT_COOP", "");
 }
 
 void PatchMW2_LocalizedStrings()

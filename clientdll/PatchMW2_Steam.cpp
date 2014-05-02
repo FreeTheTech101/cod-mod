@@ -15,7 +15,7 @@ void PatchMW2_SteamFriends();
 void PatchMW2_RunCallbacks();
 void PatchMW2_SteamUserStats();
 void PatchMW2_SteamMatchmaking();
-void replaceFriendConnect();
+void replaceLocalizedStrings();
 void connectHook();
 
 hostent* WINAPI custom_gethostbyname(const char* name) {
@@ -129,7 +129,7 @@ void initializeSteamPatch()
 	}
 	else
 	{
-		replaceFriendConnect();
+		replaceLocalizedStrings();
 		PatchMW2_SteamUserStats();
 	}
 
