@@ -18,7 +18,7 @@ void printHelloWorld(int type)
 	Com_Printf(type, "----------------------------------\n");
 	Com_Printf(type, "Created by momo5502 & Dasfonia\n");
 	Com_Printf(type, "----------------------------------\n");
-	Com_Printf(type, "Credit and big thanks to:\n");
+	Com_Printf(type, "Credits and big thanks to:\n");
 	Com_Printf(type, "- NTAuthority (http://refint.net)\n");
 	Com_Printf(type, "- kiwidog (kiwidog.me | allenthinks.com)\n");
 	Com_Printf(type, "- zxz0O0\n");
