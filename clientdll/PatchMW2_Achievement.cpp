@@ -13,6 +13,7 @@
 #include "stdinc.h"
 #include "achievements.h"
 #include "rewardSound.h"
+#include "SteamUserStats010.h"
 #include <playsoundapi.h>
 
 extern bool showprogress;
@@ -235,6 +236,8 @@ char progressText[25];
 int firstPopup;
 int percent;
 int progressDisplayTime = 3500;
+extern int isSteamInstace;
+CSteamUserStats010* statsInstance;
 
 bool hasAlreadyEarnedReward( const char *pchName );
 
@@ -255,13 +258,19 @@ void showProgress()
 		int totalValue = 0;
 		int playerValue = 0;
 
-		for(int i = 0;i<ACHIEVEMENT_COUNT;i++)
+		for (int i = 0; i < ACHIEVEMENT_COUNT; i++)
 		{
 			totalValue += getTrophyValue(achievements[i].difficulty);
-			if(hasAlreadyEarnedReward(achievements[i].code))
+
+			if (!statsInstance)
 			{
-				playerValue += getTrophyValue(achievements[i].difficulty);
+				statsInstance = ((CSteamUserStats010*(*)())(*(DWORD*)SteamUserStatsLoc))(); // Daaamn, dat cast
 			}
+
+			bool isUnlocked = false;
+
+			statsInstance->GetAchievement(achievements[i].code, &isUnlocked);
+			playerValue += (isUnlocked ? getTrophyValue(achievements[i].difficulty) : 0);
 		}
 
 		percent = (100 / (double)totalValue) * (double)playerValue;

@@ -12,6 +12,7 @@
 #include "StdInc.h"
 #include "SteamUserStats010.h"
 
+bool hasAlreadyEarnedReward(const char *pchName);
 bool RewardAchievement( const char *pchName );
 bool resetAchievements();
 
@@ -51,8 +52,9 @@ bool CSteamUserStats010::UpdateAvgRateStat( const char *pchName, float flCountTh
 // Achievement flag accessors
 bool CSteamUserStats010::GetAchievement( const char *pchName, bool *pbAchieved )
 {
-	*pbAchieved = false;
-	return false;
+	*pbAchieved = hasAlreadyEarnedReward(pchName);
+	//*pbAchieved = false;
+	return true;
 }
 
 bool CSteamUserStats010::SetAchievement( const char *pchName )

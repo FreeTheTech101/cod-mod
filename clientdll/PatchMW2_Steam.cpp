@@ -137,6 +137,9 @@ void initializeSteamPatch()
 	loadGameOverlay();
 }
 
+void buildAchievementList();
+int isSteamInstace;
+
 void checkSteamRun()
 {
 	// Initialize renderer
@@ -146,7 +149,13 @@ void checkSteamRun()
 	if (!GetModuleHandle("gameoverlayrenderer.dll"))
 	{
 		// Patch steam stuff
+		isSteamInstace = 0;
 		initializeSteamPatch();
+	}
+	else
+	{
+		isSteamInstace = 1;
+		buildAchievementList();
 	}
 }
 
