@@ -31,7 +31,7 @@ void uncutGame(XZoneInfo* data, int count)
 	bool uncensored = false;
 	for(int i = 0; i<count && !specialops->current.boolean; i++)
 	{
-		if(!strcmp(data[0].name, "airport"))
+		if(!strcmp(data[i].name, "airport"))
 		{
 			Dvar_SetCommand("friendlyfire_dev_disabled", "1");
 			uncensored = true;
