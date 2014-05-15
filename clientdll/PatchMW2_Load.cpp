@@ -47,7 +47,7 @@ void uncutGame(XZoneInfo* data, int count)
 
 void cinematic_f()
 {
-	((void(*)())(version == 159 ? 0x4CC950 : 0x4BDE20))(); // Call cintematics
+	((void(*)())(version == 159 ? 0x4CC950 : 0x4BDE20))(); // Call cinematics
 	*(BOOL*)(version == 159 ? 0x73264C : 0x72F64C) = !strcmp(Cmd_Argv(1), "intro_credits_load"); // Allow skipping if intro
 }
 
