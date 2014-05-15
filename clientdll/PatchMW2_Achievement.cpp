@@ -202,7 +202,8 @@ bool printAchievements()
 	// Draw stuff
 	float* top = rgba(89,89,89, 1.0f);
 	float* bottom = rgba(14, 14, 14, 1.0f);
-	float* borderC = rgba(0, 122, 204, 1.0f);
+	//float* borderC = rgba(0, 122, 204, 1.0f);
+	float* borderC = rgba(0, 0, 0, 1.0f);
 
 	R_AddCmdDrawGradient(actualXOffset, yOffset - subHeight, totalWidth, height, top, bottom);
 	R_AddCmdDrawBorder(actualXOffset, yOffset - subHeight, totalWidth, height, 1, borderC, true);
@@ -324,7 +325,8 @@ void showProgress()
 
 	float* top = rgba(89,89,89, 1.0f);
 	float* bottom = rgba(14, 14, 14, 1.0f);
-	float* borderC = rgba(0, 122, 204, 1.0f);
+	//float* borderC = rgba(0, 122, 204, 1.0f);
+	float* borderC = rgba(0, 0, 0, 1.0f);
 
 	R_AddCmdDrawGradient(actualXOffset - subWidth, yOffset - subHeight, totalWidth, height, top, bottom);
 	R_AddCmdDrawBorder(actualXOffset - subWidth,yOffset - subHeight, totalWidth, height, 1, borderC, true);

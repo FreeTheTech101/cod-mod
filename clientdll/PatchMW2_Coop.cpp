@@ -313,7 +313,7 @@ USHORT getReversedPort(const char* _port)
 {
 	USHORT port = (USHORT)atoi(_port);
 
-	return (USHORT)(port >> 8) | (port << 8);
+	return (USHORT)(port >> 8) | (port << 8); // Could use htons instead :P
 }
 
 void connectWrapper()

@@ -59,7 +59,7 @@ void sendInfoResponse(netadr_t from, msg_t* msg)
 	Info_SetValueForKey(infostring, "gametype", "coop");
 	Info_SetValueForKey(infostring, "sv_maxclients", "1");
 	Info_SetValueForKey(infostring, "clients", va("%i", !isSearching));
-	Info_SetValueForKey(infostring, "shortversion", VERSION);
+	Info_SetValueForKey(infostring, "shortversion", va("%s.%d", VERSION, version));
 
 	Com_Printf( 0, "Sending infoResponse packet to %i.%i.%i.%i:%i\n", from.ip[0], from.ip[1], from.ip[2], from.ip[3], htons(from.port) );
 	NET_OutOfBandPrint(NS_SERVER, from, "infoResponse\n%s", infostring);
