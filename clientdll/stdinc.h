@@ -43,9 +43,10 @@
 #include "Hooking.h"
 #include "iw4sp.h"
 
-#define COOP_MASTER "win.theuli.net" // Sry Uli... you're the victim of my expriments :D
-//#define COOP_MASTER "192.168.0.23"
-#define COOP_MASTER_PORT 27950
+//#define COOP_MASTER "win.theuli.net" // Sry Uli... you're the victim of my expriments :D
+#define COOP_MASTER "rekt.in"
+//#define COOP_MASTER_PORT 27950
+#define COOP_MASTER_PORT 20810
 
 #define VERSION "2.3"
 #define VERSION_NUM 2,3
