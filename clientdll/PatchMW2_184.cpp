@@ -181,6 +181,9 @@ void PatchMW2_184()
 	// Patch dvar name
 	call(0x4F3866, nameHookFunc184, PATCH_CALL);
 
+	// Ignore savegame checksum mismatch
+	//nop(0x4BFBC9, 5);
+
 	// CEG again?
 	patchExit(0x424CB5);
 	patchExit(0x474E15);

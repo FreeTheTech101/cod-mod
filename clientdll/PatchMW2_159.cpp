@@ -169,4 +169,7 @@ void PatchMW2_159()
 
 	// Build os path stuff
 	*(BYTE*)0x6300BF = 0xEB;
+
+	// Ignore savegame checksum mismatch
+	//nop(0x4C78A9, 5);
 }

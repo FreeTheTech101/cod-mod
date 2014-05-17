@@ -21,12 +21,12 @@ void addLocStr(const char* key, const char* value)
 
 void removeLocStr(const char* key)
 {
-	localizedStrings[key] = "";
+	localizedStrings.erase(key);
 }
 
 bool isCustomLoc(const char* key)
 {
-	return (localizedStrings.find(key) != localizedStrings.end() && strcmp(localizedStrings[key].c_str(), ""));
+	return (localizedStrings.find(key) != localizedStrings.end());
 }
 
 void buildCustomEntry(localizedEntry_s* entry, const char* key)
