@@ -51,8 +51,19 @@ void __declspec(naked) SysInitHookStub()
 	__asm jmp sysInitHook.pOriginal
 }
 
+void consoleExitHook()
+{
+	DestroyWindow(*(HWND*)(version == 159 ? 0x1A04138 : 0x1A00BC0));
+}
+
 void PatchMW2_ClientConsole()
 {
+	// Allow closing external console
+	call((version == 159 ? 0x46D944 : 0x477BC4), consoleExitHook, PATCH_CALL);
+
+	if (version == 184)
+		return;
+
 	sysInitHook.initialize(sysInitHookLoc, SysInitHookStub);
 	sysInitHook.installHook();
 

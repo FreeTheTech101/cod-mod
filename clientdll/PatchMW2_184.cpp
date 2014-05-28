@@ -32,6 +32,7 @@ void PatchMW2_Materialism();
 void PatchMW2_RecoverDevice();
 void PatchMW2_Coop();
 void PatchMW2_OOB();
+void PatchMW2_ClientConsole();
 
 dvar_t* nameHookFunc184(const char* name, const char* defaultVal, int flags, const char* description)
 {
@@ -91,6 +92,7 @@ void PatchMW2_184()
 	PatchMW2_RecoverDevice();
 	PatchMW2_Coop();
 	PatchMW2_OOB();
+	PatchMW2_ClientConsole();
 
 	// Force external console
 	memset((void*)0x60182F, 0x90, 23);
