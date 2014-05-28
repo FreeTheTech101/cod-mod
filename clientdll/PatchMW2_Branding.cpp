@@ -25,12 +25,9 @@ bool progressWasLastPressed;
 bool showprogress;
 int startShowProgress;
 void showProgress();
-void listener();
 
 void DrawDemoWarning()
 {
-	listener();
-
 	// Achievement stuff
 	if(/*version > 358 && */!showprogress && !printAchievements())
 	{

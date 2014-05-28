@@ -159,7 +159,7 @@ dvar_t* Dvar_RegisterBool_MW3(const char* name, int default, int flags)
 	return retval;
 }
 
-void contentErrorHook(int type, const char* format, ...)
+void contentErrorHook(errorParm_s type, const char* format, ...)
 {
 	const char* zone;
 

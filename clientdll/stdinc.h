@@ -46,8 +46,8 @@
 #define COOP_MASTER "rekt.in"
 #define COOP_MASTER_PORT 20810
 
-#define VERSION "2.3"
-#define VERSION_NUM 2,3
+#define VERSION "3.0"
+#define VERSION_NUM 3,0
 #define VERSIONSTRING "COD-MOD: " VERSION
 
 #define CONSOLESTRING VERSIONSTRING " (built " __DATE__ " " __TIME__ ")"

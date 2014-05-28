@@ -46,6 +46,7 @@ int	numservers;
 enum connectState_s
 {
 	idle,
+	checking,
 	searching,
 	pinging,
 	negotiating,
@@ -144,10 +145,12 @@ void startCoopListening()
 char connectAddress[50];
 int negociatedHost;
 int stateConnectStart;
+int lastheartbeat;
 int isSearching;
 int addrNum;
 serverAddress_t partner;
 
+// ServerAddress To NetAddress
 netadr_t satona(serverAddress_t address)
 {
 	netadr_t* netAddrPtr = (netadr_t*)malloc(sizeof(netadr_t));
@@ -155,6 +158,7 @@ netadr_t satona(serverAddress_t address)
 	return *netAddrPtr;
 }
 
+// NetAddress To ServerAddress
 serverAddress_t natosa(netadr_t address)
 {
 	serverAddress_t* serverAddrPtr = (serverAddress_t*)malloc(sizeof(serverAddress_t));
@@ -176,17 +180,20 @@ netadr_t getMaster()
 	if ( adr.type != NA_IP ) 
 	{
 		Com_Printf( 0, "Resolving master %s\n", masterName );
-		if ( !NET_StringToAdr( masterName, &adr ) ) {
+
+		if ( !NET_StringToAdr( masterName, &adr ) ) 
+		{
 			adr.type = NA_BAD;
 			Com_Printf( 0, "Couldn't resolve address: %s\n", masterName );
 			return adr;
 		}
-		if ( !strstr( ":", masterName ) ) {
+
+		if ( !strstr( ":", masterName ) ) 
+		{
 			adr.port = htons(COOP_MASTER_PORT);
 		}
-		Com_Printf( 0, "Master %s resolved to %i.%i.%i.%i:%i\n", masterName,
-			adr.ip[0], adr.ip[1], adr.ip[2], adr.ip[3],
-			htons(adr.port) );
+
+		Com_Printf( 0, "Master %s resolved to %i.%i.%i.%i:%i\n", masterName, adr.ip[0], adr.ip[1], adr.ip[2], adr.ip[3], htons(adr.port) );
 	}
 
 	return adr;
@@ -200,26 +207,42 @@ void negotiate()
 	connectState = negotiating;
 }
 
-int lastheartbeat;
-
-// TODO: Move NET stuff out of render thread
-void listener()
+void xstopparty_f()
 {
+	OutputDebugString("Party unlisted.\n");
+	connectState = idle;
+	removeLocStr("PLATFORM_POPUP_CONNECTION");
+
+	isSearching = 0;
+}
+
+void listener()
+{ 
 	if(!isSearching)
 		return;
 
 	if(connectState == searching)
 	{
-		connectState = idle;
+		connectState = checking;
 		addrNum = 0;
 		
 		netadr_t adr = getMaster();
 
 		// Send heartbeat and serverrequest
-		Com_Printf( 0, "Sending heartbeat and serverrequest to master.\n", COOP_MASTER );
+		Com_Printf( 0, "Sending heartbeat and server request to master %s.\n", COOP_MASTER );
 		lastheartbeat = Com_Milliseconds();
 		NET_OutOfBandPrint( NS_SERVER, adr, "heartbeat %s\n", "IW4SP" );
 		NET_OutOfBandPrint( NS_SERVER, adr, "getservers %s %i empty", "IW4SP", 29 );
+	}
+	else if (connectState == checking)
+	{
+		addLocStr("PLATFORM_POPUP_CONNECTION", "Connecting to master server");
+
+		if (Com_Milliseconds() - lastheartbeat > 10000)
+		{
+			xstopparty_f();
+			Com_Error(ERR_SERVERDISCONNECT, "Failed to connect to master server.");
+		}
 	}
 	else if(connectState == pinging)
 	{
@@ -248,7 +271,6 @@ void listener()
 		if(!negociatedHost)
 		{
 			addLocStr("PLATFORM_POPUP_CONNECTION", "Setting up the connection");
-			//Sleep(2000); // Wow really? Sleep in render thread????
 
 			if(Com_Milliseconds() - stateConnectStart > 1000)
 			{
@@ -275,23 +297,23 @@ void listener()
 
 		if(Com_Milliseconds() - lastheartbeat > 20000)
 		{
-// 			netadr_t adr = getMaster();
-// 			lastheartbeat = Com_Milliseconds();
-// 			Com_Printf(0, "Sending heartbeat to master: %s", COOP_MASTER);
-// 			NET_OutOfBandPrint( NS_SERVER, adr, "heartbeat %s\n", "IW4SP" );
 			connectState = searching;
 		}
 	}
 }
 
-void xstopparty_f()
+DWORD WINAPI coopThread(LPVOID lpParam)
 {
-	// TODO: Tell master to remove from list
-	OutputDebugString("Party unlisted.\n");
-	connectState = idle;
-	removeLocStr("PLATFORM_POPUP_CONNECTION");
-
 	isSearching = 0;
+	connectState = idle;
+
+	while (true)
+	{
+		listener();
+		Sleep(50);
+	}
+
+	return 0;
 }
 
 void connectHook()
@@ -313,7 +335,7 @@ USHORT getReversedPort(const char* _port)
 {
 	USHORT port = (USHORT)atoi(_port);
 
-	return (USHORT)(port >> 8) | (port << 8); // Could use htons instead :P
+	return htons(port);
 }
 
 void connectWrapper()
@@ -381,6 +403,12 @@ dvar_t* nameHookFunc(const char* name, const char* defaultVal, int flags, const 
 
 void PatchMW2_Coop()
 {
+	// Start coop matchmaking listerner thread
+	CreateThread(0, 0, coopThread, 0, 0, 0);
+
+	if (version == 184)
+		return;
+
 	// Skip iw-connect
 	*(BYTE*)0x44E824 = 0xEB;
 	*(BYTE*)0x44E808 = 0xEB;

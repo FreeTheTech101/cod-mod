@@ -1054,6 +1054,15 @@ struct script_functiondef
 	int unknown;
 };
 
+enum errorParm_s
+{
+	ERR_FATAL,                  // exit the entire game with a popup window
+	ERR_DROP,                   // print to console and disconnect from game
+	ERR_SERVERDISCONNECT,       // don't kill server
+	ERR_DISCONNECT,             // client disconnected from the server
+	ERR_NEED_CD                 // pop up the need-cd dialog
+};
+
 static void nullfunc(int){}
 
 // types
@@ -1090,7 +1099,7 @@ typedef void (__cdecl * Cmd_SetAutoComplete_t)(const char* name, const char* pat
 extern Cmd_SetAutoComplete_t Cmd_SetAutoComplete;
 
 
-typedef void (__cdecl * Com_Error_t)(int type,const char* message, ...);
+typedef void(__cdecl * Com_Error_t)(errorParm_s type, const char* message, ...);
 extern Com_Error_t Com_Error;
 
 typedef char* (__cdecl * Com_ParseExt_t)(char*);

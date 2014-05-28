@@ -22,6 +22,7 @@ static enum
 enum connectState_s
 {
 	idle,
+	checking,
 	searching,
 	pinging,
 	negotiating,
