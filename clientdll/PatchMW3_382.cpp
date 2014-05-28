@@ -257,6 +257,9 @@ void PatchMW3_382()
 	*(BYTE*)0x649E14 = 0xEB;
 	*(BYTE*)0x649D1A = 0xEB;
 
+	// Steam user stuff
+	*(DWORD*)0x523890 = 0x90C300B0; // mov al, 0 - retn - nop
+
 	// Hook devmap call to fix spec ops bug
 	*(DWORD*)0x4A94DC = (DWORD)patchDevmap;
 

@@ -161,6 +161,9 @@ void PatchMW3_358()
 	// SteamApps
 	*(DWORD*)0x48E050 = 0x90C301B0; // mov al, 1 - retn - nop
 
+	// Steam user stuff
+	*(DWORD*)0x4427C0 = 0x90C300B0; // mov al, 0 - retn - nop
+
 	// Fix stats
 	nop(0x648C11, 25);
 	*(BYTE*)0x648C53 = 0xEB;
