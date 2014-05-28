@@ -53,7 +53,16 @@ void __declspec(naked) SysInitHookStub()
 
 void consoleExitHook()
 {
-	DestroyWindow(*(HWND*)(version == 159 ? 0x1A04138 : 0x1A00BC0));
+	int mbId = MessageBox(0, "Do you want to close the game?", "Warning", MB_YESNOCANCEL | MB_ICONWARNING);
+
+	if (mbId == IDYES)
+	{
+		((void(*)())(version == 159 ? 0x433B90 : 0x482F90))();
+	}
+	else if (mbId == IDNO)
+	{
+		DestroyWindow(*(HWND*)(version == 159 ? 0x1A04138 : 0x1A00BC0));
+	}
 }
 
 void PatchMW2_ClientConsole()
