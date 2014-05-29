@@ -43,10 +43,10 @@ char* GetUsername()
 	if((BOOL)(*dvarName))
 	{
 		// Quick MW3 patch
-		if(version == 382)
+		if(version == 382 || version == 358)
 			strncpy(ingameUsername, (*((dvar_MW3_t**)dvarName))->current.string, sizeof(ingameUsername));
 		else
-		strncpy(ingameUsername, (*dvarName)->current.string, sizeof(ingameUsername));
+			strncpy(ingameUsername, (*dvarName)->current.string, sizeof(ingameUsername));
 	}
 	else
 	{

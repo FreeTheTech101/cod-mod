@@ -16,6 +16,7 @@ void PatchMW2_Branding();
 void PatchMW2_NoBorder();
 void PatchMW2_Icon();
 void PatchMW3_UILoading();
+char* GetUsername();
 ISteamFriends* __cdecl SteamFriends();
 hostent* WINAPI custom_gethostbyname(const char* name);
 
@@ -121,8 +122,6 @@ void __cdecl SteamAPI_RunCallbacks();
 
 void enableConsole()
 {
-	*(DWORD*)0x7915CC = (DWORD)SteamFriends;
-
 	// Remove the unnecessary line-breaks
 	*(DWORD*)0x49C7D5 = (DWORD)"";
 	*(DWORD*)0x49C7EB = (DWORD)"";
@@ -198,6 +197,13 @@ char* addDLCZones()
 	return _returnPath;
 }
 
+void _strncpy_hook(char* name_buffer, char* no_name, size_t size)
+{
+	strncpy(name_buffer, GetUsername(), size);
+}
+
+void consoleExitHook_mw3();
+
 void PatchMW3_382()
 {
 	version = 382;
@@ -227,6 +233,9 @@ void PatchMW3_382()
 	PatchMW2_Icon();
 
 	*(DWORD*)0x791420 = (DWORD)custom_gethostbyname;
+
+	// Allow closing external console
+	call(0x4F7F58, consoleExitHook_mw3, PATCH_CALL);
 
 	// Dvar name re-flag
 	*(BYTE*)0x4BDC99 = 1; // Probably need to write a hook to apply userinfo, but coop isn't working yet, so meh...
@@ -340,4 +349,7 @@ void PatchMW3_382()
 	*(BYTE*)0x452C15 = DVAR_FLAG_SAVED; // cg_fov
 
 	*(DWORD*)0x7915B4 = (DWORD)SteamAPI_RunCallbacks;
+	*(DWORD*)0x7915CC = (DWORD)SteamFriends;
+
+	call(0x5236C3, _strncpy_hook, PATCH_CALL);
 }

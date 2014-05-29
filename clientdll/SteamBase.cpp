@@ -134,9 +134,34 @@ __declspec(dllexport) void __cdecl SteamAPI_RunCallbacks()
 	// Prevent debugger shit
 }
 
+__declspec(dllexport) void __cdecl SteamAPI_RegisterCallResult(CCallbackBase* pResult, SteamAPICall_t APICall)
+{
+	//CSteamBase::RegisterCallResult(APICall, pResult);
+}
+
+__declspec(dllexport) void __cdecl SteamAPI_RegisterCallback(CCallbackBase *pCallback, int iCallback)
+{
+	//CSteamBase::RegisterCallback(pCallback, iCallback);
+}
+
 __declspec(dllexport) char __cdecl SteamAPI_RestartAppIfNecessary()
 {
 	return 0;
+}
+
+__declspec(dllexport) void __cdecl SteamAPI_Shutdown()
+{
+
+}
+
+__declspec(dllexport) void __cdecl SteamAPI_UnregisterCallResult(CCallbackBase* pResult, SteamAPICall_t APICall)
+{
+
+}
+
+__declspec(dllexport) void __cdecl SteamAPI_UnregisterCallback(CCallbackBase *pCallback, int iCallback)
+{
+
 }
 
 __declspec(dllexport) ISteamMatchmaking* __cdecl SteamMatchmaking()

@@ -16,6 +16,7 @@ void PatchMW2_177();
 void PatchMW2_184();
 void PatchMW3_358();
 void PatchMW3_382();
+void PatchMW3_461();
 
 void echoError(int version, char* game)
 {
@@ -94,5 +95,6 @@ void Sys_Init()
 	else if(*(int*)0x50BBD6 == 461)
 	{
 		echoError(461, "MW3");
+		//PatchMW3_461(); // Not done yet
 	}
 }

@@ -13,6 +13,8 @@
 
 void* ReallocateAssetPool(int type, unsigned int newSize);
 dvar_t* Dvar_RegisterBool_MW3(const char* name, int default, int flags);
+void _strncpy_hook(char* name_buffer, char* no_name, size_t size);
+ISteamFriends* __cdecl SteamFriends();
 void PatchMW2_Minidump();
 void PatchMW2_Branding();
 void PatchMW2_NoBorder();
@@ -104,6 +106,20 @@ void _enableConsole()
 void Com_Printf_MW3(int type, const char *fmt, ... );
 void __cdecl SteamAPI_RunCallbacks();
 
+void consoleExitHook_mw3()
+{
+	int mbId = MessageBox(0, "Do you want to close the game?", "Warning", MB_YESNOCANCEL | MB_ICONWARNING);
+
+	if (mbId == IDYES)
+	{
+		((void(*)())(version == 358 ? 0x4B88A0 : 0x4ACC50))();
+	}
+	else if (mbId == IDNO)
+	{
+		DestroyWindow(*(HWND*)(version == 358 ? 0x1C04388 : 0x1C07D48));
+	}
+}
+
 void PatchMW3_358()
 {
 	version = 358;
@@ -127,11 +143,15 @@ void PatchMW3_358()
 	windowedWindowStyleHookLoc = 0x65E512;
 
 	r_mode = (dvar_t**)0x20E393C;
+	dvarName = (dvar_t**)0xA5AB58;
 
 	PatchMW2_Minidump();
 	PatchMW2_Branding();
 	PatchMW2_NoBorder();
 	PatchMW2_Icon();
+
+	// Allow closing external console
+	call(0x49D768, consoleExitHook_mw3, PATCH_CALL);
 
 	// nop improper quit pop up
 	memset((void*)0x4E18EA, 0x90, 5);
@@ -171,6 +191,9 @@ void PatchMW3_358()
 	// Fix more stats
 	nop(0x648AEF, 122);
 	*(BYTE*)0x648B69 = 0xEB;
+
+	// Reflag dvar name
+	*(BYTE*)0x4B8379 = 1;
 
 	// Change window titles
 	*(DWORD*)0x40C9E4 = (DWORD)"COD-MOD: Console";
@@ -215,4 +238,8 @@ void PatchMW3_358()
 	*(BYTE*)0x4043C5 = DVAR_FLAG_SAVED; // cg_fov
 
 	*(DWORD*)0x7905B4 = (DWORD)SteamAPI_RunCallbacks;
+	*(DWORD*)0x7905CC = (DWORD)SteamFriends;
+
+	call(0x4F70DF, _strncpy_hook, PATCH_CALL);
+	*(WORD*)0x4F70CF = 0x9090; // Force playername stuff to go to strncpy hook to allow colored names
 }

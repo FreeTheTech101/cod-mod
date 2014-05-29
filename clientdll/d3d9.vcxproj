@@ -102,6 +102,7 @@
     <ClCompile Include="PatchMW2_MusicalTalent.cpp" />
     <ClCompile Include="PatchMW3_358.cpp" />
     <ClCompile Include="PatchMW3_382.cpp" />
+    <ClCompile Include="PatchMW3_461.cpp" />
     <ClCompile Include="PatchMW3_UILoading.cpp" />
     <ClCompile Include="SteamBase.cpp" />
     <ClCompile Include="SteamFriends005.cpp" />
