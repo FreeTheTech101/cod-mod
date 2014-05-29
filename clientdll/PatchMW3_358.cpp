@@ -18,6 +18,7 @@ ISteamFriends* __cdecl SteamFriends();
 void PatchMW2_Minidump();
 void PatchMW2_Branding();
 void PatchMW2_NoBorder();
+void PatchMW2_Steam();
 void PatchMW2_Icon();
 
 void _patchDevmap()
@@ -141,6 +142,9 @@ void PatchMW3_358()
 	drawDevStuffHookLoc = 0x566D5C;
 	winMainInitHookLoc = 0x470E09;
 	windowedWindowStyleHookLoc = 0x65E512;
+	SteamFriendsLoc = 0x7905CC;
+	loadGameOverlayHookLoc = 0x5EE7CC;
+	initializeRenderer = (DWORD)nullfunc;
 
 	r_mode = (dvar_t**)0x20E393C;
 	dvarName = (dvar_t**)0xA5AB58;
@@ -148,6 +152,7 @@ void PatchMW3_358()
 	PatchMW2_Minidump();
 	PatchMW2_Branding();
 	PatchMW2_NoBorder();
+	PatchMW2_Steam();
 	PatchMW2_Icon();
 
 	// Allow closing external console
@@ -236,10 +241,4 @@ void PatchMW3_358()
 	*(DWORD*)0x4E66F9 = 0x1C7;
 
 	*(BYTE*)0x4043C5 = DVAR_FLAG_SAVED; // cg_fov
-
-	*(DWORD*)0x7905B4 = (DWORD)SteamAPI_RunCallbacks;
-	*(DWORD*)0x7905CC = (DWORD)SteamFriends;
-
-	call(0x4F70DF, _strncpy_hook, PATCH_CALL);
-	*(WORD*)0x4F70CF = 0x9090; // Force playername stuff to go to strncpy hook to allow colored names
 }

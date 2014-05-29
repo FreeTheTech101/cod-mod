@@ -84,6 +84,23 @@ void steamPatches_184()
 	PatchMW2_RunCallbacks();
 }
 
+void _strncpy_hook(char* name_buffer, char* no_name, size_t size);
+
+void steamPatches_358()
+{
+	*(DWORD*)0x790420 = (DWORD)custom_gethostbyname;
+
+	call(0x4F70DF, _strncpy_hook, PATCH_CALL);
+	*(WORD*)0x4F70CF = 0x9090; // Force playername stuff to go to strncpy hook to allow colored names
+}
+
+void steamPatches_382()
+{
+	*(DWORD*)0x791420 = (DWORD)custom_gethostbyname;
+
+	call(0x5236C3, _strncpy_hook, PATCH_CALL);
+}
+
 void loadGameOverlay()
 {
 	try
@@ -120,6 +137,14 @@ void initializeSteamPatch()
 	{
 		steamPatches_184();
 	}
+	else if (version == 358)
+	{
+		steamPatches_358();
+	}
+	else if (version == 382)
+	{
+		steamPatches_382();
+	}
 
 	if(version == 177)
 	{
@@ -127,7 +152,7 @@ void initializeSteamPatch()
 		PatchMW2_RunCallbacks();
 		*(DWORD*)0x6D7458 = (DWORD)custom_gethostbyname;
 	}
-	else
+	else if (version > 358)
 	{
 		replaceLocalizedStrings();
 		PatchMW2_SteamUserStats();

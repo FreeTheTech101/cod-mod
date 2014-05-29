@@ -197,4 +197,12 @@ void PatchMW2_RunCallbacks()
 	{
 		*(DWORD*)0x6D75D0 = (DWORD)SteamAPI_RunCallbacks;
 	}
+	else if (version == 358)
+	{
+		*(DWORD*)0x7905B4 = (DWORD)SteamAPI_RunCallbacks;
+	}
+	else if (version == 382)
+	{
+		*(DWORD*)0x7915B4 = (DWORD)SteamAPI_RunCallbacks;
+	}
 }

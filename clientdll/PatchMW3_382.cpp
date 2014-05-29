@@ -14,6 +14,7 @@
 void PatchMW2_Minidump();
 void PatchMW2_Branding();
 void PatchMW2_NoBorder();
+void PatchMW2_Steam();
 void PatchMW2_Icon();
 void PatchMW3_UILoading();
 char* GetUsername();
@@ -223,6 +224,10 @@ void PatchMW3_382()
 	drawDevStuffHookLoc = 0x567B6C;
 	winMainInitHookLoc = 0x503E79;
 	windowedWindowStyleHookLoc = 0x65F652;
+	SteamFriendsLoc = 0x7915CC;
+	loadGameOverlayHookLoc = 0x5EF60C;
+	initializeRenderer = (DWORD)nullfunc;
+
 	dvarName = (dvar_t**)0xA5BBDC; // Actually dvar_MW3_t**
 	r_mode = (dvar_t**)0x20E730C;
 
@@ -230,9 +235,8 @@ void PatchMW3_382()
 	PatchMW2_Branding();
 	PatchMW2_NoBorder();
 	PatchMW3_UILoading();
+	PatchMW2_Steam();
 	PatchMW2_Icon();
-
-	*(DWORD*)0x791420 = (DWORD)custom_gethostbyname;
 
 	// Allow closing external console
 	call(0x4F7F58, consoleExitHook_mw3, PATCH_CALL);
@@ -348,8 +352,6 @@ void PatchMW3_382()
 
 	*(BYTE*)0x452C15 = DVAR_FLAG_SAVED; // cg_fov
 
-	*(DWORD*)0x7915B4 = (DWORD)SteamAPI_RunCallbacks;
-	*(DWORD*)0x7915CC = (DWORD)SteamFriends;
-
-	call(0x5236C3, _strncpy_hook, PATCH_CALL);
+	// Test disable running
+	//nop(0x46B06F, 5);
 }
