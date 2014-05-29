@@ -11,6 +11,7 @@
 
 #include "StdInc.h"
 #include "SteamFriends005.h"
+#include "SteamUser012.h"
 #include "SteamUserStats010.h"
 #include "SteamMatchmaking007.h"
 
@@ -29,6 +30,8 @@ void* CSteamBase::CreateInterface(SteamInterface_t interfaceID)
 	{
  		case INTERFACE_STEAMFRIENDS005:
  			return new CSteamFriends005;
+		case INTERFACE_STEAMUSER012:
+			return new CSteamUser012;
 		case INTERFACE_STEAMUSERSTATS010:
 			return new CSteamUserStats010;
 		case INTERFACE_STEAMMATCHMAKING007:
@@ -166,8 +169,12 @@ __declspec(dllexport) void __cdecl SteamAPI_UnregisterCallback(CCallbackBase *pC
 
 __declspec(dllexport) ISteamMatchmaking* __cdecl SteamMatchmaking()
 {
-	Trace("S_API", "SteamMatchmaking");
 	return (ISteamMatchmaking*)CSteamBase::GetInterface(INTERFACE_STEAMMATCHMAKING007);
+}
+
+__declspec(dllexport) ISteamUser* __cdecl SteamUser()
+{
+	return (ISteamUser*)CSteamBase::GetInterface(INTERFACE_STEAMUSER012);
 }
 
 void PatchMW2_SteamFriends()

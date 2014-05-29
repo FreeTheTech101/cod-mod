@@ -44,7 +44,7 @@
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)\clientdll\dependencies\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\code\dependencies\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;CLIENTDLL_EXPORTS;_WINDLL</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -57,7 +57,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>wldap32.lib;ws2_32.lib;winmm.lib;shlwapi.lib;dbghelp.lib;tomcrypt.lib;tommath.lib;zlibstat.lib;zzip-1.lib;zziplib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\clientdll\libraries\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\code\libraries\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -108,6 +108,7 @@
     <ClCompile Include="SteamFriends005.cpp" />
     <ClCompile Include="SteamMatchmaking007.cpp" />
     <ClCompile Include="SteamUserStats010.cpp" />
+    <ClCompile Include="SteamUser012.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +142,7 @@
     <ClInclude Include="ISteamClient008.h" />
     <ClInclude Include="ISteamFriends005.h" />
     <ClInclude Include="ISteamMatchmaking007.h" />
+    <ClInclude Include="ISteamUser012.h" />
     <ClInclude Include="ISteamUserStats010.h" />
     <ClInclude Include="LocalizedStrings.h" />
     <ClInclude Include="MatchmakingCommon.h" />
@@ -156,6 +158,7 @@
     <ClInclude Include="SteamFriends005.h" />
     <ClInclude Include="SteamMatchmaking007.h" />
     <ClInclude Include="SteamTypes.h" />
+    <ClInclude Include="SteamUser012.h" />
     <ClInclude Include="SteamUserStats010.h" />
     <ClInclude Include="rewardSound.h" />
     <ClInclude Include="TSteamApp.h" />
@@ -181,6 +184,7 @@
     <ClInclude Include="TSteamSubscriptionReceipt.h" />
     <ClInclude Include="TSteamSubscriptionStats.h" />
     <ClInclude Include="TSteamUpdateStats.h" />
+    <ClInclude Include="UserCommon.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>

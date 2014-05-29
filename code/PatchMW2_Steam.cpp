@@ -18,6 +18,8 @@ void PatchMW2_SteamMatchmaking();
 void replaceLocalizedStrings();
 void connectHook();
 
+ISteamUser* __cdecl SteamUser();
+
 hostent* WINAPI custom_gethostbyname(const char* name) {
 	// if the name is IWNet's stuff...
 	unsigned int ip1 = oneAtATimeHash("ip1.pc.iw4.iwnet.infinityward.com");
@@ -89,6 +91,8 @@ void _strncpy_hook(char* name_buffer, char* no_name, size_t size);
 void steamPatches_358()
 {
 	*(DWORD*)0x790420 = (DWORD)custom_gethostbyname;
+
+	*(DWORD*)0x7905DC = (DWORD)SteamUser;
 
 	call(0x4F70DF, _strncpy_hook, PATCH_CALL);
 	*(WORD*)0x4F70CF = 0x9090; // Force playername stuff to go to strncpy hook to allow colored names

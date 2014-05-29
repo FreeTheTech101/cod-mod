@@ -121,6 +121,9 @@
     <ClCompile Include="PatchMW3_461.cpp">
       <Filter>MW3 Patches</Filter>
     </ClCompile>
+    <ClCompile Include="SteamUser012.cpp">
+      <Filter>Steam</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooking.h">
@@ -335,6 +338,15 @@
     </ClInclude>
     <ClInclude Include="cursor.h">
       <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="UserCommon.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="ISteamUser012.h">
+      <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="SteamUser012.h">
+      <Filter>SteamHeader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

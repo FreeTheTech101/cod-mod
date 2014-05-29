@@ -194,7 +194,7 @@ void PatchMW3_358()
 	*(BYTE*)0x648C53 = 0xEB;
 
 	// Fix more stats
-	nop(0x648AEF, 122);
+	//nop(0x648AEF, 122);
 	*(BYTE*)0x648B69 = 0xEB;
 
 	// Reflag dvar name
@@ -241,4 +241,7 @@ void PatchMW3_358()
 	*(DWORD*)0x4E66F9 = 0x1C7;
 
 	*(BYTE*)0x4043C5 = DVAR_FLAG_SAVED; // cg_fov
+
+	// Set stat version
+	strcpy((char*)0x79325C, "%s_0.stat\0");
 }

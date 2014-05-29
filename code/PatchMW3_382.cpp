@@ -354,4 +354,7 @@ void PatchMW3_382()
 
 	// Test disable running
 	//nop(0x46B06F, 5);
+
+	// Set stat version
+	strcpy((char*)0x7CA090, "%s_1.stat\0");
 }
