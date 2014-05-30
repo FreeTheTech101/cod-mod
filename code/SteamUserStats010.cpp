@@ -53,7 +53,6 @@ bool CSteamUserStats010::UpdateAvgRateStat( const char *pchName, float flCountTh
 bool CSteamUserStats010::GetAchievement( const char *pchName, bool *pbAchieved )
 {
 	*pbAchieved = hasAlreadyEarnedReward(pchName);
-	//*pbAchieved = false;
 	return true;
 }
 

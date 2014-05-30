@@ -43,14 +43,15 @@
 #include "Utils.h"
 #include "Hooking.h"
 #include "iw4sp.h"
+#include "buildnumber.h"
 
 #define COOP_MASTER "rekt.in"
 #define COOP_MASTER_PORT 20810
 
-#define VERSION "3.0"
-#define VERSION_NUM 3,0
+#define VERSION "3." COMMIT_STR
+#define VERSION_NUM 3,COMMIT
 #define VERSIONSTRING "COD-MOD: " VERSION
 
-#define CONSOLESTRING VERSIONSTRING " (built " __DATE__ " " __TIME__ ")"
+#define CONSOLESTRING VERSIONSTRING " (built " __DATE__ " " __TIME__ " by " BUILDHOST ")"
 
 static netadr_t currentLobbyTarget;

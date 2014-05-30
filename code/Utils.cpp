@@ -371,3 +371,11 @@ char *Info_ValueForKey( const char *s, const char *key )
 
 	return "";
 }
+
+// Allocate memory and zero out the buffer
+void* malloc_n(size_t size)
+{
+	void* memPtr = malloc(size);
+	memset(memPtr, 0, size);
+	return memPtr;
+}

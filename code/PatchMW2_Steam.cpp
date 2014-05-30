@@ -156,7 +156,7 @@ void initializeSteamPatch()
 		PatchMW2_RunCallbacks();
 		*(DWORD*)0x6D7458 = (DWORD)custom_gethostbyname;
 	}
-	else if (version > 358)
+	else if (version < 358)
 	{
 		replaceLocalizedStrings();
 		PatchMW2_SteamUserStats();

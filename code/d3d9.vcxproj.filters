@@ -118,9 +118,6 @@
     <ClCompile Include="PatchMW2_OOB.cpp">
       <Filter>MW2 Patches</Filter>
     </ClCompile>
-    <ClCompile Include="PatchMW3_461.cpp">
-      <Filter>MW3 Patches</Filter>
-    </ClCompile>
     <ClCompile Include="SteamUser012.cpp">
       <Filter>Steam</Filter>
     </ClCompile>

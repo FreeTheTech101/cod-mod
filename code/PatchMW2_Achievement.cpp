@@ -32,7 +32,7 @@ int delay = 500;
 
 float* rgba(int r, int g, int b, float a)
 {
-	float* color = (float*)malloc(sizeof(float) * 4);
+	float* color = (float*)malloc_n(sizeof(float) * 4);
 	color[0] = r / 255.0;
 	color[1] = g / 255.0;
 	color[2] = b / 255.0;
@@ -360,7 +360,7 @@ void showProgress()
 
 void processAchievement(int rewardCode)
 {
-	reward_t* reward = (reward_t*)malloc(sizeof(reward_t));
+	reward_t* reward = (reward_t*)malloc_n(sizeof(reward_t));
 	reward->rewardCode = rewardCode;
 	reward->handledOnce = false;
 	reward->difficulty = achievements[rewardCode].difficulty;
@@ -390,7 +390,7 @@ bool hasAlreadyEarnedReward( const char *pchName )
 		fseek (rewardFile, 0, SEEK_END);
 		long length = ftell(rewardFile);
 		rewind (rewardFile);
-		char* buffer = (char*)malloc(length);
+		char* buffer = (char*)malloc_n(length);
 
 		if (!buffer)
 			return false;

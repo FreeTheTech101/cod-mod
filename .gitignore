@@ -199,3 +199,5 @@ $RECYCLE.BIN/
 us.stackdump
 
 Debug/
+buildnumber.h
+lastrev.txt

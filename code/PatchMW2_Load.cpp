@@ -20,29 +20,13 @@ dvar_t* specialops;
 void* ReallocateAssetPool(int type, unsigned int newSize);
 
 // Allow civilians to be killed in 'No Russian' if game is censored.
-void uncutGame(XZoneInfo* data, int count)
+void uncutGame(XZoneInfo* data)
 {
 	// Only in campaign!
 	if(!specialops)
-	{
 		specialops = Dvar_FindVar("specialops");
-	}
 
-	bool uncensored = false;
-	for(int i = 0; i < count && !specialops->current.boolean; i++)
-	{
-		if(!strcmp(data[i].name, "airport"))
-		{
-			Dvar_SetCommand("friendlyfire_dev_disabled", "1");
-			uncensored = true;
-			break;
-		}
-	}
-
-	if(!uncensored)
-	{
-		Dvar_SetCommand("friendlyfire_dev_disabled", "0");
-	}
+	Dvar_SetCommand("friendlyfire_dev_disabled", ((strcmp(data->name, "airport") || specialops->current.boolean) ? "0" : "1"));
 }
 
 void cinematic_f()
@@ -60,7 +44,7 @@ char* addAlterZones(char* zone)
 		strcpy(returnPath, "zone\\alter\\");
 	}
 	else if(GetFileAttributes(va("zone\\dlc\\%s", zone)) != INVALID_FILE_ATTRIBUTES)
-	{
+	{ 
 		strcpy(returnPath, "zone\\dlc\\");
 	}
 	else
@@ -73,17 +57,19 @@ char* addAlterZones(char* zone)
 
 void __cdecl loadTeamFile(XZoneInfo* data, int count, int unknown)
 {
-	// Still bugged. probably need to compile an own fastfile
-	//data[count].name = "team_tf141";
-	//data[count].type1 = 4;
-	//data[count].type2 = 0;
-	//count++;
+	XZoneInfo* newData = (XZoneInfo*)malloc_n(sizeof(XZoneInfo) * (count + 1));
+	memcpy(newData, data, sizeof(XZoneInfo) * count);
 
-	uncutGame(data, count);
+	// Still bugged. probably need to compile an own fastfile
+	//newData[count].name = "team_tf141";
+	//newData[count].type1 = data->type1;
+	//newData[count++].type2 = data->type2;
+
+	uncutGame(newData);
 
 	_allowZoneChange = true;
 
-	DB_LoadXAssets(data, count, unknown);
+	DB_LoadXAssets(newData, count, unknown);
 }
 
 static DWORD gameWorldSP;
@@ -179,8 +165,7 @@ void ReallocXAssetEntries()
 dvar_t* YUNO4K(const char* name, char** enumValues, int default, int flags, const char* description)
 {
 	int enumSize = 18;
-	char** newEnum = (char**)malloc(sizeof(DWORD) * (enumSize + 2));
-	memset(newEnum, 0, sizeof(DWORD) * (enumSize + 2));
+	char** newEnum = (char**)malloc_n(sizeof(DWORD) * (enumSize + 2));
 	memcpy(newEnum, enumValues, sizeof(DWORD) * enumSize);
 	newEnum[enumSize] = "3840x2160";
 	return Dvar_RegisterEnum(name, newEnum, default, flags, description);
