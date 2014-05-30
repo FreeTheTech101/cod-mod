@@ -42,16 +42,24 @@ hostent* WINAPI custom_gethostbyname(const char* name) {
 	return gethostbyname(hostname);
 }
 
+dvar_t* noUPnP;
+
 void steamPatches_159()
 {
-// 	// Disable UPNP stuff
-// 	*(WORD*)0x66DE7D = 0xE990;
-// 
-// 	// No UPNP Output
-// 	*(DWORD*)0x4D84D1 = (DWORD)"";
-// 
-// 	// Open NAT
-// 	*(DWORD*)0x7379F0 = 1;
+	if(noUPnP->current.boolean)
+	{
+		// Disable UPNP stuff
+		*(WORD*)0x66DE7D = 0xE990;
+
+		// No UPNP Output
+		*(DWORD*)0x4D84D1 = (DWORD)"";
+
+		// Open NAT
+		*(DWORD*)0x7379F0 = 1;
+
+		// Ignore incoming UPNP packets
+		*(DWORD*)0x66E0F0 = 0x90C301B0;
+	}
 
 	// Replace 'xshowfriendslist'
 	*(DWORD*)0x57D7F8 = (DWORD)connectHook;
@@ -65,14 +73,20 @@ void steamPatches_159()
 
 void steamPatches_184()
 {
-// 	// Disable UPNP stuff
-// 	*(WORD*)0x66B5BD = 0xE990;
-// 
-// 	// No UPNP Output
-// 	*(DWORD*)0x4B9E46 = (DWORD)"";
-// 
-// 	// Open NAT
-// 	*(DWORD*)0x7349F0 = 1;
+	if(noUPnP->current.boolean)
+	{
+		// Disable UPNP stuff
+		*(WORD*)0x66B5BD = 0xE990;
+
+		// No UPNP Output
+		*(DWORD*)0x4B9E46 = (DWORD)"";
+
+		// Open NAT
+		*(DWORD*)0x7349F0 = 1;
+
+		// Ignore incoming UPNP packets
+		*(DWORD*)0x66B830 = 0x90C301B0;
+	}
 
 	// Replace 'xshowfriendslist'
 	*(DWORD*)0x57AB68 = (DWORD)connectHook;
@@ -190,6 +204,11 @@ void checkSteamRun()
 
 void PatchMW2_Steam()
 {
+	if(version == 159 || version == 184)
+	{
+		noUPnP = Dvar_RegisterBool("noUPnP", 0, DVAR_FLAG_SAVED, "Disable UPnP queries");
+	}
+
 	// Load steam gameoverlay
 	call(loadGameOverlayHookLoc, checkSteamRun, PATCH_CALL);
 }
