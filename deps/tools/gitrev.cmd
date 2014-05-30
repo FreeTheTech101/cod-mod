@@ -37,6 +37,7 @@ goto exit
 :fail
 echo Couldn't Update Buildnumber
 echo msgbox"Please install git in order to compile this code!">a.vbs&a.vbs
+START "" "http://git-scm.com/download/win" 
 IF EXIST a.vbs (
     del a.vbs
 )
