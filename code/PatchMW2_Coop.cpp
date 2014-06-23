@@ -172,7 +172,8 @@ netadr_t getMaster()
 	static netadr_t	adr;
 	const char* masterName = COOP_MASTER;
 
-	if ( !masterName[0] ) {
+	if ( !masterName[0] ) 
+	{
 		adr.type = NA_BAD;
 		return adr;
 	}
@@ -241,7 +242,7 @@ void listener()
 		if (Com_Milliseconds() - lastheartbeat > 10000)
 		{
 			xstopparty_f();
-			Com_Error(ERR_SERVERDISCONNECT, "Failed to connect to master server.");
+			Com_Error_Thread(ERR_SERVERDISCONNECT, "Failed to connect to master server.");
 		}
 	}
 	else if(connectState == pinging)

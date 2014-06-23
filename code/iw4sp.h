@@ -1351,6 +1351,7 @@ void playSound(char* sound);
 void NET_OutOfBandPrint(int type, netadr_t adr, const char* message, ...);
 serverAddress_t natosa(netadr_t address);
 netadr_t satona(serverAddress_t address);
+void Com_Error_Thread(errorParm_s type, const char* message, ...);
 
 extern dvar_t** dvarName;
 extern dvar_t** r_mode;

@@ -82,6 +82,10 @@ void drawFps()
 	R_AddCmdDrawText(fpsText, 0x7FFFFFFF, font, width, yOffset, font_size, font_size, 0.0f, color, 0);
 }
 
+int printError;
+errorParm_s printErrorType;
+char* printErrorMessage;
+
 void DrawDemoWarning()
 {
 	// Achievement stuff
@@ -126,6 +130,12 @@ void DrawDemoWarning()
 
 	void* font = R_RegisterFont("fonts/normalFont");
 	R_AddCmdDrawText(VERSIONSTRING, 0x7FFFFFFF, font, 10, 30, 0.7f, 0.7f, 0.0f, color, 0);
+
+	if(printError)
+	{
+		printError = false;
+		Com_Error(printErrorType, printErrorMessage);
+	}
 }
 
 void __declspec(naked) DrawDevStuffHookStub()

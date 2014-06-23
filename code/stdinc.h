@@ -45,7 +45,7 @@
 #include "iw4sp.h"
 #include "buildnumber.h"
 
-#define COOP_MASTER "rekt.in"
+#define COOP_MASTER "react.kthx.at"
 #define COOP_MASTER_PORT 20810
 
 #define VERSION "3." COMMIT_STR

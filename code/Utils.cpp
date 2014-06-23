@@ -50,6 +50,24 @@ const char *va( const char *fmt, ... )
 	return dest;
 }
 
+extern int printError;
+extern errorParm_s printErrorType;
+extern char* printErrorMessage;
+
+void Com_Error_Thread(errorParm_s type, const char* message, ...)
+{	
+	va_list ap;
+	char *dest = &g_vaBuffer[g_vaNextBufferIndex][0];
+	g_vaNextBufferIndex = (g_vaNextBufferIndex + 1) % VA_BUFFER_COUNT;
+	va_start(ap, message);
+	vsprintf( dest, message, ap );
+	va_end(ap);
+
+	printErrorType = type;
+	printErrorMessage = dest;
+	printError = true;
+}
+
 unsigned int _gameFlags;
 
 typedef struct  
