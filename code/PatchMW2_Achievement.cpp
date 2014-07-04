@@ -43,11 +43,10 @@ float* rgba(int r, int g, int b, float a)
 void R_AddCmdDrawGradient(float x, float y, float w, float h, const float *color_top, const float *color_bottom)
 {
 	void* material = DB_FindXAssetHeader(ASSET_TYPE_MATERIAL, "white");
+	float color[] = { 0, 0, 0, 0 };
 
 	for(int i = 0;i<h;i++)
 	{
-		float color[] = { 0, 0, 0, 0 };
-
 		color[0] = (((h - i) * color_top[0]) + (i * color_bottom[0])) / h;
 		color[1] = (((h - i) * color_top[1]) + (i * color_bottom[1])) / h;
 		color[2] = (((h - i) * color_top[2]) + (i * color_bottom[2])) / h;
@@ -211,6 +210,8 @@ bool printAchievements()
 	R_AddCmdDrawText(reward->rewardTitle, 0x7FFFFFFF, font, actualXOffset + border + prefixW, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, titleColor, 0);
 	R_AddCmdDrawText(reward->rewardDescription, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 64 - subHeight, .8f, .8f, 0.0f, descrColor, 0);
 
+	freeList(4, top, bottom, borderC, titleColor);
+
 	return true;
 }
 
@@ -356,6 +357,8 @@ void showProgress()
 	float* bar_bottom = rgba(15, 120, 156, 1.0f);
 	R_AddCmdDrawGradient(actualXOffset + border + bar_border - subWidth, bar1_yOffset + bar_border, bar2_width, bar2_height, bar_top, bar_bottom);
 	R_AddCmdDrawBorder(actualXOffset + border - subWidth, bar1_yOffset, bar1_width, bar1_height, 1, rgba(0, 0, 0, 1.0f), false);
+
+	freeList(7, top, bottom, borderC, barbg_top, barbg_bottom, bar_top, bar_bottom);
 }
 
 void processAchievement(int rewardCode)
