@@ -402,13 +402,14 @@ void freeList(int count, ...)
 {
 	void* tempPtr;
 
-	for(int i = 0;i<count;i++)
+	for(int i = 1; i <= count; i++)
 	{
 		__asm
 		{
 			mov eax, [esp + i * 4]
 			mov tempPtr, eax
 		}
+
 		free(tempPtr);
 	}
 }
