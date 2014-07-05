@@ -397,19 +397,3 @@ void* malloc_n(size_t size)
 	memset(memPtr, 0, size);
 	return memPtr;
 }
-
-void freeList(int count, ...)
-{
-	void* tempPtr;
-
-	for(int i = 1; i <= count; i++)
-	{
-		__asm
-		{
-			mov eax, [esp + i * 4]
-			mov tempPtr, eax
-		}
-
-		free(tempPtr);
-	}
-}

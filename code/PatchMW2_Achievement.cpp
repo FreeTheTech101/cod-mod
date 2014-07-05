@@ -30,13 +30,21 @@ int displayTime = 7000;
 int fadeTime = 300;
 int delay = 500;
 
+#define MAX_COLORS 20
+float colors[MAX_COLORS][4];
+int currectColorIndex = 0;
+
 float* rgba(int r, int g, int b, float a)
 {
-	float* color = (float*)malloc_n(sizeof(float) * 4);
+	float* color = colors[currectColorIndex];
 	color[0] = r / 255.0;
 	color[1] = g / 255.0;
 	color[2] = b / 255.0;
 	color[3] = a;
+
+	currectColorIndex++;
+	currectColorIndex %= MAX_COLORS;
+
 	return color;
 }
 
@@ -210,8 +218,6 @@ bool printAchievements()
 	R_AddCmdDrawText(reward->rewardTitle, 0x7FFFFFFF, font, actualXOffset + border + prefixW, yOffset + 39 - subHeight, 1.0f, 1.0f, 0.0f, titleColor, 0);
 	R_AddCmdDrawText(reward->rewardDescription, 0x7FFFFFFF, font, actualXOffset + border, yOffset + 64 - subHeight, .8f, .8f, 0.0f, descrColor, 0);
 
-	freeList(4, top, bottom, borderC, titleColor);
-
 	return true;
 }
 
@@ -357,8 +363,6 @@ void showProgress()
 	float* bar_bottom = rgba(15, 120, 156, 1.0f);
 	R_AddCmdDrawGradient(actualXOffset + border + bar_border - subWidth, bar1_yOffset + bar_border, bar2_width, bar2_height, bar_top, bar_bottom);
 	R_AddCmdDrawBorder(actualXOffset + border - subWidth, bar1_yOffset, bar1_width, bar1_height, 1, rgba(0, 0, 0, 1.0f), false);
-
-	freeList(7, top, bottom, borderC, barbg_top, barbg_bottom, bar_top, bar_bottom);
 }
 
 void processAchievement(int rewardCode)
@@ -385,7 +389,7 @@ void setAsEarned( const char *pchName )
 	}
 }
 
-bool hasAlreadyEarnedReward( const char *pchName )
+std::string readAchievements()
 {
 	FILE* rewardFile = fopen("players/settings_a.zip.iw4", "r");
 	if(rewardFile)
@@ -401,15 +405,20 @@ bool hasAlreadyEarnedReward( const char *pchName )
 		fread (buffer, 1, length, rewardFile); // Just assume it reads everything correctly...
 		fclose(rewardFile);
 
-		if(!buffer)
-		{
-			return 0;
-		}
-
-		std::string contentBuffer = buffer;
-
-		bool result = (contentBuffer.find(pchName) != -1);
+		auto retVal = string(buffer, length);
 		free(buffer);
+		return retVal;
+	}
+
+	return "";
+}
+
+bool hasAlreadyEarnedReward( const char *pchName )
+{
+	auto contentBuffer = readAchievements();
+	if(contentBuffer != "")
+	{
+		bool result = (contentBuffer.find(pchName) != -1);
 		return result;
 	}
 
@@ -445,6 +454,38 @@ bool RewardAchievement( const char *pchName )
 	}
 
 	Com_Printf(0, "Invalid reward: %s\n", pchName);
+	return false;
+}
+
+bool resetAchievement( const char *pchName )
+{
+	if(!hasAlreadyEarnedReward(pchName))
+	{
+		return true;
+	}
+
+	auto contentBuffer = readAchievements();
+
+	if(contentBuffer == "")
+	{
+		return false;
+	}
+
+	FILE * rewardFile = fopen("players/settings_a.zip.iw4", "w");
+
+	if(rewardFile)
+	{
+		for(int i = 0;i<ACHIEVEMENT_COUNT;i++)
+		{
+			if(strcmp(achievements[i].code, pchName) && contentBuffer.find(achievements[i].code) != -1)
+			{
+				fprintf(rewardFile, "%s\n", achievements[i].code);
+			}
+		}
+		fclose(rewardFile);
+		return true;
+	}
+
 	return false;
 }
 
@@ -493,10 +534,46 @@ void give_achievement_f()
 	}
 }
 
+void reset_achievement_f()
+{
+	dvar_t* sv_cheats = Dvar_FindVar("sv_cheats");
+
+	if(!sv_cheats->current.boolean)
+		return;
+
+	int r = 0;
+	bool all = false;
+
+	if(Cmd_Argc() == 2)
+	{
+		if(!strcmp(Cmd_Argv(1), "all"))
+		{
+			all = true;
+		}
+		else
+		{
+			r = atoi(Cmd_Argv(1));
+		}
+	}
+
+	if (!statsInstance)
+	{
+		statsInstance = ((CSteamUserStats010*(*)())(*(DWORD*)SteamUserStatsLoc))(); // Daaamn, dat cast
+	}
+
+	for(int i = (all ? 0 : r);i<(all ? ACHIEVEMENT_COUNT : (r+1));i++)
+	{
+		statsInstance->ClearAchievement(achievements[i].code);
+	}
+}
+
 void PatchMW2_Achievement()
 {
 	buildAchievementList();
 
 	static cmd_function_t give_achievement_cmd;
+	static cmd_function_t reset_achievement_cmd;
+
 	Cmd_AddCommand("give_achievement", give_achievement_f, &give_achievement_cmd, 0);
+	Cmd_AddCommand("reset_achievement", reset_achievement_f, &reset_achievement_cmd, 0);
 }

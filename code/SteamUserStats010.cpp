@@ -14,6 +14,7 @@
 
 bool hasAlreadyEarnedReward(const char *pchName);
 bool RewardAchievement( const char *pchName );
+bool resetAchievement( const char *pchName );
 bool resetAchievements();
 
 // Ask the server to send down this user's data and achievements for this game
@@ -63,7 +64,7 @@ bool CSteamUserStats010::SetAchievement( const char *pchName )
 
 bool CSteamUserStats010::ClearAchievement( const char *pchName )
 {
-	return false;
+	return resetAchievement(pchName);
 }
 
 // most likely a bool return here
