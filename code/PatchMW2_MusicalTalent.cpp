@@ -31,11 +31,19 @@ snd_alias_list_t* FindSoundAliasHookFunc(assetType_t type, const char* name)
 	aliases = (snd_alias_list_t*)DB_FindXAssetHeader(type, name);
 
 	// Random replacements. Some don't fit, but I like them though. Change whatever you want :D
-	replaceMusic("music_challenge_factory", "hz_estate_betrayal_LR_1.mp3");
-	replaceMusic("music_mainmenu_mp", "hz_dc_burning_intropeak_LR_1.mp3");
-	replaceMusic("music_opening", "hz_af_chase_boatride_lr_r1.mp3");
+	if(version == 184 || version == 159)
+	{
+		replaceMusic("music_challenge_factory", "hz_estate_betrayal_LR_1.mp3");
+		replaceMusic("music_mainmenu_mp", "hz_dc_burning_intropeak_LR_1.mp3");
+		replaceMusic("music_opening", "hz_af_chase_boatride_lr_r1.mp3");
+	}
+	else if(version == 382 || version == 358)
+	{
+		replaceMusic("music_challenge_factory", "bt_rescue_end.mp3");
+		replaceMusic("music_mainmenu", "bt_pragueescape_sniper.mp3");
+		replaceMusic("music_opening", "bt_prague_tragic.mp3");
+	}
 
-	//interesting sound: so_defeat_desert (only ingame)
 
 	return aliases;
 }

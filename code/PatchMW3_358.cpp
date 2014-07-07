@@ -16,6 +16,7 @@ dvar_t* Dvar_RegisterBool_MW3(const char* name, int default, int flags);
 void _strncpy_hook(char* name_buffer, char* no_name, size_t size);
 ISteamFriends* __cdecl SteamFriends();
 void PatchMW2_LocalizedStrings();
+void PatchMW2_MusicalTalent();
 void PatchMW2_Minidump();
 void PatchMW2_Branding();
 void PatchMW2_NoBorder();
@@ -149,11 +150,13 @@ void PatchMW3_358()
 	localizeAssetHookLoc = 0x425364;
 	localizeAssetHookLoc2 = 0x4F52B3;
 	localizeAssetHookLoc3 = 0x5F90FF;
+	findSoundAliasHookLoc = 0x4F317B;
 
 	r_mode = (dvar_t**)0x20E393C;
 	dvarName = (dvar_t**)0xA5AB58;
 
 	PatchMW2_LocalizedStrings();
+	PatchMW2_MusicalTalent();
 	PatchMW2_Minidump();
 	PatchMW2_Branding();
 	PatchMW2_NoBorder();

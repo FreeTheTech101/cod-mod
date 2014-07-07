@@ -12,6 +12,7 @@
 #include "StdInc.h"
 
 void PatchMW2_LocalizedStrings();
+void PatchMW2_MusicalTalent();
 void PatchMW2_Minidump();
 void PatchMW2_Branding();
 void PatchMW2_NoBorder();
@@ -231,11 +232,13 @@ void PatchMW3_382()
 	localizeAssetHookLoc = 0x4C34E3;
 	localizeAssetHookLoc2 = 0x4EEFF4;
 	localizeAssetHookLoc3 = 0x5F9EFF;
+	findSoundAliasHookLoc = 0x46243B;
 
 	dvarName = (dvar_t**)0xA5BBDC; // Actually dvar_MW3_t**
 	r_mode = (dvar_t**)0x20E730C;
 
 	PatchMW2_LocalizedStrings();
+	PatchMW2_MusicalTalent();
 	PatchMW2_Minidump();
 	PatchMW2_Branding();
 	PatchMW2_NoBorder();
