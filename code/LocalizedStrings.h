@@ -12,7 +12,7 @@
 #include "stdinc.h"
 #include <string>
 
-std::map<std::string, std::string> localizedStrings;
+extern std::map<std::string, std::string> localizedStrings;
 
 void addLocStr(const char* key, const char* value)
 {

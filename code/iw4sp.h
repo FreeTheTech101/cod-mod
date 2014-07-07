@@ -1385,6 +1385,9 @@ extern DWORD SteamFriendsLoc;
 extern DWORD SteamUserStatsLoc;
 extern DWORD SteamUserStatsInstanceLoc;
 
+extern DWORD localizeAssetHookLoc2;
+extern DWORD localizeAssetHookLoc3;
+
 extern source_t **sourceFiles;
 extern keywordHash_t **menuParseKeywordHash;
 

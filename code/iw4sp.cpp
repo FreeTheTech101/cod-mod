@@ -152,6 +152,9 @@ DWORD SteamFriendsLoc = 0x694528;
 DWORD SteamUserStatsLoc = 0x69455C;
 DWORD SteamUserStatsInstanceLoc = 0x1BEE1C0;
 
+DWORD localizeAssetHookLoc2 = 0;
+DWORD localizeAssetHookLoc3 = 0;
+
 source_t **sourceFiles = (source_t **)0x7C4A98;
 keywordHash_t **menuParseKeywordHash = (keywordHash_t **)0x63AE928;
 
