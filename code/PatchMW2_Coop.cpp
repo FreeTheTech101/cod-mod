@@ -222,84 +222,93 @@ void listener()
 	if(!isSearching)
 		return;
 
-	if(connectState == searching)
+	switch(connectState)
 	{
-		connectState = checking;
-		addrNum = 0;
-		
-		netadr_t adr = getMaster();
-
-		// Send heartbeat and serverrequest
-		Com_Printf( 0, "Sending heartbeat and server request to master %s.\n", COOP_MASTER );
-		lastheartbeat = Com_Milliseconds();
-		NET_OutOfBandPrint( NS_SERVER, adr, "heartbeat %s\n", "IW4SP" );
-		NET_OutOfBandPrint( NS_SERVER, adr, "getservers %s %i empty", "IW4SP", 29 );
-	}
-	else if (connectState == checking)
-	{
-		addLocStr("PLATFORM_POPUP_CONNECTION", "Connecting to master server");
-
-		if (Com_Milliseconds() - lastheartbeat > 10000)
+		case searching:
 		{
-			xstopparty_f();
-			Com_Error_Thread(ERR_SERVERDISCONNECT, "Failed to connect to master server.");
-		}
-	}
-	else if(connectState == pinging)
-	{
-		addLocStr("PLATFORM_POPUP_CONNECTION", "Selecting best partner");
-		// Insert ping stuff here
+			connectState = checking;
+			addrNum = 0;
 
-		if(addrNum >= numservers)
-		{
-			connectState = listening;
-			return;
-		}
+			netadr_t adr = getMaster();
 
-		partner = addresses[addrNum];
-		negotiate();
-	}
-	else if(connectState == negotiating)
-	{
-		if(Com_Milliseconds() - stateConnectStart > 6000)
-		{
-			addrNum++;
-			connectState = pinging;
-		}
-	}
-	else if(connectState == connecting)
-	{
-		if(!negociatedHost)
-		{
-			addLocStr("PLATFORM_POPUP_CONNECTION", "Setting up the connection");
+			// Send heartbeat and serverrequest
+			Com_Printf( 0, "Sending heartbeat and server request to master %s.\n", COOP_MASTER );
+			lastheartbeat = Com_Milliseconds();
+			NET_OutOfBandPrint( NS_SERVER, adr, "heartbeat %s\n", "IW4SP" );
+			NET_OutOfBandPrint( NS_SERVER, adr, "getservers %s %i empty", "IW4SP", 29 );
+		} break;
 
-			if(Com_Milliseconds() - stateConnectStart > 1000)
+		case checking:
+		{
+			addLocStr("PLATFORM_POPUP_CONNECTION", "Connecting to master server");
+
+			if (Com_Milliseconds() - lastheartbeat > 10000)
+			{
+				xstopparty_f();
+				Com_Error_Thread(ERR_SERVERDISCONNECT, "Failed to connect to master server.");
+			}
+		} break;
+
+		case pinging:
+		{
+			addLocStr("PLATFORM_POPUP_CONNECTION", "Selecting best partner");
+			// Insert ping stuff here
+
+			if(addrNum >= numservers)
+			{
+				connectState = listening;
+				return;
+			}
+
+			partner = addresses[addrNum];
+			negotiate();
+		} break;
+
+
+		case negotiating:
+		{
+			if(Com_Milliseconds() - stateConnectStart > 6000)
+			{
+				addrNum++;
+				connectState = pinging;
+			}
+		} break;
+
+		case connecting:
+		{
+			if(!negociatedHost)
+			{
+				addLocStr("PLATFORM_POPUP_CONNECTION", "Setting up the connection");
+
+				if(Com_Milliseconds() - stateConnectStart > 1000)
+				{
+					connectState = idle;
+					startCoopListening();
+					isSearching = false;
+
+					Dvar_SetCommand("connect_ip", va("%i.%i.%i.%i:%i", partner.ip[0], partner.ip[1], partner.ip[2], partner.ip[3], htons(partner.port)));
+					Cbuf_AddText(0, "connect");
+					removeLocStr("PLATFORM_POPUP_CONNECTION");
+				}
+			}
+			else
 			{
 				connectState = idle;
 				startCoopListening();
 				isSearching = false;
-
-				Dvar_SetCommand("connect_ip", va("%i.%i.%i.%i:%i", partner.ip[0], partner.ip[1], partner.ip[2], partner.ip[3], htons(partner.port)));
-				Cbuf_AddText(0, "connect");
 				removeLocStr("PLATFORM_POPUP_CONNECTION");
 			}
-		}
-		else
-		{
-			connectState = idle;
-			startCoopListening();
-			isSearching = false;
-			removeLocStr("PLATFORM_POPUP_CONNECTION");
-		}
-	}
-	else if(connectState == listening)
-	{
-		addLocStr("PLATFORM_POPUP_CONNECTION", "Waiting for connection");
+		} break;
 
-		if(Com_Milliseconds() - lastheartbeat > 20000)
+		case listening:
 		{
-			connectState = searching;
-		}
+			addLocStr("PLATFORM_POPUP_CONNECTION", "Waiting for connection");
+
+			if(Com_Milliseconds() - lastheartbeat > 20000)
+			{
+				connectState = searching;
+			}
+		} break;
 	}
 }
 
