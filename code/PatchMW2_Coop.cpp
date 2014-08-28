@@ -151,20 +151,16 @@ int addrNum;
 serverAddress_t partner;
 
 // ServerAddress To NetAddress
-netadr_t satona(serverAddress_t address)
+void satona(serverAddress_t address, netadr_t* netAddrPtr)
 {
-	netadr_t* netAddrPtr = (netadr_t*)malloc_n(sizeof(netadr_t));
 	NET_StringToAdr(va("%i.%i.%i.%i:%i", address.ip[0], address.ip[1], address.ip[2], address.ip[3], htons(address.port)), netAddrPtr);
-	return *netAddrPtr;
 }
 
 // NetAddress To ServerAddress
-serverAddress_t natosa(netadr_t address)
+void natosa(netadr_t address, serverAddress_t* serverAddrPtr)
 {
-	serverAddress_t* serverAddrPtr = (serverAddress_t*)malloc_n(sizeof(serverAddress_t));
 	memcpy(&(serverAddrPtr->ip[0]), &(address.ip[0]), sizeof(BYTE) * 4);
 	serverAddrPtr->port = address.port;
-	return *serverAddrPtr;
 }
 
 netadr_t getMaster()
@@ -203,7 +199,11 @@ netadr_t getMaster()
 void negotiate()
 {
 	addLocStr("PLATFORM_POPUP_CONNECTION", "Negotiating with partner");
-	NET_OutOfBandPrint(NS_SERVER, satona(partner), "getNego");
+
+	netadr_t to;
+	satona(partner, &to);
+
+	NET_OutOfBandPrint(NS_SERVER, to, "getNego");
 	stateConnectStart = Com_Milliseconds();
 	connectState = negotiating;
 }

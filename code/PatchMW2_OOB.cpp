@@ -79,7 +79,7 @@ void getNego(netadr_t from, msg_t* msg)
 	{
 		status = "OK"; // OK: Oll Korrect ;)
 		negociatedHost = true;
-		partner = natosa(from);
+		natosa(from, &partner);
 		connectState = connecting;
 	}
 

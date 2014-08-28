@@ -25,12 +25,6 @@
 #include <winsock.h>
 #include <stdint.h>
 
-// Direct3D
-#include "d3d9.h"
-#include "myIDirect3D9.h"
-#include "myIDirect3DDevice9.h"
-#include "myIDirect3DSwapChain9.h"
-
 // OSW headers
 #define NO_STEAM // to reduce header amount needed
 #include "CCallback.h"

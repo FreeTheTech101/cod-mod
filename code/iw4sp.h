@@ -1349,8 +1349,8 @@ typedef struct {
 
 void playSound(char* sound);
 void NET_OutOfBandPrint(int type, netadr_t adr, const char* message, ...);
-serverAddress_t natosa(netadr_t address);
-netadr_t satona(serverAddress_t address);
+void natosa(netadr_t address, serverAddress_t* serverAddrPtr);
+void satona(serverAddress_t address, netadr_t* netAddrPtr);
 void Com_Error_Thread(errorParm_s type, const char* message, ...);
 
 extern dvar_t** dvarName;
