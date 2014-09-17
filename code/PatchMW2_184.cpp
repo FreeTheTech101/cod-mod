@@ -128,7 +128,7 @@ void PatchMW2_184()
 	nop(0x600776, 5);
 
 	// Apply m2demo stuff
-	*(DWORD*)0x62ED01 = (DWORD)"data";
+	*(DWORD*)0x62ED01 = (DWORD)BASEGAME;
 
 	// Change window titles
 	*(DWORD*)0x414828 = (DWORD)"COD-MOD: Console";
@@ -148,7 +148,7 @@ void PatchMW2_184()
 
 	// Video folders
 	*(DWORD*)0x509782 = 0x7204A0; // raw -> main
-	*(DWORD*)0x509764 = (DWORD)"%s\\data\\video\\%s.bik"; // main -> data
+	*(DWORD*)0x509764 = (DWORD)"%s\\" BASEGAME "\\video\\%s.bik"; // main -> data
 
 	// Ignore 'steam must be running' error
 	nop(0x601863, 0x30);

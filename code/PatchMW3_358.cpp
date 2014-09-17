@@ -176,7 +176,7 @@ void PatchMW3_358()
 	ReallocateAssetPool(41, 228);
 
 	// m2demo ;)
-	*(DWORD*)0x60E281 = (DWORD)"data";
+	*(DWORD*)0x60E281 = (DWORD)BASEGAME;
 
 	*(DWORD*)0x41890C = (DWORD)_patchDevmap; // Hook devmap call to fix spec ops bug
 	call(0x56DCED, _addDLCZones, PATCH_CALL);

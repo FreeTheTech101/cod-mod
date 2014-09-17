@@ -397,3 +397,27 @@ void* malloc_n(size_t size)
 	memset(memPtr, 0, size);
 	return memPtr;
 }
+
+DWORD FindPattern(DWORD p_StartAddress, DWORD p_SearchLength, PBYTE p_Pattern, const char* p_Mask)
+{
+	size_t s_MaskLength = strlen(p_Mask);
+
+	for (DWORD i = 0; i < p_SearchLength - s_MaskLength; ++i)
+	{
+		int s_FoundBytes = 0;
+		for (DWORD j = 0; j < s_MaskLength; ++j)
+		{
+			BYTE s_ByteRead = *(BYTE*)(void*)(p_StartAddress + i + j);
+
+			if (s_ByteRead != p_Pattern[j] && p_Mask[j] != '?')
+				break;
+
+			++s_FoundBytes;
+
+			if (s_FoundBytes == s_MaskLength)
+				return p_StartAddress + i;
+		}
+	}
+
+	return NULL;
+}

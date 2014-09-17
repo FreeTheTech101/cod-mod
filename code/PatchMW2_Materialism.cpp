@@ -182,10 +182,10 @@ Material* loadCustomCursor(const char* filename)
 {
 	if (!materialTable[filename])
 	{
-		CreateDirectory("data", NULL);
-		CreateDirectory("data/images", NULL);
+		CreateDirectory(BASEGAME, NULL);
+		CreateDirectory(BASEGAME "/images", NULL);
 		char* image_name = "iw4_cursor_temp";
-		const char* full_name = va("data/images/%s.iwi", image_name);
+		const char* full_name = va(BASEGAME "/images/%s.iwi", image_name);
 
 		FILE* fp = fopen(full_name, "wb");
 		if(fp)

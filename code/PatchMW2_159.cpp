@@ -137,7 +137,7 @@ void PatchMW2_159()
 
 	// Video folders
 	*(DWORD*)0x50A0B2 = 0x723390; // raw -> main
-	*(DWORD*)0x50A094 = (DWORD)"%s\\data\\video\\%s.bik"; // main -> data
+	*(DWORD*)0x50A094 = (DWORD)"%s\\" BASEGAME "\\video\\%s.bik"; // main -> data
 
 	// Force debug logging
 	nop(0x456BE5, 2);
@@ -158,7 +158,7 @@ void PatchMW2_159()
 	*(DWORD*)0x60426F = (DWORD)(CONSOLESTRING);
 
 	// Apply m2demo stuff
-	*(DWORD*)0x631561 = (DWORD)"data";
+	*(DWORD*)0x631561 = (DWORD)BASEGAME;
 
 	// Change window titles
 	*(DWORD*)0x446A48 = (DWORD)"COD-MOD: Console";

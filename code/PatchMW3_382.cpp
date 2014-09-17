@@ -259,8 +259,8 @@ void PatchMW3_382()
 	nop(0x5EF691, 5);
 
 	// m2demo stuff
-	*(DWORD*)0x60F1D1 = (DWORD)"data";
-	*(DWORD*)0x65402D = (DWORD)("%s\\data\\video\\%s.bik");
+	*(DWORD*)0x60F1D1 = (DWORD)BASEGAME;
+	*(DWORD*)0x65402D = (DWORD)("%s\\" BASEGAME "\\video\\%s.bik");
 
 	// Update game content
 	call(0x5EF3E4, enableConsole, PATCH_CALL);

@@ -21,6 +21,7 @@ int R_GetScaledWidth(const char* text, float sizeX, void* font);
 CallHook drawDevStuffHook;
 dvar_t* cl_paused;
 dvar_t* cg_drawVersion;
+dvar_t* cg_newColors;
 dvar_MW3_t* cg_drawFPS;
 HWND renderWindow;
 
@@ -138,10 +139,55 @@ void DrawDemoWarning()
 	}
 }
 
+DWORD getRGB(unsigned char r, unsigned char g, unsigned char b)
+{
+	char color[4];
+	color[0] = r;
+	color[1] = g;
+	color[2] = b;
+	color[3] = 0xFF;
+
+	return *(DWORD*)color;
+}
+
+int lastValue = 2;
+DWORD default_color_table[8];
+DWORD* color_table;
+
+#define NEW_COLORS_VALUE (version >= 358 ? ((dvar_MW3_t*)cg_newColors)->current.boolean : cg_newColors->current.boolean)
+
+void PatchColorTable()
+{
+	if(lastValue == 2)
+	{
+		memcpy(default_color_table, color_table, sizeof(default_color_table));
+	}
+
+	if(NEW_COLORS_VALUE && NEW_COLORS_VALUE != lastValue)
+	{
+		// Apply NTA's W² colors :3 (slightly modified though^^)
+		color_table[1] = getRGB(255, 49, 49);
+		color_table[2] = getRGB(134, 192, 0);
+		color_table[3] = getRGB(255, 173, 34);
+		color_table[4] = getRGB(0, 135, 193);
+		color_table[5] = getRGB(32, 197, 255);
+		color_table[6] = getRGB(151, 80, 221);
+
+		lastValue = cg_newColors->current.boolean;
+	}
+	else if(!NEW_COLORS_VALUE && NEW_COLORS_VALUE != lastValue)
+	{
+		memcpy(color_table, default_color_table, sizeof(default_color_table));
+
+		lastValue = NEW_COLORS_VALUE;
+	}
+}
+
 void __declspec(naked) DrawDevStuffHookStub()
 {
 	__asm
 	{
+		call PatchColorTable
 		call DrawDemoWarning
 		jmp drawDevStuffHook.pOriginal
 	}
@@ -152,6 +198,7 @@ void PatchMW2_Branding()
 	if (version >= 358)
 	{
 		cg_drawVersion = Dvar_RegisterBool_MW3("cg_drawVersion", 1, DVAR_FLAG_SAVED);
+		cg_newColors = Dvar_RegisterBool_MW3("cg_newColors", true, DVAR_FLAG_SAVED);
 		cg_drawFPS = (dvar_MW3_t*)Dvar_RegisterBool_MW3("cg_drawFPS", 0, DVAR_FLAG_SAVED);
 
 		if (version == 358)
@@ -166,8 +213,15 @@ void PatchMW2_Branding()
 		}
 	}
 	else
+	{
 		cg_drawVersion = Dvar_RegisterBool("cg_drawVersion", 1, DVAR_FLAG_SAVED, "Draw brandstring version.");
+		cg_newColors = Dvar_RegisterBool("cg_newColors", true, DVAR_FLAG_SAVED, "Use Warfare² color code style.");
+	}
+
 
 	drawDevStuffHook.initialize(drawDevStuffHookLoc, DrawDevStuffHookStub);
 	drawDevStuffHook.installHook();
+
+	// Find color table
+	color_table = (DWORD*)FindPattern(0x400000, 0x800000, (PBYTE)"\x00\x00\x00\xFF\xFF\x5C\x5C\xFF\x00\xFF\x00\xFF\xFF\xFF\x00\xFF\x00\x00\xFF\xFF\x00\xFF\xFF\xFF\xFF\x5C\xFF\xFF\xFF\xFF\xFF\xFF", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 }

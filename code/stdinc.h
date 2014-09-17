@@ -46,6 +46,8 @@
 #define VERSION_NUM 3,COMMIT
 #define VERSIONSTRING "COD-MOD: " VERSION
 
+#define BASEGAME "spdata"
+
 #define CONSOLESTRING VERSIONSTRING " (built " __DATE__ " " __TIME__ " by " BUILDHOST ")"
 
 static netadr_t currentLobbyTarget;

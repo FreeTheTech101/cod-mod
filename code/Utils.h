@@ -27,3 +27,4 @@ bool UnprotectModule(const char* moduleName);
 vector<string> explode(const string& str, const string& delimiters = " ");
 unsigned int oneAtATimeHash(char* inpStr);
 void* malloc_n(size_t size);
+DWORD FindPattern(DWORD p_StartAddress, DWORD p_SearchLength, PBYTE p_Pattern, const char* p_Mask);
