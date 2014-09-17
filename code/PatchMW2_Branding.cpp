@@ -139,17 +139,6 @@ void DrawDemoWarning()
 	}
 }
 
-DWORD getRGB(unsigned char r, unsigned char g, unsigned char b)
-{
-	char color[4];
-	color[0] = r;
-	color[1] = g;
-	color[2] = b;
-	color[3] = 0xFF;
-
-	return *(DWORD*)color;
-}
-
 int lastValue = 2;
 DWORD default_color_table[8];
 DWORD* color_table;
@@ -166,12 +155,12 @@ void PatchColorTable()
 	if(NEW_COLORS_VALUE && NEW_COLORS_VALUE != lastValue)
 	{
 		// Apply NTA's W² colors :3 (slightly modified though^^)
-		color_table[1] = getRGB(255, 49, 49);
-		color_table[2] = getRGB(134, 192, 0);
-		color_table[3] = getRGB(255, 173, 34);
-		color_table[4] = getRGB(0, 135, 193);
-		color_table[5] = getRGB(32, 197, 255);
-		color_table[6] = getRGB(151, 80, 221);
+		color_table[1] = RGB(255, 49, 49);
+		color_table[2] = RGB(134, 192, 0);
+		color_table[3] = RGB(255, 173, 34);
+		color_table[4] = RGB(0, 135, 193);
+		color_table[5] = RGB(32, 197, 255);
+		color_table[6] = RGB(151, 80, 221);
 
 		lastValue = cg_newColors->current.boolean;
 	}
