@@ -144,7 +144,6 @@ call "$(SolutionDir)deps\tools\gitrev.cmd"</Command>
     <ClInclude Include="MatchMakingKeyValuePair.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="rgb_hsv.h" />
-    <ClInclude Include="SDLLP.h" />
     <ClInclude Include="servernetadr.h" />
     <ClInclude Include="stdinc.h" />
     <ClInclude Include="iw4sp.h" />

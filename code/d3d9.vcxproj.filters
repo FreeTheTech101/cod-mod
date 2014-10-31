@@ -318,9 +318,6 @@
     <ClInclude Include="SteamUser012.h">
       <Filter>SteamHeader</Filter>
     </ClInclude>
-    <ClInclude Include="SDLLP.h">
-      <Filter>Header</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
