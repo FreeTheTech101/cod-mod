@@ -63,18 +63,18 @@ call "$(SolutionDir)deps\tools\gitrev.cmd"</Command>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <ModuleDefinitionFile>d3d9.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
       <Command>copy /y "$(TargetPath)" "$(SolutionDir)..\bin\t5.dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Bridge.cpp" />
     <ClCompile Include="PatchMW2_Achievement.cpp" />
     <ClCompile Include="PatchMW2_EntsFiles.cpp" />
     <ClCompile Include="Hooking.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="PatchCOD.cpp" />
     <ClCompile Include="iw4sp.cpp" />
     <ClCompile Include="PatchMW2_159.cpp" />
@@ -101,6 +101,7 @@ call "$(SolutionDir)deps\tools\gitrev.cmd"</Command>
     <ClCompile Include="PatchMW3_358.cpp" />
     <ClCompile Include="PatchMW3_382.cpp" />
     <ClCompile Include="PatchMW3_UILoading.cpp" />
+    <ClCompile Include="SDLLP.cpp" />
     <ClCompile Include="SteamBase.cpp" />
     <ClCompile Include="SteamFriends005.cpp" />
     <ClCompile Include="SteamMatchmaking007.cpp" />
@@ -143,6 +144,7 @@ call "$(SolutionDir)deps\tools\gitrev.cmd"</Command>
     <ClInclude Include="MatchMakingKeyValuePair.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="rgb_hsv.h" />
+    <ClInclude Include="SDLLP.h" />
     <ClInclude Include="servernetadr.h" />
     <ClInclude Include="stdinc.h" />
     <ClInclude Include="iw4sp.h" />

@@ -4,9 +4,6 @@
     <ClCompile Include="Hooking.cpp">
       <Filter>Base</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>Base</Filter>
     </ClCompile>
@@ -109,7 +106,10 @@
     <ClCompile Include="SteamUser012.cpp">
       <Filter>Steam</Filter>
     </ClCompile>
-    <ClCompile Include="Bridge.cpp">
+    <ClCompile Include="Main.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="SDLLP.cpp">
       <Filter>Base</Filter>
     </ClCompile>
   </ItemGroup>
@@ -317,6 +317,9 @@
     </ClInclude>
     <ClInclude Include="SteamUser012.h">
       <Filter>SteamHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLLP.h">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
