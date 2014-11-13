@@ -4,6 +4,7 @@
 // --------------------------------------+
 
 #include <windows.h>
+#include <string>
 #include <map>
 
 // Macro to declare an export
@@ -15,7 +16,7 @@
 class SDLLP
 {
 private:
-	static std::map<const char*, HINSTANCE> mLibraries;
+	static std::map<std::string, HINSTANCE> mLibraries;
 
 	static void	Log(const char* message, ...);
 	static void	LoadLibrary(const char* library);
@@ -27,7 +28,7 @@ public:
 
 //	Class variable declarations
 // --------------------------------------+
-std::map<const char*, HINSTANCE> SDLLP::mLibraries;
+std::map<std::string, HINSTANCE> SDLLP::mLibraries;
 
 // Load necessary library
 // --------------------------------------+
