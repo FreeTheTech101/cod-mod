@@ -137,7 +137,17 @@ void loadGameOverlay()
 		}
 
 		Com_Printf(0, "Loading %s\\gameoverlayrenderer.dll...\n", m_steamDir.c_str());
-		LoadLibrary(va("%s\\gameoverlayrenderer.dll", m_steamDir.c_str()));
+		HMODULE overlay = LoadLibrary(va("%s\\gameoverlayrenderer.dll", m_steamDir.c_str()));
+
+		if (overlay)
+		{
+			FARPROC _SetNotificationPosition = GetProcAddress(overlay, "SetNotificationPosition");
+
+			if (_SetNotificationPosition)
+			{
+				((void(*)(uint32_t))_SetNotificationPosition)(1);
+			}
+		}
 	}
 	catch (int e)
 	{
